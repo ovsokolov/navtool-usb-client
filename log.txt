@@ -1,0 +1,258 @@
+[2016-11-11 17:55:11:0978] [info] device found 1266
+[2016-11-11 17:55:11:0984] [info] device found 1266
+[2016-11-11 17:55:11:0985] [info] device found 1266
+[2016-11-11 17:55:11:0985] [info] device found 1133
+[2016-11-11 17:55:11:0985] [info] device found 1133
+[2016-11-11 17:55:11:0985] [info] device found 1133
+[2016-11-11 17:55:11:0985] [info] device found 1133
+[2016-11-11 17:55:11:0985] [info] device found 1133
+[2016-11-11 17:55:11:0985] [info] device found 49745
+[2016-11-11 17:55:11:0985] [info] xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+[2016-11-11 17:55:11:0985] [info] after init
+[2016-11-11 17:55:11:0985] [info] after found
+[2016-11-11 17:55:11:0986] [info] device found 1133
+[2016-11-11 17:55:11:0986] [info] device found 1266
+[2016-11-11 17:55:11:0986] [info] device found 1133
+[2016-11-11 17:55:11:0986] [info] device found 1133
+[2016-11-11 17:55:11:0986] [info] in device read
+[2016-11-11 17:55:12:0050] [info] 2
+[2016-11-11 17:55:12:0050] [info] device read
+[2016-11-11 17:55:12:0050] [info] before read
+[2016-11-11 17:55:12:0061] [info] data recieved in main function
+[2016-11-11 17:55:26:0384] [info] device found 1266
+[2016-11-11 17:55:26:0384] [info] device found 1266
+[2016-11-11 17:55:26:0384] [info] device found 1266
+[2016-11-11 17:55:26:0384] [info] device found 1133
+[2016-11-11 17:55:26:0384] [info] device found 1133
+[2016-11-11 17:55:26:0384] [info] device found 1133
+[2016-11-11 17:55:26:0384] [info] device found 1133
+[2016-11-11 17:55:26:0384] [info] device found 1133
+[2016-11-11 17:55:26:0384] [info] device found 49745
+[2016-11-11 17:55:26:0385] [info] after found
+[2016-11-11 17:55:26:0385] [info] device found 1133
+[2016-11-11 17:55:26:0385] [info] device found 1266
+[2016-11-11 17:55:26:0385] [info] device found 1133
+[2016-11-11 17:55:26:0385] [info] device found 1133
+[2016-11-11 17:55:26:0385] [info] in device read
+[2016-11-11 17:55:26:0387] [info] 2
+[2016-11-11 17:55:26:0387] [info] device read
+[2016-11-11 17:55:26:0387] [info] before read
+[2016-11-11 17:55:26:0397] [info] data recieved in main function
+[2016-11-11 17:55:40:0246] [info] device found 1266
+[2016-11-11 17:55:40:0246] [info] device found 1266
+[2016-11-11 17:55:40:0246] [info] device found 1266
+[2016-11-11 17:55:40:0246] [info] device found 1133
+[2016-11-11 17:55:40:0246] [info] device found 1133
+[2016-11-11 17:55:40:0246] [info] device found 1133
+[2016-11-11 17:55:40:0246] [info] device found 1133
+[2016-11-11 17:55:40:0246] [info] device found 1133
+[2016-11-11 17:55:40:0246] [info] device found 49745
+[2016-11-11 17:55:40:0246] [info] after found
+[2016-11-11 17:55:40:0246] [info] device found 1133
+[2016-11-11 17:55:40:0246] [info] device found 1266
+[2016-11-11 17:55:40:0246] [info] device found 1133
+[2016-11-11 17:55:40:0246] [info] device found 1133
+[2016-11-11 17:55:40:0247] [info] in device read
+[2016-11-11 17:55:40:0248] [info] 2
+[2016-11-11 17:55:40:0248] [info] device read
+[2016-11-11 17:55:40:0248] [info] before read
+[2016-11-11 17:55:40:0253] [info] data recieved in main function
+[2016-11-11 17:55:50:0414] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-11 17:55:50:0414] [info] in if 1 
+[2016-11-11 17:55:50:0414] [info] in if 2 
+[2016-11-11 17:55:50:0414] [info] in device read
+[2016-11-11 17:55:50:0416] [info] 2
+[2016-11-11 17:55:50:0417] [info] device read
+[2016-11-11 17:55:50:0417] [info] before read
+[2016-11-11 17:55:50:0429] [info] data recieved in main function
+[2016-11-11 17:56:00:0198] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-11 17:56:00:0198] [info] in if 1 
+[2016-11-11 17:56:00:0198] [info] in if 2 
+[2016-11-11 17:56:00:0200] [info] in device read
+[2016-11-11 17:56:00:0207] [info] 2
+[2016-11-11 17:56:00:0207] [info] device read
+[2016-11-11 17:56:00:0207] [info] before read
+[2016-11-11 17:56:00:0222] [info] data recieved in main function
+[2016-11-11 17:56:03:0590] [info] device found 1266
+[2016-11-11 17:56:03:0590] [info] device found 1266
+[2016-11-11 17:56:03:0590] [info] device found 1266
+[2016-11-11 17:56:03:0590] [info] device found 1133
+[2016-11-11 17:56:03:0590] [info] device found 1133
+[2016-11-11 17:56:03:0590] [info] device found 1133
+[2016-11-11 17:56:03:0590] [info] device found 1133
+[2016-11-11 17:56:03:0590] [info] device found 1133
+[2016-11-11 17:56:03:0590] [info] device found 49745
+[2016-11-11 17:56:03:0591] [info] after found
+[2016-11-11 17:56:03:0591] [info] device found 1133
+[2016-11-11 17:56:03:0591] [info] device found 1266
+[2016-11-11 17:56:03:0591] [info] device found 1133
+[2016-11-11 17:56:03:0591] [info] device found 1133
+[2016-11-11 17:56:03:0591] [info] in device read
+[2016-11-11 17:56:03:0593] [info] 2
+[2016-11-11 17:56:03:0593] [info] device read
+[2016-11-11 17:56:03:0593] [info] before read
+[2016-11-11 17:56:03:0613] [info] data recieved in main function
+[2016-11-15 13:39:53:0942] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-15 13:39:53:0956] [info] in if 1 
+[2016-11-15 13:39:53:0958] [info] xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+[2016-11-15 13:39:53:0958] [info] after init
+[2016-11-15 13:39:53:0959] [info] in if 2 
+[2016-11-15 13:39:53:0971] [info] in device read
+[2016-11-15 13:39:53:0992] [info] 2
+[2016-11-15 13:39:53:0993] [info] device read
+[2016-11-15 13:39:53:0993] [info] before read
+[2016-11-15 13:39:54:0028] [info] data recieved in main function
+[2016-11-15 13:40:01:0921] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-15 13:40:01:0921] [info] in if 1 
+[2016-11-15 13:40:01:0931] [info] in if 2 
+[2016-11-15 13:40:01:0933] [info] in device read
+[2016-11-15 13:40:01:0940] [info] 2
+[2016-11-15 13:40:01:0940] [info] device read
+[2016-11-15 13:40:01:0940] [info] before read
+[2016-11-15 13:40:01:0961] [info] data recieved in main function
+[2016-11-15 13:40:06:0872] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-15 13:40:06:0872] [info] in if 1 
+[2016-11-15 13:40:06:0872] [info] in if 2 
+[2016-11-15 13:40:06:0874] [info] in device read
+[2016-11-15 13:40:06:0879] [info] 2
+[2016-11-15 13:40:06:0880] [info] device read
+[2016-11-15 13:40:06:0880] [info] before read
+[2016-11-15 13:40:06:0890] [info] data recieved in main function
+[2016-11-15 13:40:15:0368] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-15 13:40:15:0369] [info] in if 1 
+[2016-11-15 13:40:15:0369] [info] in if 2 
+[2016-11-15 13:40:15:0370] [info] in device read
+[2016-11-15 13:40:15:0376] [info] 2
+[2016-11-15 13:40:15:0376] [info] device read
+[2016-11-15 13:40:15:0376] [info] before read
+[2016-11-15 13:40:15:0402] [info] data recieved in main function
+[2016-11-15 13:40:20:0073] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-15 13:40:20:0073] [info] in if 1 
+[2016-11-15 13:40:20:0073] [info] in if 2 
+[2016-11-15 13:40:20:0077] [info] in device read
+[2016-11-15 13:40:20:0083] [info] 2
+[2016-11-15 13:40:20:0083] [info] device read
+[2016-11-15 13:40:20:0083] [info] before read
+[2016-11-15 13:40:20:0106] [info] data recieved in main function
+[2016-11-15 14:00:15:0889] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-15 14:00:15:0901] [info] in if 1 
+[2016-11-15 14:00:15:0902] [info] xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+[2016-11-15 14:00:15:0902] [info] after init
+[2016-11-15 14:00:15:0902] [info] in if 2 
+[2016-11-15 14:00:15:0906] [info] in device read
+[2016-11-15 14:00:15:0913] [info] 2
+[2016-11-15 14:00:15:0913] [info] device read
+[2016-11-15 14:00:15:0913] [info] before read
+[2016-11-15 14:00:15:0918] [info] data recieved in main function
