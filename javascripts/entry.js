@@ -1,8 +1,12 @@
 require('../less/main.less');
 
 'use strict';
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import ReduxPromise from 'redux-promise'
+import ReduxThunk from 'redux-thunk';
 
 
 const {ipcRenderer} = require('electron');
@@ -14,10 +18,10 @@ ipcRenderer.on('asynchronous-reply', (event, arg) => {
   console.log(arg) // prints "pong"
 })
 
-ipcRenderer.on('device-arrived' , function(event , data){
-	console.log('Renderer read device')
-		ipcRenderer.send('device-read', 'read device')
-});
+//ipcRenderer.on('device-arrived' , function(event , data){
+//	console.log('Renderer read device')
+//		ipcRenderer.send('device-read', 'read device')
+//});
 
 ipcRenderer.on('device-data' , function(event , data){
 	console.log('Renderer data recieved')
@@ -44,17 +48,24 @@ function clearSBL(){
   ipcRenderer.send('device-sbl', 0x09);
 }
 
-function checkDevice(){
-  ipcRenderer.send('check_device');
-}
+//function checkDevice(){
+//  ipcRenderer.send('check-device');
+//}
 
-//ReactDOM.render(<div className="myDiv">Hello Electron!</div>, document.getElementById('content'));
+import App from './components/app';
+import reducers from './reducers';
+
+//const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
+const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
+const store = createStoreWithMiddleware(reducers);
+
 ReactDOM.render(
-     React.DOM.div({
-        children: [
-          React.DOM.label({children: 3}),
-          React.DOM.button({onClick: checkDevice, children: "Check Device"}),
-	        React.DOM.button({onClick: requestSBL, children: "Request SBL"}),
-          React.DOM.button({onClick: clearSBL, children: "Clear SBL"}),
-        ]
-      }), document.getElementById('content'));
+  <Provider store={store}>
+    <App />
+  </Provider>
+  , document.getElementById('content')
+);
+
+export {
+  store
+};

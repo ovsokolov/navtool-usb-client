@@ -2,15 +2,35 @@
 <html>
   <head>
     <title>My Electron-React app</title>
+    <!--
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+    -->
+    <link href="http://cdn.muicss.com/mui-0.9.4/css/mui.min.css" rel="stylesheet" type="text/css" />
+  </head>
   </head>
   <body>
     <div id="content"></div>
 
   <script src="http://localhost:8080/webpack-dev-server.js"></script>
   <script src="http://localhost:8080/built/bundle.js"></script>
+
   <!--
   <script>
   	require('./app/bundle.js')
   </script>
   -->
+<!-- Insert this line above script imports
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+-->
+<!-- normal script imports etc
+<script>
+window.$ = window.jQuery = require('./scripts/jquery-3.1.1.min.js')
+</script>
+-->
+
+<!-- Insert this line after script imports
+<script>if (window.module) module = window.module;</script>
+-->
+<script src="./scripts/mui.js"></script>
+
 </html>

@@ -1,63 +1,67 @@
-[2016-11-11 17:55:11:0978] [info] device found 1266
-[2016-11-11 17:55:11:0984] [info] device found 1266
-[2016-11-11 17:55:11:0985] [info] device found 1266
-[2016-11-11 17:55:11:0985] [info] device found 1133
-[2016-11-11 17:55:11:0985] [info] device found 1133
-[2016-11-11 17:55:11:0985] [info] device found 1133
-[2016-11-11 17:55:11:0985] [info] device found 1133
-[2016-11-11 17:55:11:0985] [info] device found 1133
-[2016-11-11 17:55:11:0985] [info] device found 49745
-[2016-11-11 17:55:11:0985] [info] xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-[2016-11-11 17:55:11:0985] [info] after init
-[2016-11-11 17:55:11:0985] [info] after found
-[2016-11-11 17:55:11:0986] [info] device found 1133
-[2016-11-11 17:55:11:0986] [info] device found 1266
-[2016-11-11 17:55:11:0986] [info] device found 1133
-[2016-11-11 17:55:11:0986] [info] device found 1133
-[2016-11-11 17:55:11:0986] [info] in device read
-[2016-11-11 17:55:12:0050] [info] 2
-[2016-11-11 17:55:12:0050] [info] device read
-[2016-11-11 17:55:12:0050] [info] before read
-[2016-11-11 17:55:12:0061] [info] data recieved in main function
-[2016-11-11 17:55:26:0384] [info] device found 1266
-[2016-11-11 17:55:26:0384] [info] device found 1266
-[2016-11-11 17:55:26:0384] [info] device found 1266
-[2016-11-11 17:55:26:0384] [info] device found 1133
-[2016-11-11 17:55:26:0384] [info] device found 1133
-[2016-11-11 17:55:26:0384] [info] device found 1133
-[2016-11-11 17:55:26:0384] [info] device found 1133
-[2016-11-11 17:55:26:0384] [info] device found 1133
-[2016-11-11 17:55:26:0384] [info] device found 49745
-[2016-11-11 17:55:26:0385] [info] after found
-[2016-11-11 17:55:26:0385] [info] device found 1133
-[2016-11-11 17:55:26:0385] [info] device found 1266
-[2016-11-11 17:55:26:0385] [info] device found 1133
-[2016-11-11 17:55:26:0385] [info] device found 1133
-[2016-11-11 17:55:26:0385] [info] in device read
-[2016-11-11 17:55:26:0387] [info] 2
-[2016-11-11 17:55:26:0387] [info] device read
-[2016-11-11 17:55:26:0387] [info] before read
-[2016-11-11 17:55:26:0397] [info] data recieved in main function
-[2016-11-11 17:55:40:0246] [info] device found 1266
-[2016-11-11 17:55:40:0246] [info] device found 1266
-[2016-11-11 17:55:40:0246] [info] device found 1266
-[2016-11-11 17:55:40:0246] [info] device found 1133
-[2016-11-11 17:55:40:0246] [info] device found 1133
-[2016-11-11 17:55:40:0246] [info] device found 1133
-[2016-11-11 17:55:40:0246] [info] device found 1133
-[2016-11-11 17:55:40:0246] [info] device found 1133
-[2016-11-11 17:55:40:0246] [info] device found 49745
-[2016-11-11 17:55:40:0246] [info] after found
-[2016-11-11 17:55:40:0246] [info] device found 1133
-[2016-11-11 17:55:40:0246] [info] device found 1266
-[2016-11-11 17:55:40:0246] [info] device found 1133
-[2016-11-11 17:55:40:0246] [info] device found 1133
-[2016-11-11 17:55:40:0247] [info] in device read
-[2016-11-11 17:55:40:0248] [info] 2
-[2016-11-11 17:55:40:0248] [info] device read
-[2016-11-11 17:55:40:0248] [info] before read
-[2016-11-11 17:55:40:0253] [info] data recieved in main function
-[2016-11-11 17:55:50:0414] [info] added device:
+[2016-11-28 18:53:25:0138] [info] device found 1452
+[2016-11-28 18:53:25:0154] [info] device found 49745
+[2016-11-28 18:53:25:0154] [info] after init
+[2016-11-28 18:53:25:0155] [info] after found
+[2016-11-28 18:53:25:0155] [info] device found 1452
+[2016-11-28 18:53:25:0155] [info] device found 1452
+[2016-11-28 18:53:25:0165] [info] Checking Device SBL status....
+[2016-11-28 18:53:25:0172] [info] before sbl check
+[2016-11-28 18:53:25:0203] [info] data recieved for sbl status
+[2016-11-28 18:53:25:0205] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-28 18:53:25:0215] [info] before device-read-settings
+[2016-11-28 18:53:25:0237] [info] data recieved device-read-settings
+[2016-11-28 18:53:34:0511] [info] device found 1452
+[2016-11-28 18:53:34:0511] [info] device found 49745
+[2016-11-28 18:53:34:0512] [info] after found
+[2016-11-28 18:53:34:0513] [info] device found 1452
+[2016-11-28 18:53:34:0513] [info] device found 1452
+[2016-11-28 18:53:34:0519] [info] Checking Device SBL status....
+[2016-11-28 18:53:34:0536] [info] Error: cannot open device with vendor id 0xc251 and product id 0x116
+    at Error (native)
+    at new HID (/Users/olegsokolov/Documents/NavtoolProjects/navtool/node_modules/node-hid/nodehid.js:28:14)
+    at EventEmitter.ipcMain.on.err (/Users/olegsokolov/Documents/NavtoolProjects/navtool/main.js:105:16)
+    at emitTwo (events.js:106:13)
+    at EventEmitter.emit (events.js:191:7)
+    at WebContents.<anonymous> (/Users/olegsokolov/.nvm/versions/node/v4.4.7/lib/node_modules/electron-prebuilt/dist/Electron.app/Contents/Resources/electron.asar/browser/api/web-contents.js:219:13)
+    at emitTwo (events.js:106:13)
+    at WebContents.emit (events.js:191:7)
+
+[2016-11-28 18:53:34:0536] [info] before sbl check
+[2016-11-28 18:53:34:0546] [info] data recieved for sbl status
+[2016-11-28 18:53:34:0547] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-28 18:53:34:0552] [info] before device-read-settings
+[2016-11-28 18:53:34:0579] [info] data recieved device-read-settings
+[2016-11-29 08:07:09:0661] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 9,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 8,
+  idVendor: 2652,
+  idProduct: 17664,
+  bcdDevice: 256,
+  iManufacturer: 1,
+  iProduct: 2,
+  iSerialNumber: 0,
+  bNumConfigurations: 1 }
+[2016-11-29 08:07:12:0122] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 255,
+  bDeviceSubClass: 1,
+  bDeviceProtocol: 1,
+  bMaxPacketSize0: 64,
+  idVendor: 1452,
+  idProduct: 33423,
+  bcdDevice: 262,
+  iManufacturer: 1,
+  iProduct: 2,
+  iSerialNumber: 0,
+  bNumConfigurations: 1 }
+[2016-11-29 12:00:03:0521] [info] added device:
  { bLength: 18,
   bDescriptorType: 1,
   bcdUSB: 512,
@@ -72,14 +76,14 @@
   iProduct: 32,
   iSerialNumber: 66,
   bNumConfigurations: 1 }
-[2016-11-11 17:55:50:0414] [info] in if 1 
-[2016-11-11 17:55:50:0414] [info] in if 2 
-[2016-11-11 17:55:50:0414] [info] in device read
-[2016-11-11 17:55:50:0416] [info] 2
-[2016-11-11 17:55:50:0417] [info] device read
-[2016-11-11 17:55:50:0417] [info] before read
-[2016-11-11 17:55:50:0429] [info] data recieved in main function
-[2016-11-11 17:56:00:0198] [info] added device:
+[2016-11-29 12:00:03:0527] [info] after init
+[2016-11-29 12:00:03:0534] [info] Checking Device SBL status....
+[2016-11-29 12:00:03:0542] [info] before sbl check
+[2016-11-29 12:00:03:0545] [info] data recieved for sbl status
+[2016-11-29 12:00:03:0545] [info] <Buffer 1a 16 f5 00 20 c5 54 c2 27 f1 ae a6 00 84 03 01 40 0f 01 00 04 fd 1f cf de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 12:00:03:0550] [info] before device-read-settings
+[2016-11-29 12:00:03:0577] [info] data recieved device-read-settings
+[2016-11-29 13:38:53:0935] [info] added device:
  { bLength: 18,
   bDescriptorType: 1,
   bcdUSB: 512,
@@ -94,33 +98,8 @@
   iProduct: 32,
   iSerialNumber: 66,
   bNumConfigurations: 1 }
-[2016-11-11 17:56:00:0198] [info] in if 1 
-[2016-11-11 17:56:00:0198] [info] in if 2 
-[2016-11-11 17:56:00:0200] [info] in device read
-[2016-11-11 17:56:00:0207] [info] 2
-[2016-11-11 17:56:00:0207] [info] device read
-[2016-11-11 17:56:00:0207] [info] before read
-[2016-11-11 17:56:00:0222] [info] data recieved in main function
-[2016-11-11 17:56:03:0590] [info] device found 1266
-[2016-11-11 17:56:03:0590] [info] device found 1266
-[2016-11-11 17:56:03:0590] [info] device found 1266
-[2016-11-11 17:56:03:0590] [info] device found 1133
-[2016-11-11 17:56:03:0590] [info] device found 1133
-[2016-11-11 17:56:03:0590] [info] device found 1133
-[2016-11-11 17:56:03:0590] [info] device found 1133
-[2016-11-11 17:56:03:0590] [info] device found 1133
-[2016-11-11 17:56:03:0590] [info] device found 49745
-[2016-11-11 17:56:03:0591] [info] after found
-[2016-11-11 17:56:03:0591] [info] device found 1133
-[2016-11-11 17:56:03:0591] [info] device found 1266
-[2016-11-11 17:56:03:0591] [info] device found 1133
-[2016-11-11 17:56:03:0591] [info] device found 1133
-[2016-11-11 17:56:03:0591] [info] in device read
-[2016-11-11 17:56:03:0593] [info] 2
-[2016-11-11 17:56:03:0593] [info] device read
-[2016-11-11 17:56:03:0593] [info] before read
-[2016-11-11 17:56:03:0613] [info] data recieved in main function
-[2016-11-15 13:39:53:0942] [info] added device:
+[2016-11-29 13:38:53:0943] [info] after init
+[2016-11-29 13:45:47:0459] [info] added device:
  { bLength: 18,
   bDescriptorType: 1,
   bcdUSB: 512,
@@ -135,16 +114,16 @@
   iProduct: 32,
   iSerialNumber: 66,
   bNumConfigurations: 1 }
-[2016-11-15 13:39:53:0956] [info] in if 1 
-[2016-11-15 13:39:53:0958] [info] xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-[2016-11-15 13:39:53:0958] [info] after init
-[2016-11-15 13:39:53:0959] [info] in if 2 
-[2016-11-15 13:39:53:0971] [info] in device read
-[2016-11-15 13:39:53:0992] [info] 2
-[2016-11-15 13:39:53:0993] [info] device read
-[2016-11-15 13:39:53:0993] [info] before read
-[2016-11-15 13:39:54:0028] [info] data recieved in main function
-[2016-11-15 13:40:01:0921] [info] added device:
+[2016-11-29 13:45:47:0465] [info] Checking Device SBL status....
+[2016-11-29 13:45:47:0473] [info] before sbl check
+[2016-11-29 13:45:47:0475] [info] data recieved for sbl status
+[2016-11-29 13:45:47:0476] [info] <Buffer 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ... >
+[2016-11-29 13:47:00:0958] [info] device found 1452
+[2016-11-29 13:47:00:0963] [info] device found 1452
+[2016-11-29 13:47:00:0964] [info] device found 1452
+[2016-11-29 13:47:03:0442] [info] before device-read-settings
+[2016-11-29 13:47:03:0444] [info] data recieved device-read-settings
+[2016-11-29 13:47:27:0998] [info] added device:
  { bLength: 18,
   bDescriptorType: 1,
   bcdUSB: 512,
@@ -159,14 +138,17 @@
   iProduct: 32,
   iSerialNumber: 66,
   bNumConfigurations: 1 }
-[2016-11-15 13:40:01:0921] [info] in if 1 
-[2016-11-15 13:40:01:0931] [info] in if 2 
-[2016-11-15 13:40:01:0933] [info] in device read
-[2016-11-15 13:40:01:0940] [info] 2
-[2016-11-15 13:40:01:0940] [info] device read
-[2016-11-15 13:40:01:0940] [info] before read
-[2016-11-15 13:40:01:0961] [info] data recieved in main function
-[2016-11-15 13:40:06:0872] [info] added device:
+[2016-11-29 13:47:28:0003] [info] Checking Device SBL status....
+[2016-11-29 13:47:28:0013] [info] before sbl check
+[2016-11-29 13:47:28:0023] [info] data recieved for sbl status
+[2016-11-29 13:47:28:0024] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 13:47:28:0028] [info] before device-read-settings
+[2016-11-29 13:47:28:0053] [info] data recieved device-read-settings
+[2016-11-29 13:48:26:0315] [info] before device-read-settings
+[2016-11-29 13:48:26:0328] [info] data recieved device-read-settings
+[2016-11-29 13:49:07:0983] [info] before device-read-settings
+[2016-11-29 13:49:07:0995] [info] data recieved device-read-settings
+[2016-11-29 13:49:43:0824] [info] added device:
  { bLength: 18,
   bDescriptorType: 1,
   bcdUSB: 512,
@@ -181,14 +163,16 @@
   iProduct: 32,
   iSerialNumber: 66,
   bNumConfigurations: 1 }
-[2016-11-15 13:40:06:0872] [info] in if 1 
-[2016-11-15 13:40:06:0872] [info] in if 2 
-[2016-11-15 13:40:06:0874] [info] in device read
-[2016-11-15 13:40:06:0879] [info] 2
-[2016-11-15 13:40:06:0880] [info] device read
-[2016-11-15 13:40:06:0880] [info] before read
-[2016-11-15 13:40:06:0890] [info] data recieved in main function
-[2016-11-15 13:40:15:0368] [info] added device:
+[2016-11-29 13:49:43:0833] [info] after init
+[2016-11-29 13:49:43:0840] [info] Checking Device SBL status....
+[2016-11-29 13:49:43:0847] [info] before sbl check
+[2016-11-29 13:49:43:0867] [info] data recieved for sbl status
+[2016-11-29 13:49:43:0867] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 13:49:43:0871] [info] before device-read-settings
+[2016-11-29 13:49:43:0898] [info] data recieved device-read-settings
+[2016-11-29 13:51:51:0577] [info] before device-read-settings
+[2016-11-29 13:51:51:0583] [info] data recieved device-read-settings
+[2016-11-29 13:52:37:0542] [info] added device:
  { bLength: 18,
   bDescriptorType: 1,
   bcdUSB: 512,
@@ -203,14 +187,13 @@
   iProduct: 32,
   iSerialNumber: 66,
   bNumConfigurations: 1 }
-[2016-11-15 13:40:15:0369] [info] in if 1 
-[2016-11-15 13:40:15:0369] [info] in if 2 
-[2016-11-15 13:40:15:0370] [info] in device read
-[2016-11-15 13:40:15:0376] [info] 2
-[2016-11-15 13:40:15:0376] [info] device read
-[2016-11-15 13:40:15:0376] [info] before read
-[2016-11-15 13:40:15:0402] [info] data recieved in main function
-[2016-11-15 13:40:20:0073] [info] added device:
+[2016-11-29 13:52:37:0552] [info] Checking Device SBL status....
+[2016-11-29 13:52:37:0560] [info] before sbl check
+[2016-11-29 13:52:37:0569] [info] data recieved for sbl status
+[2016-11-29 13:52:37:0570] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 13:52:37:0575] [info] before device-read-settings
+[2016-11-29 13:52:37:0601] [info] data recieved device-read-settings
+[2016-11-29 13:53:40:0089] [info] added device:
  { bLength: 18,
   bDescriptorType: 1,
   bcdUSB: 512,
@@ -225,14 +208,13 @@
   iProduct: 32,
   iSerialNumber: 66,
   bNumConfigurations: 1 }
-[2016-11-15 13:40:20:0073] [info] in if 1 
-[2016-11-15 13:40:20:0073] [info] in if 2 
-[2016-11-15 13:40:20:0077] [info] in device read
-[2016-11-15 13:40:20:0083] [info] 2
-[2016-11-15 13:40:20:0083] [info] device read
-[2016-11-15 13:40:20:0083] [info] before read
-[2016-11-15 13:40:20:0106] [info] data recieved in main function
-[2016-11-15 14:00:15:0889] [info] added device:
+[2016-11-29 13:53:40:0095] [info] Checking Device SBL status....
+[2016-11-29 13:53:40:0100] [info] before sbl check
+[2016-11-29 13:53:40:0132] [info] data recieved for sbl status
+[2016-11-29 13:53:40:0132] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 13:53:40:0135] [info] before device-read-settings
+[2016-11-29 13:53:40:0163] [info] data recieved device-read-settings
+[2016-11-29 13:54:01:0918] [info] added device:
  { bLength: 18,
   bDescriptorType: 1,
   bcdUSB: 512,
@@ -247,12 +229,1740 @@
   iProduct: 32,
   iSerialNumber: 66,
   bNumConfigurations: 1 }
-[2016-11-15 14:00:15:0901] [info] in if 1 
-[2016-11-15 14:00:15:0902] [info] xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-[2016-11-15 14:00:15:0902] [info] after init
-[2016-11-15 14:00:15:0902] [info] in if 2 
-[2016-11-15 14:00:15:0906] [info] in device read
-[2016-11-15 14:00:15:0913] [info] 2
-[2016-11-15 14:00:15:0913] [info] device read
-[2016-11-15 14:00:15:0913] [info] before read
-[2016-11-15 14:00:15:0918] [info] data recieved in main function
+[2016-11-29 13:54:01:0926] [info] Checking Device SBL status....
+[2016-11-29 13:54:01:0931] [info] before sbl check
+[2016-11-29 13:54:01:0956] [info] data recieved for sbl status
+[2016-11-29 13:54:01:0956] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 13:54:01:0961] [info] before device-read-settings
+[2016-11-29 13:54:01:0988] [info] data recieved device-read-settings
+[2016-11-29 13:57:12:0805] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 13:57:12:0811] [info] Checking Device SBL status....
+[2016-11-29 13:57:12:0818] [info] before sbl check
+[2016-11-29 13:57:12:0844] [info] data recieved for sbl status
+[2016-11-29 13:57:12:0845] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 13:57:12:0850] [info] before device-read-settings
+[2016-11-29 13:57:12:0875] [info] data recieved device-read-settings
+[2016-11-29 14:04:04:0110] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 14:04:04:0116] [info] Checking Device SBL status....
+[2016-11-29 14:04:04:0123] [info] before sbl check
+[2016-11-29 14:04:04:0154] [info] data recieved for sbl status
+[2016-11-29 14:04:04:0155] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 14:04:04:0159] [info] before device-read-settings
+[2016-11-29 14:04:04:0187] [info] data recieved device-read-settings
+[2016-11-29 14:09:50:0389] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 14:09:50:0401] [info] Checking Device SBL status....
+[2016-11-29 14:09:50:0408] [info] before sbl check
+[2016-11-29 14:09:50:0439] [info] data recieved for sbl status
+[2016-11-29 14:09:50:0440] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 14:09:50:0445] [info] before device-read-settings
+[2016-11-29 14:09:50:0472] [info] data recieved device-read-settings
+[2016-11-29 14:14:06:0162] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 14:14:06:0169] [info] Checking Device SBL status....
+[2016-11-29 14:14:06:0177] [info] before sbl check
+[2016-11-29 14:14:06:0193] [info] data recieved for sbl status
+[2016-11-29 14:14:06:0194] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 14:14:06:0198] [info] before device-read-settings
+[2016-11-29 14:14:06:0225] [info] data recieved device-read-settings
+[2016-11-29 14:14:21:0145] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 14:14:21:0155] [info] Checking Device SBL status....
+[2016-11-29 14:14:21:0160] [info] before sbl check
+[2016-11-29 14:14:21:0169] [info] data recieved for sbl status
+[2016-11-29 14:14:21:0170] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 14:14:21:0177] [info] before device-read-settings
+[2016-11-29 14:14:21:0202] [info] data recieved device-read-settings
+[2016-11-29 14:14:24:0717] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 14:14:24:0720] [info] Checking Device SBL status....
+[2016-11-29 14:14:24:0725] [info] before sbl check
+[2016-11-29 14:14:24:0753] [info] data recieved for sbl status
+[2016-11-29 14:14:24:0754] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 14:14:24:0758] [info] before device-read-settings
+[2016-11-29 14:14:24:0785] [info] data recieved device-read-settings
+[2016-11-29 14:21:07:0774] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 14:21:07:0784] [info] Checking Device SBL status....
+[2016-11-29 14:21:07:0791] [info] before sbl check
+[2016-11-29 14:21:07:0808] [info] data recieved for sbl status
+[2016-11-29 14:21:07:0809] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 14:21:07:0816] [info] before device-read-settings
+[2016-11-29 14:21:07:0840] [info] data recieved device-read-settings
+[2016-11-29 14:22:10:0768] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 14:22:10:0775] [info] Checking Device SBL status....
+[2016-11-29 14:22:10:0782] [info] before sbl check
+[2016-11-29 14:22:10:0787] [info] data recieved for sbl status
+[2016-11-29 14:22:10:0788] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 14:22:10:0791] [info] before device-read-settings
+[2016-11-29 14:22:10:0819] [info] data recieved device-read-settings
+[2016-11-29 14:23:49:0475] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 14:23:49:0483] [info] Checking Device SBL status....
+[2016-11-29 14:23:49:0491] [info] before sbl check
+[2016-11-29 14:23:49:0510] [info] data recieved for sbl status
+[2016-11-29 14:23:49:0511] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 14:23:49:0514] [info] before device-read-settings
+[2016-11-29 14:23:49:0542] [info] data recieved device-read-settings
+[2016-11-29 14:24:26:0216] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 14:24:26:0220] [info] Checking Device SBL status....
+[2016-11-29 14:24:26:0226] [info] before sbl check
+[2016-11-29 14:24:26:0248] [info] data recieved for sbl status
+[2016-11-29 14:24:26:0249] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 14:24:26:0252] [info] before device-read-settings
+[2016-11-29 14:24:26:0280] [info] data recieved device-read-settings
+[2016-11-29 14:26:43:0522] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 14:26:43:0528] [info] Checking Device SBL status....
+[2016-11-29 14:26:43:0535] [info] before sbl check
+[2016-11-29 14:26:43:0565] [info] data recieved for sbl status
+[2016-11-29 14:26:43:0566] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 14:26:43:0570] [info] before device-read-settings
+[2016-11-29 14:26:43:0597] [info] data recieved device-read-settings
+[2016-11-29 14:46:47:0875] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 14:46:47:0887] [info] Checking Device SBL status....
+[2016-11-29 14:46:47:0894] [info] before sbl check
+[2016-11-29 14:46:47:0913] [info] data recieved for sbl status
+[2016-11-29 14:46:47:0914] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 14:46:47:0917] [info] before device-read-settings
+[2016-11-29 14:46:47:0945] [info] data recieved device-read-settings
+[2016-11-29 14:47:24:0895] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 14:47:24:0902] [info] Checking Device SBL status....
+[2016-11-29 14:47:24:0909] [info] before sbl check
+[2016-11-29 14:47:24:0939] [info] data recieved for sbl status
+[2016-11-29 14:47:24:0939] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 14:47:24:0942] [info] before device-read-settings
+[2016-11-29 14:47:24:0971] [info] data recieved device-read-settings
+[2016-11-29 15:06:51:0634] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:06:51:0646] [info] Checking Device SBL status....
+[2016-11-29 15:06:51:0653] [info] before sbl check
+[2016-11-29 15:06:51:0662] [info] data recieved for sbl status
+[2016-11-29 15:06:51:0663] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:06:51:0673] [info] before device-read-settings
+[2016-11-29 15:06:51:0694] [info] data recieved device-read-settings
+[2016-11-29 15:21:18:0126] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:21:18:0139] [info] Checking Device SBL status....
+[2016-11-29 15:21:18:0146] [info] before sbl check
+[2016-11-29 15:21:18:0159] [info] data recieved for sbl status
+[2016-11-29 15:21:18:0160] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:21:18:0164] [info] before device-read-settings
+[2016-11-29 15:21:18:0190] [info] data recieved device-read-settings
+[2016-11-29 15:21:49:0228] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:21:49:0245] [info] Checking Device SBL status....
+[2016-11-29 15:21:49:0252] [info] before sbl check
+[2016-11-29 15:21:49:0264] [info] data recieved for sbl status
+[2016-11-29 15:21:49:0264] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:21:49:0274] [info] before device-read-settings
+[2016-11-29 15:21:49:0295] [info] data recieved device-read-settings
+[2016-11-29 15:24:54:0058] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:24:54:0066] [info] Checking Device SBL status....
+[2016-11-29 15:24:54:0073] [info] before sbl check
+[2016-11-29 15:24:54:0102] [info] data recieved for sbl status
+[2016-11-29 15:24:54:0103] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:24:54:0106] [info] before device-read-settings
+[2016-11-29 15:24:54:0134] [info] data recieved device-read-settings
+[2016-11-29 15:26:36:0676] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:26:36:0684] [info] Checking Device SBL status....
+[2016-11-29 15:26:36:0691] [info] before sbl check
+[2016-11-29 15:26:36:0699] [info] data recieved for sbl status
+[2016-11-29 15:26:36:0700] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:26:36:0707] [info] before device-read-settings
+[2016-11-29 15:26:36:0730] [info] data recieved device-read-settings
+[2016-11-29 15:27:30:0120] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:27:30:0126] [info] Checking Device SBL status....
+[2016-11-29 15:27:30:0131] [info] before sbl check
+[2016-11-29 15:27:30:0140] [info] data recieved for sbl status
+[2016-11-29 15:27:30:0141] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:27:30:0144] [info] before device-read-settings
+[2016-11-29 15:27:30:0172] [info] data recieved device-read-settings
+[2016-11-29 15:29:34:0465] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:29:34:0481] [info] Checking Device SBL status....
+[2016-11-29 15:29:34:0488] [info] before sbl check
+[2016-11-29 15:29:34:0497] [info] data recieved for sbl status
+[2016-11-29 15:29:34:0498] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:29:34:0502] [info] before device-read-settings
+[2016-11-29 15:29:34:0529] [info] data recieved device-read-settings
+[2016-11-29 15:29:48:0313] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:29:48:0316] [info] Checking Device SBL status....
+[2016-11-29 15:29:48:0321] [info] before sbl check
+[2016-11-29 15:29:48:0322] [info] data recieved for sbl status
+[2016-11-29 15:29:48:0322] [info] <Buffer 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ... >
+[2016-11-29 15:29:55:0262] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:29:55:0266] [info] Checking Device SBL status....
+[2016-11-29 15:29:55:0273] [info] before sbl check
+[2016-11-29 15:29:55:0297] [info] data recieved for sbl status
+[2016-11-29 15:29:55:0298] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:29:55:0301] [info] before device-read-settings
+[2016-11-29 15:29:55:0329] [info] data recieved device-read-settings
+[2016-11-29 15:30:44:0225] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:30:44:0228] [info] Checking Device SBL status....
+[2016-11-29 15:30:44:0233] [info] before sbl check
+[2016-11-29 15:30:44:0259] [info] data recieved for sbl status
+[2016-11-29 15:30:44:0262] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:30:44:0269] [info] before device-read-settings
+[2016-11-29 15:30:44:0291] [info] data recieved device-read-settings
+[2016-11-29 15:31:20:0430] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:31:20:0434] [info] Checking Device SBL status....
+[2016-11-29 15:31:20:0441] [info] before sbl check
+[2016-11-29 15:31:20:0453] [info] data recieved for sbl status
+[2016-11-29 15:31:20:0454] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:31:20:0457] [info] before device-read-settings
+[2016-11-29 15:31:20:0485] [info] data recieved device-read-settings
+[2016-11-29 15:31:23:0984] [info] before device-write_data
+[2016-11-29 15:31:23:0985] [info] [ 0,
+  27,
+  253,
+  7,
+  207,
+  222,
+  203,
+  15,
+  0,
+  78,
+  67,
+  72,
+  69,
+  86,
+  82,
+  79,
+  76,
+  69,
+  84,
+  0,
+  255,
+  255,
+  255,
+  255,
+  67,
+  79,
+  82,
+  86,
+  69,
+  84,
+  84,
+  69,
+  0,
+  255,
+  255,
+  255,
+  255,
+  255,
+  9,
+  8,
+  0,
+  0,
+  1,
+  0,
+  255 ]
+[2016-11-29 15:31:23:0986] [info] 45
+[2016-11-29 15:31:24:0038] [info] data recieved device-write_data
+[2016-11-29 15:31:24:0039] [info] <Buffer 1b 2c f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:31:36:0813] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:31:36:0816] [info] Checking Device SBL status....
+[2016-11-29 15:31:36:0821] [info] before sbl check
+[2016-11-29 15:31:36:0837] [info] data recieved for sbl status
+[2016-11-29 15:31:36:0837] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 07 cf de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:31:36:0844] [info] before device-read-settings
+[2016-11-29 15:31:36:0869] [info] data recieved device-read-settings
+[2016-11-29 15:31:44:0925] [info] before device-write_data
+[2016-11-29 15:31:44:0926] [info] [ 0,
+  27,
+  253,
+  3,
+  199,
+  222,
+  203,
+  15,
+  0,
+  78,
+  67,
+  72,
+  69,
+  86,
+  82,
+  79,
+  76,
+  69,
+  84,
+  0,
+  255,
+  255,
+  255,
+  255,
+  67,
+  79,
+  82,
+  86,
+  69,
+  84,
+  84,
+  69,
+  0,
+  255,
+  255,
+  255,
+  255,
+  255,
+  9,
+  8,
+  0,
+  0,
+  2,
+  0,
+  255 ]
+[2016-11-29 15:31:44:0926] [info] 45
+[2016-11-29 15:31:44:0997] [info] data recieved device-write_data
+[2016-11-29 15:31:45:0000] [info] <Buffer 1b 2c f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 07 cf de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:31:50:0876] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:31:50:0880] [info] Checking Device SBL status....
+[2016-11-29 15:31:50:0886] [info] before sbl check
+[2016-11-29 15:31:50:0918] [info] data recieved for sbl status
+[2016-11-29 15:31:50:0918] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:31:50:0922] [info] before device-read-settings
+[2016-11-29 15:31:50:0950] [info] data recieved device-read-settings
+[2016-11-29 15:32:19:0516] [info] before device-write_data
+[2016-11-29 15:32:19:0517] [info] [ 0,
+  27,
+  253,
+  7,
+  207,
+  214,
+  203,
+  15,
+  0,
+  78,
+  67,
+  72,
+  69,
+  86,
+  82,
+  79,
+  76,
+  69,
+  84,
+  0,
+  255,
+  255,
+  255,
+  255,
+  67,
+  79,
+  82,
+  86,
+  69,
+  84,
+  84,
+  69,
+  0,
+  255,
+  255,
+  255,
+  255,
+  255,
+  9,
+  8,
+  0,
+  0,
+  3,
+  0,
+  255 ]
+[2016-11-29 15:32:19:0518] [info] 45
+[2016-11-29 15:32:19:0591] [info] data recieved device-write_data
+[2016-11-29 15:32:19:0591] [info] <Buffer 1b 2c f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 de cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:32:22:0718] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:32:22:0720] [info] Checking Device SBL status....
+[2016-11-29 15:32:22:0727] [info] before sbl check
+[2016-11-29 15:32:22:0727] [info] data recieved for sbl status
+[2016-11-29 15:32:22:0728] [info] <Buffer 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ... >
+[2016-11-29 15:32:26:0255] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:32:26:0263] [info] Checking Device SBL status....
+[2016-11-29 15:32:26:0268] [info] before sbl check
+[2016-11-29 15:32:26:0279] [info] data recieved for sbl status
+[2016-11-29 15:32:26:0279] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 07 cf d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:32:26:0282] [info] before device-read-settings
+[2016-11-29 15:32:26:0311] [info] data recieved device-read-settings
+[2016-11-29 15:33:08:0326] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:33:08:0333] [info] Checking Device SBL status....
+[2016-11-29 15:33:08:0340] [info] before sbl check
+[2016-11-29 15:33:08:0361] [info] data recieved for sbl status
+[2016-11-29 15:33:08:0361] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 07 cf d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:33:08:0366] [info] before device-read-settings
+[2016-11-29 15:33:08:0393] [info] data recieved device-read-settings
+[2016-11-29 15:38:38:0773] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:38:38:0780] [info] Checking Device SBL status....
+[2016-11-29 15:38:38:0787] [info] before sbl check
+[2016-11-29 15:38:38:0802] [info] data recieved for sbl status
+[2016-11-29 15:38:38:0802] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 07 cf d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:38:38:0806] [info] before device-read-settings
+[2016-11-29 15:38:38:0833] [info] data recieved device-read-settings
+[2016-11-29 15:38:46:0874] [info] before device-write_data
+[2016-11-29 15:38:46:0876] [info] [ 0,
+  27,
+  253,
+  3,
+  199,
+  214,
+  203,
+  15,
+  0,
+  78,
+  67,
+  72,
+  69,
+  86,
+  82,
+  79,
+  76,
+  69,
+  84,
+  0,
+  255,
+  255,
+  255,
+  255,
+  67,
+  79,
+  82,
+  86,
+  69,
+  84,
+  84,
+  69,
+  0,
+  255,
+  255,
+  255,
+  255,
+  255,
+  9,
+  8,
+  0,
+  0,
+  4,
+  0,
+  255 ]
+[2016-11-29 15:38:46:0876] [info] 45
+[2016-11-29 15:38:46:0931] [info] data recieved device-write_data
+[2016-11-29 15:38:46:0939] [info] <Buffer 1b 2c f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 07 cf d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:38:52:0925] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:38:52:0930] [info] Checking Device SBL status....
+[2016-11-29 15:38:52:0936] [info] before sbl check
+[2016-11-29 15:38:52:0946] [info] data recieved for sbl status
+[2016-11-29 15:38:52:0948] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:38:52:0954] [info] before device-read-settings
+[2016-11-29 15:38:52:0978] [info] data recieved device-read-settings
+[2016-11-29 15:41:05:0413] [info] before device-write_data
+[2016-11-29 15:41:05:0422] [info] [ 0,
+  27,
+  253,
+  7,
+  207,
+  214,
+  203,
+  15,
+  0,
+  78,
+  67,
+  72,
+  69,
+  86,
+  82,
+  79,
+  76,
+  69,
+  84,
+  0,
+  255,
+  255,
+  255,
+  255,
+  67,
+  79,
+  82,
+  86,
+  69,
+  84,
+  84,
+  69,
+  0,
+  255,
+  255,
+  255,
+  255,
+  255,
+  9,
+  8,
+  0,
+  0,
+  5,
+  0,
+  255 ]
+[2016-11-29 15:41:05:0423] [info] 45
+[2016-11-29 15:41:05:0499] [info] data recieved device-write_data
+[2016-11-29 15:41:05:0500] [info] <Buffer 1b 2c f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:45:11:0716] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:45:11:0730] [info] Checking Device SBL status....
+[2016-11-29 15:45:11:0740] [info] before sbl check
+[2016-11-29 15:45:11:0745] [info] data recieved for sbl status
+[2016-11-29 15:45:11:0746] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 07 cf d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:45:11:0750] [info] before device-read-settings
+[2016-11-29 15:45:11:0776] [info] data recieved device-read-settings
+[2016-11-29 15:45:20:0439] [info] before device-write_data
+[2016-11-29 15:45:20:0440] [info] [ 0,
+  27,
+  253,
+  3,
+  199,
+  214,
+  203,
+  15,
+  0,
+  78,
+  67,
+  72,
+  69,
+  86,
+  82,
+  79,
+  76,
+  69,
+  84,
+  0,
+  255,
+  255,
+  255,
+  255,
+  67,
+  79,
+  82,
+  86,
+  69,
+  84,
+  84,
+  69,
+  0,
+  255,
+  255,
+  255,
+  255,
+  255,
+  9,
+  8,
+  0,
+  0,
+  6,
+  0,
+  255 ]
+[2016-11-29 15:45:20:0441] [info] 45
+[2016-11-29 15:45:20:0512] [info] data recieved device-write_data
+[2016-11-29 15:45:20:0513] [info] <Buffer 1b 2c f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 07 cf d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:45:45:0394] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:45:45:0397] [info] Checking Device SBL status....
+[2016-11-29 15:45:45:0401] [info] before sbl check
+[2016-11-29 15:45:45:0409] [info] data recieved for sbl status
+[2016-11-29 15:45:45:0409] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:45:45:0412] [info] before device-read-settings
+[2016-11-29 15:45:45:0441] [info] data recieved device-read-settings
+[2016-11-29 15:45:49:0418] [info] before device-write_data
+[2016-11-29 15:45:49:0419] [info] [ 0,
+  27,
+  253,
+  7,
+  207,
+  214,
+  203,
+  15,
+  0,
+  78,
+  67,
+  72,
+  69,
+  86,
+  82,
+  79,
+  76,
+  69,
+  84,
+  0,
+  255,
+  255,
+  255,
+  255,
+  67,
+  79,
+  82,
+  86,
+  69,
+  84,
+  84,
+  69,
+  0,
+  255,
+  255,
+  255,
+  255,
+  255,
+  9,
+  8,
+  0,
+  0,
+  7,
+  0,
+  255 ]
+[2016-11-29 15:45:49:0419] [info] 45
+[2016-11-29 15:45:49:0475] [info] data recieved device-write_data
+[2016-11-29 15:45:49:0476] [info] <Buffer 1b 2c f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:46:54:0243] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:46:54:0249] [info] Checking Device SBL status....
+[2016-11-29 15:46:54:0254] [info] before sbl check
+[2016-11-29 15:46:54:0276] [info] data recieved for sbl status
+[2016-11-29 15:46:54:0277] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 07 cf d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:46:54:0280] [info] before device-read-settings
+[2016-11-29 15:46:54:0308] [info] data recieved device-read-settings
+[2016-11-29 15:48:13:0357] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:48:13:0364] [info] Checking Device SBL status....
+[2016-11-29 15:48:13:0371] [info] before sbl check
+[2016-11-29 15:48:13:0383] [info] data recieved for sbl status
+[2016-11-29 15:48:13:0384] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 07 cf d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:48:13:0388] [info] before device-read-settings
+[2016-11-29 15:48:13:0415] [info] data recieved device-read-settings
+[2016-11-29 15:48:18:0558] [info] before device-write_data
+[2016-11-29 15:48:18:0559] [info] [ 0,
+  27,
+  253,
+  3,
+  199,
+  214,
+  203,
+  15,
+  0,
+  78,
+  67,
+  72,
+  69,
+  86,
+  82,
+  79,
+  76,
+  69,
+  84,
+  0,
+  255,
+  255,
+  255,
+  255,
+  67,
+  79,
+  82,
+  86,
+  69,
+  84,
+  84,
+  69,
+  0,
+  255,
+  255,
+  255,
+  255,
+  255,
+  9,
+  8,
+  0,
+  0,
+  8,
+  0,
+  255 ]
+[2016-11-29 15:48:18:0560] [info] 45
+[2016-11-29 15:48:18:0631] [info] data recieved device-write_data
+[2016-11-29 15:48:18:0632] [info] <Buffer 1b 2c f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 07 cf d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:48:23:0664] [info] before device-write_data
+[2016-11-29 15:48:23:0664] [info] [ 0,
+  27,
+  253,
+  7,
+  207,
+  214,
+  203,
+  15,
+  0,
+  78,
+  67,
+  72,
+  69,
+  86,
+  82,
+  79,
+  76,
+  69,
+  84,
+  0,
+  255,
+  255,
+  255,
+  255,
+  67,
+  79,
+  82,
+  86,
+  69,
+  84,
+  84,
+  69,
+  0,
+  255,
+  255,
+  255,
+  255,
+  255,
+  9,
+  8,
+  0,
+  0,
+  8,
+  0,
+  255 ]
+[2016-11-29 15:48:23:0664] [info] 45
+[2016-11-29 15:48:23:0719] [info] data recieved device-write_data
+[2016-11-29 15:48:23:0720] [info] <Buffer 1b 2c f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 07 cf d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:48:31:0145] [info] before device-write_data
+[2016-11-29 15:48:31:0146] [info] [ 0,
+  27,
+  253,
+  31,
+  255,
+  214,
+  203,
+  15,
+  0,
+  78,
+  67,
+  72,
+  69,
+  86,
+  82,
+  79,
+  76,
+  69,
+  84,
+  0,
+  255,
+  255,
+  255,
+  255,
+  67,
+  79,
+  82,
+  86,
+  69,
+  84,
+  84,
+  69,
+  0,
+  255,
+  255,
+  255,
+  255,
+  255,
+  9,
+  8,
+  0,
+  0,
+  8,
+  0,
+  255 ]
+[2016-11-29 15:48:31:0146] [info] 45
+[2016-11-29 15:48:31:0207] [info] data recieved device-write_data
+[2016-11-29 15:48:31:0208] [info] <Buffer 1b 2c f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 07 cf d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:48:38:0938] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:48:38:0943] [info] Checking Device SBL status....
+[2016-11-29 15:48:38:0949] [info] before sbl check
+[2016-11-29 15:48:38:0952] [info] data recieved for sbl status
+[2016-11-29 15:48:38:0952] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 1f ff d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:48:38:0956] [info] before device-read-settings
+[2016-11-29 15:48:38:0984] [info] data recieved device-read-settings
+[2016-11-29 15:48:43:0598] [info] before device-write_data
+[2016-11-29 15:48:43:0599] [info] [ 0,
+  27,
+  253,
+  3,
+  199,
+  214,
+  203,
+  15,
+  0,
+  78,
+  67,
+  72,
+  69,
+  86,
+  82,
+  79,
+  76,
+  69,
+  84,
+  0,
+  255,
+  255,
+  255,
+  255,
+  67,
+  79,
+  82,
+  86,
+  69,
+  84,
+  84,
+  69,
+  0,
+  255,
+  255,
+  255,
+  255,
+  255,
+  9,
+  8,
+  0,
+  0,
+  9,
+  0,
+  255 ]
+[2016-11-29 15:48:43:0599] [info] 45
+[2016-11-29 15:48:43:0656] [info] data recieved device-write_data
+[2016-11-29 15:48:43:0656] [info] <Buffer 1b 2c f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 1f ff d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:48:50:0480] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 15:48:50:0487] [info] Checking Device SBL status....
+[2016-11-29 15:48:50:0493] [info] before sbl check
+[2016-11-29 15:48:50:0504] [info] data recieved for sbl status
+[2016-11-29 15:48:50:0504] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 15:48:50:0510] [info] before device-read-settings
+[2016-11-29 15:48:50:0536] [info] data recieved device-read-settings
+[2016-11-29 17:04:11:0451] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 17:04:11:0460] [info] Checking Device SBL status....
+[2016-11-29 17:04:11:0468] [info] before sbl check
+[2016-11-29 17:04:11:0487] [info] data recieved for sbl status
+[2016-11-29 17:04:11:0488] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 17:04:11:0492] [info] before device-read-settings
+[2016-11-29 17:04:11:0519] [info] data recieved device-read-settings
+[2016-11-29 17:05:19:0118] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 17:05:19:0127] [info] Checking Device SBL status....
+[2016-11-29 17:05:19:0133] [info] before sbl check
+[2016-11-29 17:05:19:0138] [info] data recieved for sbl status
+[2016-11-29 17:05:19:0138] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 17:05:19:0141] [info] before device-read-settings
+[2016-11-29 17:05:19:0169] [info] data recieved device-read-settings
+[2016-11-29 17:09:18:0448] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 17:09:18:0454] [info] Checking Device SBL status....
+[2016-11-29 17:09:18:0460] [info] before sbl check
+[2016-11-29 17:09:18:0475] [info] data recieved for sbl status
+[2016-11-29 17:09:18:0476] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 17:09:18:0481] [info] before device-read-settings
+[2016-11-29 17:09:18:0506] [info] data recieved device-read-settings
+[2016-11-29 17:14:26:0050] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 17:14:26:0059] [info] Checking Device SBL status....
+[2016-11-29 17:14:26:0068] [info] before sbl check
+[2016-11-29 17:14:26:0072] [info] data recieved for sbl status
+[2016-11-29 17:14:26:0073] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 17:14:26:0078] [info] before device-read-settings
+[2016-11-29 17:14:26:0102] [info] data recieved device-read-settings
+[2016-11-29 17:15:05:0749] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 17:15:05:0753] [info] Checking Device SBL status....
+[2016-11-29 17:15:05:0758] [info] before sbl check
+[2016-11-29 17:15:05:0784] [info] data recieved for sbl status
+[2016-11-29 17:15:05:0784] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 17:15:05:0790] [info] before device-read-settings
+[2016-11-29 17:15:05:0815] [info] data recieved device-read-settings
+[2016-11-29 17:15:18:0327] [info] before device-write_data
+[2016-11-29 17:15:18:0328] [info] [ 0,
+  27,
+  253,
+  7,
+  207,
+  206,
+  203,
+  15,
+  0,
+  78,
+  67,
+  72,
+  69,
+  86,
+  82,
+  79,
+  76,
+  69,
+  84,
+  0,
+  255,
+  255,
+  255,
+  255,
+  67,
+  79,
+  82,
+  86,
+  69,
+  84,
+  84,
+  69,
+  0,
+  255,
+  255,
+  255,
+  255,
+  255,
+  9,
+  8,
+  0,
+  0,
+  10,
+  0,
+  255 ]
+[2016-11-29 17:15:18:0329] [info] 45
+[2016-11-29 17:15:18:0392] [info] data recieved device-write_data
+[2016-11-29 17:15:18:0392] [info] <Buffer 1b 2c f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 03 c7 d6 cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 17:15:28:0058] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 17:15:28:0066] [info] Checking Device SBL status....
+[2016-11-29 17:15:28:0071] [info] before sbl check
+[2016-11-29 17:15:28:0088] [info] data recieved for sbl status
+[2016-11-29 17:15:28:0089] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 07 cf ce cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 17:15:28:0092] [info] before device-read-settings
+[2016-11-29 17:15:28:0120] [info] data recieved device-read-settings
+[2016-11-29 17:15:38:0255] [info] before device-write_data
+[2016-11-29 17:15:38:0257] [info] [ 0,
+  27,
+  253,
+  15,
+  223,
+  218,
+  203,
+  15,
+  0,
+  78,
+  67,
+  72,
+  69,
+  86,
+  82,
+  79,
+  76,
+  69,
+  84,
+  0,
+  255,
+  255,
+  255,
+  255,
+  67,
+  79,
+  82,
+  86,
+  69,
+  84,
+  84,
+  69,
+  0,
+  255,
+  255,
+  255,
+  255,
+  255,
+  9,
+  8,
+  0,
+  0,
+  11,
+  0,
+  255 ]
+[2016-11-29 17:15:38:0257] [info] 45
+[2016-11-29 17:15:38:0329] [info] data recieved device-write_data
+[2016-11-29 17:15:38:0329] [info] <Buffer 1b 2c f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 07 cf ce cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 17:15:44:0875] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 17:15:44:0883] [info] Checking Device SBL status....
+[2016-11-29 17:15:44:0889] [info] before sbl check
+[2016-11-29 17:15:44:0889] [info] data recieved for sbl status
+[2016-11-29 17:15:44:0890] [info] <Buffer 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ... >
+[2016-11-29 17:15:48:0755] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 17:15:48:0757] [info] Checking Device SBL status....
+[2016-11-29 17:15:48:0763] [info] before sbl check
+[2016-11-29 17:15:48:0793] [info] data recieved for sbl status
+[2016-11-29 17:15:48:0793] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 0f df da cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 17:15:48:0797] [info] before device-read-settings
+[2016-11-29 17:15:48:0825] [info] data recieved device-read-settings
+[2016-11-29 18:01:00:0134] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 18:01:00:0147] [info] after init
+[2016-11-29 18:01:00:0153] [info] Checking Device SBL status....
+[2016-11-29 18:01:00:0161] [info] before sbl check
+[2016-11-29 18:01:00:0193] [info] data recieved for sbl status
+[2016-11-29 18:01:00:0194] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 0f df da cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 18:01:00:0201] [info] before device-read-settings
+[2016-11-29 18:01:00:0225] [info] data recieved device-read-settings
+[2016-11-29 18:01:18:0089] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 18:01:18:0092] [info] Checking Device SBL status....
+[2016-11-29 18:01:18:0099] [info] before sbl check
+[2016-11-29 18:01:18:0113] [info] data recieved for sbl status
+[2016-11-29 18:01:18:0115] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 0f df da cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 18:01:18:0121] [info] before device-read-settings
+[2016-11-29 18:01:18:0145] [info] data recieved device-read-settings
+[2016-11-29 18:01:21:0429] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 18:01:21:0431] [info] Checking Device SBL status....
+[2016-11-29 18:01:21:0437] [info] before sbl check
+[2016-11-29 18:01:21:0441] [info] data recieved for sbl status
+[2016-11-29 18:01:21:0442] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 0f df da cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 18:01:21:0446] [info] before device-read-settings
+[2016-11-29 18:01:21:0473] [info] data recieved device-read-settings
+[2016-11-29 18:01:26:0859] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 18:01:26:0866] [info] Checking Device SBL status....
+[2016-11-29 18:01:26:0872] [info] before sbl check
+[2016-11-29 18:01:26:0882] [info] data recieved for sbl status
+[2016-11-29 18:01:26:0882] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 0f df da cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 18:01:26:0888] [info] before device-read-settings
+[2016-11-29 18:01:26:0914] [info] data recieved device-read-settings
+[2016-11-29 18:25:04:0894] [info] added device:
+ { bLength: 18,
+  bDescriptorType: 1,
+  bcdUSB: 512,
+  bDeviceClass: 0,
+  bDeviceSubClass: 0,
+  bDeviceProtocol: 0,
+  bMaxPacketSize0: 64,
+  idVendor: 49745,
+  idProduct: 278,
+  bcdDevice: 256,
+  iManufacturer: 4,
+  iProduct: 32,
+  iSerialNumber: 66,
+  bNumConfigurations: 1 }
+[2016-11-29 18:25:04:0960] [info] Checking Device SBL status....
+[2016-11-29 18:25:04:0966] [info] before sbl check
+[2016-11-29 18:25:04:0985] [info] data recieved for sbl status
+[2016-11-29 18:25:04:0987] [info] <Buffer 1a 16 f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 0f df da cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
+[2016-11-29 18:25:04:0996] [info] before device-read-settings
+[2016-11-29 18:25:05:0019] [info] data recieved device-read-settings
+[2016-11-29 18:25:23:0615] [info] before device-write_data
+[2016-11-29 18:25:23:0618] [info] [ 0,
+  27,
+  253,
+  67,
+  199,
+  214,
+  203,
+  15,
+  0,
+  78,
+  67,
+  72,
+  69,
+  86,
+  82,
+  79,
+  76,
+  69,
+  84,
+  0,
+  255,
+  255,
+  255,
+  255,
+  67,
+  79,
+  82,
+  86,
+  69,
+  84,
+  84,
+  69,
+  0,
+  255,
+  255,
+  255,
+  255,
+  255,
+  9,
+  8,
+  0,
+  0,
+  12,
+  0,
+  255 ]
+[2016-11-29 18:25:23:0618] [info] 45
+[2016-11-29 18:25:23:0673] [info] data recieved device-write_data
+[2016-11-29 18:25:23:0674] [info] <Buffer 1b 2c f5 00 20 c4 54 c2 27 77 ae a6 00 84 03 01 10 0f 01 00 04 fd 0f df da cb 0f 00 4e 43 48 45 56 52 4f 4c 45 54 00 ff ff ff ff 43 4f 52 56 45 54 54 ... >
