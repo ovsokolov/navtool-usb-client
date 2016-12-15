@@ -1,27 +1,26 @@
 import React, { Component} from 'react';
 import { connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchModel } from '../actions/get_model';
 
 
 
 class CarMakeList extends Component {
   constructor(props){
     super(props);
-    this.searchModel = this.searchModel.bind(this);
+    this.selectMake = this.selectMake.bind(this);
     //console.log("in list", this.state.mfg_id);
   }
 
-  searchModel(event){
+  selectMake(event){
     console.log("inside searchModel", event.target.value);
-    this.props.fetchModel("LG1161U", event.target.value);
+    this.props.onSelectVehicleMake(event.target.value);
   }
 
   renderCarMake(carMake, index){
     console.log(carMake);
     return (
       <option key={carMake.vehicle_make}
-              value={carMake.vehicle_make}
+              value={carMake.make_id}
       >
       {carMake.vehicle_make}
       </option>
@@ -30,20 +29,17 @@ class CarMakeList extends Component {
 
   render(){
     return (
-        <select onChange={this.searchModel}>
-          { this.props.car_make.map(this.renderCarMake) }
+        <select onChange={this.selectMake}>
+          { this.props.car_make.list.map(this.renderCarMake) }
         </select>
     );
   }
 }
 
 
-function mapStateToProps(state){ 
+function mapStateToProps(state){
   return { car_make: state.car_make };
 }
 
-function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchModel}, dispatch);
-}
 
-export default connect(mapStateToProps,mapDispatchToProps)(CarMakeList);
+export default connect(mapStateToProps)(CarMakeList);

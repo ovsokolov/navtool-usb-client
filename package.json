@@ -1,7 +1,7 @@
 {
   "name": "electron-quick-start",
   "productName": "DashConnectPlus",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
@@ -41,11 +41,14 @@
   "dependencies": {
     "axios": "^0.15.2",
     "electron-log": "^1.2.2",
+    "lodash": "^4.17.2",
     "muicss": "^0.9.4",
     "node-hid": "^0.5.1",
     "node-usb-detection": "^1.0.2",
     "react": "^15.3.2",
+    "react-bootstrap-table": "^2.6.0",
     "react-dom": "^15.3.2",
+    "react-icons": "^2.2.1",
     "react-redux": "^4.4.6",
     "react-router": "^3.0.0",
     "react-tabs-component": "^1.1.3",

@@ -27,6 +27,22 @@ export const SYSTEM_SETTINGS = {SoundSupported: '',
                                 ResrvedBits:''}
 
 
+export const TRANSFER_SET_UP_DATA_RESPONSE = {
+              block_size: '',
+              blocks_count: '',
+              packet_size: '',
+              start_sector: '',
+              total_secotrs: ''
+}
+
+export const TRANSFER_STATUS_DATA_RESPONSE = {
+              sector_number: '',
+              block_number: '',
+              packet_number: '',
+              remaining_packets: '',
+              check_sum: ''
+}
+
 export const SIDE_CAMERA_DROPDOWN = { id:'SideCameraMode',
 values:[
   {value:'001', label:'Manual',key:'SC1',setting:'SideCameraMode'},

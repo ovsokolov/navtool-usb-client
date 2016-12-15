@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const ROOT_URL = "https://tranquil-mesa-29755.herokuapp.com/navtoolsws/make";
-
+//const ROOT_URL = "https://tranquil-mesa-29755.herokuapp.com/navtoolsws/make";
+const ROOT_URL = "http://localhost:3000/v1/navtoolsws/make";
 export const FETCH_MAKE = 'FETCH_MAKE';
 
 export function fetchMake(mfg_id){
@@ -13,7 +13,8 @@ export function fetchMake(mfg_id){
   return (dispatch) => {
     request.then( ({data}) =>{
       console.log(data);
-      dispatch( { type: FETCH_MAKE, payload: data } )
+      let payload_data = {mfg_id, data};
+      dispatch( { type: FETCH_MAKE, payload: payload_data } );
     });
   };
 }

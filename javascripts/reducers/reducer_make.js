@@ -1,13 +1,16 @@
 import { FETCH_MAKE } from '../actions/get_make';
+import { DEVICE_REMOVED } from '../actions/hid_action';
 
-export default function(state = [{"id":null,"vehicle_make":"Please Select..."}], action){
+const DEFAULT_DROPDOWN_VALUE = {make_id: 0, vehicle_make:"Please Select..."};
+
+export default function(state = {list: [DEFAULT_DROPDOWN_VALUE]}, action){
   switch (action.type){
     case FETCH_MAKE:
       //return state.concat([ action.payload.data ]);
       //or (same crete new array). NEVER!!!!! mutate array
-      console.log('Action recieved', FETCH_MAKE);
-      console.log(action.payload);
-      return [{"id":null,"vehicle_make":"Please Select..."}, ...action.payload];
+      return {list: [DEFAULT_DROPDOWN_VALUE, ...action.payload.data]};
+    case DEVICE_REMOVED:
+      return {list: [DEFAULT_DROPDOWN_VALUE]};
   }
   return state;
 }

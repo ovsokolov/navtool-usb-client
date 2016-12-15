@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Device from '../containers/device'
+import Message from '../containers/messages'
 
 
 export default class App extends Component {
@@ -19,6 +20,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
+        <Message />
         <Device />
       </div>
 

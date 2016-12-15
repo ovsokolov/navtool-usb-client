@@ -1,4 +1,5 @@
 const electron = require('electron')
+var os = require('os');
 var HID = require('node-hid')
 var log = require('electron-log');
 var usbDetect = require('node-usb-detection');
@@ -7,9 +8,16 @@ const {ipcMain} = require('electron')
 const {ipcRenderer} = require('electron')
 log.transports.file.file = __dirname + '/log.txt';
 
+var platfor_string = os.platform() + '_' + os.arch()
+
+//log.info("data for autoupdate app :\n", app);
+log.info("data for autoupdate os : ", platfor_string);
+
 
 // Module to control application life.
 const app = electron.app
+
+log.info("electron version : ", app.getVersion());
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
@@ -83,9 +91,16 @@ usbDetect.on('add:49745:278', function(device) {
 usbDetect.add(function(device) {
     log.info("added device:\n", device.deviceDescriptor);
     if(device.deviceDescriptor.idVendor == 49745){
-		initListeners()
-		mainWindow.webContents.send('device-arrived' , {msg:'device arrived'});
-	}
+		    initListeners()
+		    mainWindow.webContents.send('device-arrived' , {msg:'device arrived'});
+	  }
+});
+
+usbDetect.remove(function(device) {
+    log.info("removed device:\n", device.deviceDescriptor);
+    if(device.deviceDescriptor.idVendor == 49745){
+		    mainWindow.webContents.send('device-removed' , {msg:'device removed'});
+	  }
 });
 
 
@@ -126,7 +141,8 @@ function initListeners(){
         log.info(data)
 				mainWindow.webContents.send('device-sbl-status', { msg: data} );
 		})
-		device.write([0x00, 0x1A, 0x00, 0x00, 0x00, 0x00, 0x00])
+    log.info('checking SBL status')
+		device.write([0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00])
 	});
 
 	ipcMain.on('device-sbl', (event, arg) => {
@@ -135,19 +151,12 @@ function initListeners(){
 		device.removeAllListeners("data")
 		device.removeAllListeners("error")
 		try {
-			//log.info('bwfore request SBL')
-			//device.write([0x00, arg, 0x00, 0x00, 0x00, 0x00, 0x00])
       device.write(arg)
-			//log.info('after request SBL')
-
 		}
-
 		catch(err){
-			//log.info('error!!!')
 			//device.close()
 		}
 		finally {
-			//log.info('finally!!!')
       //device.close()
 		  //device = null
 		}
@@ -159,12 +168,13 @@ function initListeners(){
 
 
 ipcMain.on('check-device', (event, arg) => {
+  devices = HID.devices();
 	for (var i = 0; i < devices.length; i++){
-		log.info("device found " + devices[i].vendorId)
+		log.info("@@@@@@@@@@    device found " + devices[i].vendorId)
 		if(devices[i].vendorId == 49745){
 			initListeners()
 			mainWindow.webContents.send('device-arrived' , {msg:'device arrived'});
-			log.info("after found")
+			log.info("xxxxxxxxxxx    after found")
 		}
 	}
 });

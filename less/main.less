@@ -1,4 +1,4 @@
-@body-bg: #e3eeec;
+@body-bg: #BBDEFB;
 @myDiv-fg: #f00;
 body {
   background-color: @body-bg;
@@ -9,4 +9,51 @@ div.myDiv {
 
 select.mySelect {
   width: 50%
+}
+
+.vertical-align-middle {
+    vertical-align: middle;
+}
+
+.software-table {
+    width: 100%;
+    box-sizing: x-box;
+}
+
+.software-thead, .software-tbody, .software-tr, .software-td, .software-th { display: block; }
+
+.software-tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+.software-thead th {
+    height: 30px;
+
+    /*text-align: left;*/
+}
+
+.software-tbody {
+    height: 25vh;
+    overflow-y: auto;
+}
+
+.software-thead {
+    /* fallback */
+}
+
+
+.software-tbody .software-td, .software-thead .software-th {
+    width: 30.2%;
+    float: left;
+}
+
+.mui--is-active {
+  background-color: #7AA7CC;
+}
+
+.mui-tabs__bar>li.mui--is-active>a {
+  color: red;
 }

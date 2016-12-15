@@ -10,11 +10,8 @@ class SearchMake extends Component {
     this.searchMake = this.searchMake.bind(this);
   }
 
-
-
   searchMake(){
     console.log("inside searchMake");
-
     this.props.fetchMake(this.state.mfg_id);
   }
 
@@ -23,6 +20,7 @@ class SearchMake extends Component {
       <div className="container-fluid">
         <span className="input-group-btn">
           <button onClick={this.searchMake} className="mui-btn mui-btn--danger">Search Make</button>
+          <button onClick={this.loadFile} className="mui-btn mui-btn--danger">Load File</button>
         </span>
       </div>
     );
