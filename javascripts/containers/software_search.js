@@ -60,46 +60,82 @@ class SoftwareSearch extends Component {
     return (
       <div>
         <div className="mui-row">
-        <div className="mui-col-xs-1">
-        </div>
-        <div className="mui-col-xs-6">
-            <div>Transmission:</div>
-            <div>
-              <input type="radio"
-                     name="transmission_type"
-                     value="1"
-                     checked={this.props.software_search.automatic_transmission == 1}
-                     onChange={this.handleTransmissionChange}
-              />Automatic
+        <div className="mui-col-xs-1"></div>
+        <div className="mui-col-xs-5">
+            <div className="mui-row">
+              <div className="mui-col-xs-12">
+                Transmission:
+              </div>
             </div>
-            <div>
-              <input type="radio"
-                     name="transmission_type"
-                     value="0"
-                     checked={this.props.software_search.automatic_transmission == 0}
-                     onChange={this.handleTransmissionChange}
-              />Manual
+            <div className="mui-row">
+              <div className="mui-col-xs-6">
+                <input type="radio"
+                       name="transmission_type"
+                       value="1"
+                       checked={this.props.software_search.automatic_transmission == 1}
+                       onChange={this.handleTransmissionChange}
+                /><span className="radio-opt-desc">Automatic</span>
+              </div>
+              <div className="mui-col-xs-6">
+                <input type="radio"
+                       name="transmission_type"
+                       value="0"
+                       checked={this.props.software_search.automatic_transmission == 0}
+                       onChange={this.handleTransmissionChange}
+                /><span className="radio-opt-desc">Manual</span>
+              </div>
             </div>
           </div>
-          <div className="mui-col-xs-3">
-            <button onClick={this.searchSoftware} className="mui-btn mui-btn--danger">Search Software</button>
+          <div className="mui-col-xs-6">
+            <div className="mui-row">
+              <button onClick={this.searchSoftware} className="mui-btn mui-btn--danger">Search Software</button>
+              <button onClick={this.props.onInstallClick} className="mui-btn mui-btn--danger">Install</button>
+            </div>
           </div>
         </div>
         <div className="mui-row">
-          <div className="mui-col-xs-3">
-            <CarMakeList
-              onSelectVehicleMake={this.setVehicleMake}
-            />
+          <div className="mui-col-xs-1">&nbsp;</div>
+          <div className="mui-col-xs-4">
+            <div className="mui-row">
+              <div className="mui-col-xs-12">
+                Vehicle Make
+              </div>
+            </div>
+            <div className="mui-row">
+              <div className="mui-col-xs-12">
+                <CarMakeList
+                  onSelectVehicleMake={this.setVehicleMake}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="mui-col-xs-4">
+            <div className="mui-row">
+              <div className="mui-col-xs-12">
+                Vehicle Model
+              </div>
+            </div>
+            <div className="mui-row">
+              <div className="mui-col-xs-12">
+                <CarModelList
+                  onSelectVehicleModel={this.setVehicleModel}
+                />
+              </div>
+            </div>
           </div>
           <div className="mui-col-xs-3">
-            <CarModelList
-              onSelectVehicleModel={this.setVehicleModel}
-            />
-          </div>
-          <div className="mui-col-xs-3">
-            <CarYearList
-              onSelectVehicleYear={this.setVehicleYear}
-            />
+            <div className="mui-row">
+              <div className="mui-col-xs-12">
+                Vehicle Year
+              </div>
+            </div>
+            <div className="mui-row">
+              <div className="mui-col-xs-12">
+                <CarYearList
+                  onSelectVehicleYear={this.setVehicleYear}
+                />
+              </div>
+            </div>
           </div>
         </div>
         <div className="mui-row">

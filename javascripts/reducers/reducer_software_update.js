@@ -33,6 +33,7 @@ const DEFAULT_UPDATE_STATE = { block_size: BLOCK_SIZE,
                                current_packet: 0,
                                current_block: 0,
                                current_sector: 0,
+                               current_position: 0,
                                current_packet_data: [],
                                curerent_packet_sum: 0,
                                current_running_sum: 0,
@@ -181,6 +182,7 @@ function preparePacketData(new_state){
       currentPacket.push(0);
     }
   }
+  new_state.current_position = currentPosition;
   new_state.current_packet_data = currentPacket;
   new_state.curerent_packet_sum = new_state.curerent_packet_sum + currentSum;
   new_state.update_progress_status = PACKET_SEND;

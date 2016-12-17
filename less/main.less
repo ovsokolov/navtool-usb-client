@@ -1,8 +1,14 @@
-@body-bg: #BBDEFB;
+@body-bg: #9E9E9E;
 @myDiv-fg: #f00;
 body {
   background-color: @body-bg;
+  height: 100%;
 }
+
+#content {
+  height: 100%;
+}
+
 div.myDiv {
   color: @myDiv-fg;
 }
@@ -51,9 +57,32 @@ select.mySelect {
 }
 
 .mui--is-active {
-  background-color: #7AA7CC;
+  background-color: #616161;
+}
+
+.mui-tabs__bar>li:not(.mui--is-active) {
+  background-color: #E0E0E0;
 }
 
 .mui-tabs__bar>li.mui--is-active>a {
   color: red;
+}
+
+body .modal {
+  position: fixed;
+  top: 100px;
+  left: 100px;
+  right: 100px;
+  bottom: 100px;
+  border: 1px solid #ccc;
+  background: #fff;
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+  display: block;
+}
+
+.radio-opt-desc {
+    padding-left: 10px;
 }

@@ -2,6 +2,9 @@ import React, { Component} from 'react';
 import SearchMake from '../containers/search_make'
 import SoftwareSearch from '../containers/software_search'
 import DeviceSettings from '../containers/device_settings'
+import DeviceInfo from  '../containers/device_info'
+import Modal from '../components/modal'
+import UpdateProgress from '../containers/update_progress'
 
 import { connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,7 +21,8 @@ import { SYSTEM_SETTINGS } from '../utils/structures';
 
 import { INIT_IPC } from '../actions/hid_action';
 import { UPDATE_READY, UPDATE_IN_PROGRESS, AFTER_UPDATE_ACTION, UPDATE_COMPLETED } from '../utils/device_utils'
-import { SET_UP_TRANSFER,
+import { UPDATE_NOT_STARTED,
+         SET_UP_TRANSFER,
          START_TRANSFER,
          PACKET_SEND,
          BLOCK_VALIDATE,
@@ -35,23 +39,29 @@ class Device extends Component {
     super(props);
     var init_system_settings = JSON.parse(JSON.stringify(SYSTEM_SETTINGS));
     this.state = {device_data: [], mfg_id: '', serial_number: '', system_settings: init_system_settings, device_update_status: ''}
-    console.log(this.state);
 
     this.readDeviceSettings = this.readDeviceSettings.bind(this);
     this.checkDevice = this.checkDevice.bind(this);
     this.saveDeviceSettings = this.saveDeviceSettings.bind(this);
+    this.installSoftware = this.installSoftware.bind(this);
+
     this.requestSBL = this.requestSBL.bind(this);
     this.clearSBL = this.clearSBL.bind(this);
-    this.installSoftware = this.installSoftware.bind(this);
-    this.transferSetup = this.transferSetup.bind(this);
+    this.displayModal = this.displayModal.bind(this);
   }
 
-  transferSetup(){
-      console.log(this.props.device_data);
-      console.log(this.props.software_update);
-      this.props.updateDeviceVichecleInfo(this.props.device_data, this.props.software_update);
+  displayModal(device_status, update_status){
+    console.log("Inside modal function", update_status.update_progress_status);
+    if(update_status.update_progress_status != UPDATE_NOT_STARTED){
+      return (
+        <Modal>
+          <UpdateProgress
+            progress_status={update_status}
+          />
+        </Modal>
+      );
+    }
   }
-
   componentWillMount(){
     this.props.hidAction(INIT_IPC);
   }
@@ -71,7 +81,6 @@ class Device extends Component {
       }
     }
     if(this.state.device_update_status == UPDATE_IN_PROGRESS && nextProps.software_update.update_progress_status == START_TRANSFER){
-      console.log("Will start transfer");
       this.props.sendSoftwareUpdateData(START_TRANSFER, nextProps.software_update);
     }
     if(this.state.device_update_status == UPDATE_IN_PROGRESS && nextProps.software_update.update_progress_status == PACKET_SEND){
@@ -105,17 +114,14 @@ class Device extends Component {
 
   installSoftware(){
     var sw_id = this.props.software_search.sw_id;
-    console.log("inside installSoftware", sw_id);
     this.props.loadFTPFile(sw_id, this.props.device_status.app_status);
   }
 
   readDeviceSettings(){
-    console.log('Read Device System Data');
     ipcRenderer.send('device-read-settings', 0x1A);
   }
 
   checkDevice(){
-    console.log('Checking device');
     ipcRenderer.send('check-device');
   }
 
@@ -124,31 +130,33 @@ class Device extends Component {
     this.props.saveDeviceSettings(device_data, settings);
   }
 
-  requestSBL(){
-    console.log('Request SBL');
-    this.setState({device_update_status: ''})
-    this.props.requestSBL();
-  }
 
-  clearSBL(){
-    this.setState({device_update_status: ''})
-    console.log('Clear SBL');
-    let arg = [];
-    arg[0] = 0x00;
-    arg[1] = 0x08;
-    arg[2] = 0x00;
-    arg[3] = 0x00;
-    arg[4] = 0x00;
-    //ipcRenderer.send('device-sbl', 0x08);
-    ipcRenderer.send('device-sbl', arg);
-    arg[0] = 0x00;
-    arg[1] = 0x09;
-    arg[2] = 0x00;
-    arg[3] = 0x00;
-    arg[4] = 0x00;
-    //ipcRenderer.send('device-sbl', 0x09);
-    ipcRenderer.send('device-sbl', arg);
-  }
+    requestSBL(){
+      console.log('Request SBL');
+      this.setState({device_update_status: ''})
+      this.props.requestSBL();
+    }
+
+    clearSBL(){
+      this.setState({device_update_status: ''})
+      console.log('Clear SBL');
+      let arg = [];
+      arg[0] = 0x00;
+      arg[1] = 0x08;
+      arg[2] = 0x00;
+      arg[3] = 0x00;
+      arg[4] = 0x00;
+      //ipcRenderer.send('device-sbl', 0x08);
+      ipcRenderer.send('device-sbl', arg);
+      arg[0] = 0x00;
+      arg[1] = 0x09;
+      arg[2] = 0x00;
+      arg[3] = 0x00;
+      arg[4] = 0x00;
+      //ipcRenderer.send('device-sbl', 0x09);
+      ipcRenderer.send('device-sbl', arg);
+    }
+
 
   render(){
     const x = function(){};
@@ -156,42 +164,15 @@ class Device extends Component {
     return (
       <div>
         <div className="container-fluid">
-          <div className="mui-row">
-            <div className="mui-col-xs-2">
-                <div>&nbsp;</div>
-                <div className="mui-row">
-                  <div className="mui-col-xs-1">&nbsp;</div>
-                  <div className="mui-col-xs-4 mui--align-middle  mui--text-left">
-                    <MdImportantDevices color='green' size={60} />
-                  </div>
-                </div>
-            </div>
-            <div className="mui-col-xs-10">
-              <div className="mui--text-dark mui--text-left mui--text-body2">
-                Device ID: {this.props.device_db_data.mcu_serial}
-              </div>
-              <div className="mui--text-dark mui--text-left mui--text-body2">
-                Device Model: {this.props.device_db_data.mfg_id}
-              </div>
-              <div className="mui--text-dark mui--text-left mui--text-body2">
-                Vihecle Make : {this.props.device_db_data.vehicle_make}
-              </div>
-              <div className="mui--text-dark mui--text-left mui--text-body2">
-                Vihecle Model : {this.props.device_db_data.vehicle_model}
-              </div>
-            </div>
-          </div>
-          <button onClick={this.requestSBL} className="mui-btn mui-btn--danger">Request SBL</button>
-          <button onClick={this.clearSBL} className="mui-btn mui-btn--primary">Clear SBL</button>
-          <button onClick={this.readDeviceSettings} className="mui-btn mui-btn--primary">Read Setting</button>
-          <button onClick={this.checkDevice} className="mui-btn mui-btn--primary">Find Device</button>
-          <button onClick={this.installSoftware} className="mui-btn mui-btn--danger">Install Siftware</button>
-          <button onClick={this.transferSetup} className="mui-btn mui-btn--danger">Update DB</button>
+          <DeviceInfo
+            deviceInfo = {this.props.device_db_data}
+            deviceStatus = {this.props.device_status}
+            onDeviceSearch={this.checkDevice}
+          />
         </div>
         <ul className="mui-tabs__bar">
-          <li className="mui--is-active"><a data-mui-toggle="tab" data-mui-controls="pane-default-1">Device Data</a></li>
+          <li className="mui--is-active"><a data-mui-toggle="tab" data-mui-controls="pane-default-1">Device Settings</a></li>
           <li><a data-mui-toggle="tab" data-mui-controls="pane-default-2">Software Update</a></li>
-          <li><a data-mui-toggle="tab" data-mui-controls="pane-default-3">Tab-3</a></li>
         </ul>
         <div className="mui-tabs__pane mui--is-active" id="pane-default-1">
           <DeviceSettings
@@ -200,9 +181,11 @@ class Device extends Component {
           />
         </div>
         <div className="mui-tabs__pane" id="pane-default-2">
-          <SoftwareSearch />
+          <SoftwareSearch
+            onInstallClick={this.installSoftware}
+          />
         </div>
-        <div className="mui-tabs__pane" id="pane-default-3">Pane-3</div>
+        {this.displayModal(this.props.device_status.app_status, this.props.software_update)}
       </div>
     );
   }

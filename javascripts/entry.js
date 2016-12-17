@@ -1,5 +1,6 @@
 require('../less/main.less');
 
+
 'use strict';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -14,7 +15,7 @@ import reducers from './reducers';
 
 //const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
-const store = createStoreWithMiddleware(reducers);
+export const store = createStoreWithMiddleware(reducers);
 
 ReactDOM.render(
   <Provider store={store}>
