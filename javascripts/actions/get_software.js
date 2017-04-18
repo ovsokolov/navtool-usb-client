@@ -1,10 +1,11 @@
 import axios from 'axios';
+import { WEB_SERVICES_URL } from '../utils/constants';
 
 export const FETCH_SOFTWARE = 'FETCH_SOFTWARE';
 export const SET_SOFTWARE = 'SET_SOFTWARE';
 
 //const ROOT_URL = "https://tranquil-mesa-29755.herokuapp.com/navtoolsws/make";
-const ROOT_URL = "http://localhost:3000/v1/navtoolsws?";
+const ROOT_URL = WEB_SERVICES_URL + "/v1/navtoolsws?";
 
 export function fetchSoftware(mfg_id, vehicle_make, vehicle_model, vehicle_year, automatic_transmission){
   let param_url = "mfg_id=" + mfg_id + "&sw_active=1";

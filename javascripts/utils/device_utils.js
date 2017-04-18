@@ -23,6 +23,9 @@ export const TRANSFER_COMPLETED = 'TRANSFER_COMPLETED';
 export const DB_UPDATE_COMPLETED = 'TRANSFER_COMPLETED';
 export const UPDATE_ERROR = 'UPDATE_ERROR';
 
+export const OBD_NOT_STARTED = "OBD_NOT_STARTED";
+export const OBD_IN_PROGRESS = "OBD_IN_PROGRESS";
+
 import { TRANSFER_SET_UP_DATA_RESPONSE ,
          TRANSFER_STATUS_DATA_RESPONSE } from '../utils/structures';
 
@@ -96,6 +99,39 @@ export function getSerialNumber(msg){
     serial_number += hexStringFrmt.substring((bareNum).length, 2) + bareNum;
   }
   return serial_number.toUpperCase();
+}
+
+export function checkOBDSupport(msg){
+      let hexStringFrmt = "00"
+      let binaryStringFrmt = "00000000"
+      let softwareId = ""; //[19][18]
+      let bareNum;
+      let OBDSupported;
+      let result = {};
+
+      for(var i=0; i < 2; i++){
+        console.log(msg[19-i]);
+        bareNum = msg[19-i].toString(16);
+        softwareId += hexStringFrmt.substring((bareNum).length, 2) + bareNum;
+        console.log(softwareId);
+
+      }
+      console.log("Software Id",softwareId);
+      console.log("Software Id",parseInt(softwareId,16));
+
+      console.log("System Settings Byte 1", binaryStringFrmt.substring((msg[21].toString(2)).length, 8) + msg[21].toString(2));
+      let byte_1 = binaryStringFrmt.substring((msg[21].toString(2)).length, 8) + msg[21].toString(2);
+
+
+      OBDSupported = byte_1.substring(6,7); 
+      console.log("OBDSupported", OBDSupported) ;
+      if(OBDSupported == "0"){
+        result.isOBDSupported = true;
+        result.softwareId = parseInt(softwareId,10);
+      }else{
+        result.isOBDSupported = false;
+      }
+      return result;
 }
 
 export function setVehicleInfo(settings, info){

@@ -22,10 +22,13 @@ export const REQUEST_VALIDATE_BLOCK_SEND_RESPONSE = 'REQUEST_VALIDATE_BLOCK_SEND
 export const REQUEST_SECTOR_WRITE_SEND = 'REQUEST_SECTOR_WRITE_SEND';
 export const REQUEST_SECTOR_WRITE_SEND_RESPONSE = 'REQUEST_SECTOR_WRITE_SEND_RESPONSE';
 export const COMPLETE_UPDATE_REQUEST = 'COMPLETE_UPDATE_REQUEST';
+export const START_OBD_PROGRAMMING = 'START_OBD_PROGRAMMING';
+export const COMPLETE_OBD_PROGRAMMING = 'COMPLETE_OBD_PROGRAMMING';
 
 
 import { fetchDeviceDBData } from './get_device_data';
 import { getSerialNumber,
+         checkOBDSupport,
          setDeviceSettings,
          setVehicleInfo,
          setUpTransferData,
@@ -99,6 +102,7 @@ function handleDeviceSBLStatus(){
   return dispatch => {
       ipcRenderer.on('device-sbl-status',(event, data) => {
           console.log('SBL Status handling Action');
+          //TODO need to change return to read mfg_id and store it somewhere. 
           let msg = data["msg"]
           if(msg[1] == 0){
             dispatch({
@@ -135,15 +139,23 @@ export function handleDeviceDataResult(){
         usbResult = msg[1];
       }
       let serial_number = "";
-      console.log("action:", action)
+      let obdsupport = {};
+      console.log("action handleDeviceDataResult:", action)
       switch(action) {
         case 0x1A: //data settings response
           serial_number = getSerialNumber(msg);
-          dispatch(fetchDeviceDBData(serial_number));
+          obdsupport = checkOBDSupport(msg);
+          console.log("*******************************");
+          console.log(obdsupport);
+          console.log("*******************************");
+          dispatch(fetchDeviceDBData(serial_number,obdsupport));
           dispatch({
             type: DEVICE_DATA_SETTINGS,
             payload: msg
           });
+          //TODO
+          //check here if OBD & OSD support and dispatch events to read OSD settings and OBD config from database
+          //for OBD need mfg_id and sw_id. mfg id has to be already retrieved by sbl status call
           break;
         case 0x1B:
           dispatch({
@@ -203,6 +215,13 @@ export function saveDeviceSettings(data, settings){
     ipcRenderer.send('device-write_data', result);
     return {
       type: SAVE_DEVICE_SETTINGS,
+      payload: ""
+    };
+}
+
+export function startOBDProgramming(){
+    return {
+      type: START_OBD_PROGRAMMING,
       payload: ""
     };
 }

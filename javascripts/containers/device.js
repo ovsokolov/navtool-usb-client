@@ -3,17 +3,23 @@ import SearchMake from '../containers/search_make'
 import SoftwareSearch from '../containers/software_search'
 import DeviceSettings from '../containers/device_settings'
 import DeviceInfo from  '../containers/device_info'
+import OBDFeatures from '../containers/obd_features'
 import Modal from '../components/modal'
 import UpdateProgress from '../containers/update_progress'
+import ProgrammingProgress from '../containers/programming_progress'
 
 import { connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { saveDeviceSettings, updateDeviceVichecleInfo, requestSBL, sendSoftwareUpdateData } from'../actions/hid_action';
 import { hidAction } from '../actions/hid_action';
+import { startOBDProgramming } from '../actions/hid_action';
+
 
 import { loadFTPFile } from '../actions/ftp_action';
 import { updateDeviceDBData } from '../actions/get_device_data';
+
+import { hideModal } from '../actions/hide_modal';
 
 import { DEVICE_APP_STATUS } from '../utils/device_utils';
 
@@ -28,7 +34,9 @@ import { UPDATE_NOT_STARTED,
          BLOCK_VALIDATE,
          SECTOR_WRITE,
          TRANSFER_COMPLETED,
-         WAITING_FOR_APP_UPDATE} from '../utils/device_utils'
+         WAITING_FOR_APP_UPDATE,
+         OBD_NOT_STARTED, 
+         OBD_IN_PROGRESS } from '../utils/device_utils'
 
 const {ipcRenderer} = require('electron');
 
@@ -48,20 +56,66 @@ class Device extends Component {
     this.requestSBL = this.requestSBL.bind(this);
     this.clearSBL = this.clearSBL.bind(this);
     this.displayModal = this.displayModal.bind(this);
+
+    this.onHidePane = this.onHidePane.bind(this);
+
+    this.renderOBDFeatures = this.renderOBDFeatures.bind(this);
+
+    this.submitOBD = this.submitOBD.bind(this);
+
+    this.closeModal = this.closeModal.bind(this);
   }
 
-  displayModal(device_status, update_status){
-    console.log("Inside modal function", update_status.update_progress_status);
-    if(update_status.update_progress_status != UPDATE_NOT_STARTED){
+  renderOBDFeatures(){
+    if(this.props.obd_features.obd_enabled){
       return (
-        <Modal>
+          <div id="obd-pane">
+            <OBDFeatures 
+              OBDSettings = {this.props.obd_features}
+              onSubmitOBD = {this.submitOBD}
+            />
+          </div> 
+      ); 
+    }else{
+      return (
+          <div id="obd-pane">
+            Programming Features not available
+          </div>  
+      );     
+    }
+  }
+
+  displayModal(device_status, obd_status, update_status){
+    console.log("displayModal", this.props.modal_state);
+    if(update_status.update_progress_status != UPDATE_NOT_STARTED && !this.props.modal_state.hide){
+      console.log("Inside modal function", update_status.update_progress_status);
+      return (
+        <Modal
+          onCloseModal={this.closeModal}
+        >
           <UpdateProgress
             progress_status={update_status}
           />
         </Modal>
       );
     }
+    if(obd_status != OBD_NOT_STARTED && !this.props.modal_state.hide){
+      console.log("Inside modal function obd_status", obd_status);
+      return (
+        <Modal
+          onCloseModal={this.closeModal}
+        >
+          <ProgrammingProgress />
+        </Modal>
+      );
+    }
   }
+
+  closeModal(){
+    console.log("close modal function");
+    this.props.hideModal(true);
+  }
+
   componentWillMount(){
     this.props.hidAction(INIT_IPC);
   }
@@ -112,6 +166,12 @@ class Device extends Component {
     }
   }
 
+  submitOBD(obd){
+    console.log("in device");
+    console.log(obd);
+    this.props.startOBDProgramming();
+  }
+
   installSoftware(){
     var sw_id = this.props.software_search.sw_id;
     this.props.loadFTPFile(sw_id, this.props.device_status.app_status);
@@ -128,6 +188,19 @@ class Device extends Component {
   saveDeviceSettings(settings){
     let device_data = this.props.device_data;
     this.props.saveDeviceSettings(device_data, settings);
+  }
+
+  onHidePane(panelname1, panelname2){
+    //console.log(panelname);
+    let first = document.getElementById(panelname1);
+    //console.log(x.style.display);
+    if (first.style.display == 'block') {
+        first.style.display = 'none';
+    } else {
+        first.style.display = 'block';
+    }
+    let second = document.getElementById(panelname2);
+    second.style.display = 'none';
   }
 
 
@@ -172,20 +245,50 @@ class Device extends Component {
         </div>
         <ul className="mui-tabs__bar">
           <li className="mui--is-active"><a data-mui-toggle="tab" data-mui-controls="pane-default-1">Device Settings</a></li>
+          <span className="mui--divider-right">&nbsp;</span>
           <li><a data-mui-toggle="tab" data-mui-controls="pane-default-2">Software Update</a></li>
+          <span className="mui--divider-right">&nbsp;</span>
+          <li><a data-mui-toggle="tab" data-mui-controls="pane-default-3">Features Activation</a></li>
         </ul>
         <div className="mui-tabs__pane mui--is-active" id="pane-default-1">
-          <DeviceSettings
-            systemSettings = {this.props.system_settings}
-            onDeviceSettingsSave={this.saveDeviceSettings}
-          />
+          <div className="mui-appbar">
+            <table width="100%">
+              <tr>
+                <td className="mui--appbar-height mui--text-left nv-padding">Camera Configuration</td>
+                <td className="mui--appbar-height mui--text-right"><a className="sidedrawer-toggle" onClick={()=>this.onHidePane('settings-pane', 'osd-pane')}>☰</a></td>
+              </tr>
+            </table>
+          </div>
+          <div id="settings-pane">
+            <DeviceSettings
+              systemSettings = {this.props.system_settings}
+              onDeviceSettingsSave={this.saveDeviceSettings}
+            />
+          </div>
+          <div className="mui-divider">
+            &nbsp;&nbsp;
+          </div>
+          <div className="mui-appbar">
+            <table width="100%">
+              <tr>
+                <td className="mui--appbar-height mui--text-left nv-padding">OSD Configuration</td>
+                <td className="mui--appbar-height mui--text-right"><a className="sidedrawer-toggle" onClick={()=>this.onHidePane('osd-pane','settings-pane')}>☰</a></td>
+              </tr>
+            </table>
+          </div>
+          <div id="osd-pane">
+            xxxxx
+          </div>
         </div>
         <div className="mui-tabs__pane" id="pane-default-2">
           <SoftwareSearch
             onInstallClick={this.installSoftware}
           />
         </div>
-        {this.displayModal(this.props.device_status.app_status, this.props.software_update)}
+        <div className="mui-tabs__pane" id="pane-default-3">
+          { this.renderOBDFeatures() }
+        </div>
+        {this.displayModal(this.props.device_status.app_status, this.props.device_status.obd_status, this.props.software_update)}
       </div>
     );
   }
@@ -197,12 +300,14 @@ function mapStateToProps(state){
            device_status: state.device_status,
            system_settings: state.system_settings,
            software_update: state.software_update,
-           software_search: state.software_search
+           software_search: state.software_search,
+           obd_features: state.obd_features,
+           modal_state: state.modal_state
          };
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, requestSBL, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData }, dispatch);
+  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, requestSBL, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, startOBDProgramming, hideModal }, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Device);

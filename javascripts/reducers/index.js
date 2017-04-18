@@ -9,7 +9,9 @@ import DeviceSettingsReducer from './reducer_device_settings'
 import SoftwareSearchReducer from './reducer_software_search'
 import SoftwareListReducer from './reducer_software_list'
 import SoftwareUpdateReducer from './reducer_software_update'
+import OBDFeaturesReducer from './reducer_obd_features'
 import Message from './reducer_message'
+import ModalState from './reducer_modal'
 
 const rootReducer = combineReducers({
   //state: (state = {}) => state
@@ -23,7 +25,9 @@ const rootReducer = combineReducers({
   software_list: SoftwareListReducer,
   device_status: DeviceStatusReducer,
   software_update: SoftwareUpdateReducer,
-  message: Message
+  obd_features: OBDFeaturesReducer,
+  message: Message, 
+  modal_state: ModalState
 });
 
 export default rootReducer;

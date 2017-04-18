@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { store } from '../entry';
 import { Provider } from 'react-redux';
 
+
 class Modal extends Component{
   constructor(props){
     super(props);
@@ -10,8 +11,9 @@ class Modal extends Component{
   }
 
   closeModal(){
-    ReactDOM.unmountComponentAtNode(this.modalTarget);
-    document.body.removeChild(this.modalTarget);
+    //this.props.onCloseModal();
+    //ReactDOM.unmountComponentAtNode(this.modalTarget);
+    //document.body.removeChild(this.modalTarget);
   }
 
   componentDidMount(){
@@ -35,7 +37,7 @@ class Modal extends Component{
       <Provider store={store}>
         <div>
           <div>{this.props.children}</div>
-          <button onClick={this.closeModal} className="mui-btn mui-btn--primary">Close</button>
+          <button onClick={() => this.props.onCloseModal()} className="mui-btn mui-btn--primary">Close</button>
         </div>
       </Provider>,
       this.modalTarget
@@ -46,5 +48,6 @@ class Modal extends Component{
     return <noscript />;
   }
 }
+
 
 export default Modal;

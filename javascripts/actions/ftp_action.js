@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { NO_DEVICE_STATUS, DEVICE_APP_STATUS, DEVICE_SBL_STATUS } from '../utils/device_utils';
+import { WEB_SERVICES_URL } from '../utils/constants';
 
 import {requestSBL} from './hid_action'
 
 //const ROOT_URL = "https://tranquil-mesa-29755.herokuapp.com/ftpload";
-const ROOT_URL = "http://localhost:3000/v1/ftpload"
+const ROOT_URL = WEB_SERVICES_URL + "/v1/ftpload";
 //const ROOT_URL = "http://dashconnectplus.com/wp-content/themes/DashConnectPlus/dc_ftp_file_get.php"
 export const FTP_LOAD_PROGRESS = 'FTP_LOAD_PROGRESS';
 export const FTP_LOAD_SUCCESS = 'FTP_LOAD_SUCCESS';

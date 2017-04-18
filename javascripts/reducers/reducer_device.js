@@ -5,7 +5,7 @@ export default function(state = {}, action){
     case DEVICE_DATA_SETTINGS:
       //return state.concat([ action.payload.data ]);
       //or (same crete new array). NEVER!!!!! mutate array
-      console.log('Action recieved', DEVICE_DATA_SETTINGS);
+      console.log('reducer_device.js#Action recieved', DEVICE_DATA_SETTINGS);
       console.log(action.payload);
       return action.payload;
     case DEVICE_REMOVED:

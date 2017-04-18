@@ -9,6 +9,7 @@ export default class UpdateProgress extends Component {
     this.state = {progress: 0};
     this.renderProgreesBar = this.renderProgreesBar.bind(this);
     this.progressUpdate = this.progressUpdate.bind(this);
+
   }
 
   progressUpdate(){
@@ -38,6 +39,7 @@ export default class UpdateProgress extends Component {
       </div>
     );
   }
+
 
   render(){
     return (

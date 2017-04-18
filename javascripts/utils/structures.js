@@ -56,3 +56,15 @@ values:[
   {value:'01', label:'Manual',key:'FR1',setting:'SideCameraMode'},
   {value:'11', label:'Manual + Speed Cheeck',key:'Fr2',setting:'SideCameraMode'}
 ]}
+
+export const OBD_FEATURES = { 
+  obd_enabled: false,
+  obd_expired: '',
+  obd_label_idx1: '',
+  obd_label_idx2: '',
+  obd_label_idx3: '',
+  obd_feature_idx1: '',
+  obd_feature_idx2: '',
+  obd_feature_idx3: '',
+}
+

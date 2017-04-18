@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { WEB_SERVICES_URL } from '../utils/constants';
 
 //const ROOT_URL = "https://tranquil-mesa-29755.herokuapp.com/navtoolsws/make";
-const ROOT_URL = "http://localhost:3000/v1/navtoolsws/make";
+const ROOT_URL = WEB_SERVICES_URL + "/v1/navtoolsws/make";
 export const FETCH_MAKE = 'FETCH_MAKE';
 
 export function fetchMake(mfg_id){
