@@ -24,12 +24,17 @@ export const REQUEST_SECTOR_WRITE_SEND_RESPONSE = 'REQUEST_SECTOR_WRITE_SEND_RES
 export const COMPLETE_UPDATE_REQUEST = 'COMPLETE_UPDATE_REQUEST';
 export const START_OBD_PROGRAMMING = 'START_OBD_PROGRAMMING';
 export const COMPLETE_OBD_PROGRAMMING = 'COMPLETE_OBD_PROGRAMMING';
+export const READ_OSD_SETTINGS = 'READ_OSD_SETTINGS';
+export const DEVICE_OSD_SETTINGS = 'DEVICE_OSD_SETTINGS';
+export const SAVE_DEVICE_OSD_SETTINGS = 'SAVE_DEVICE_OSD_SETTINGS';
+
 
 
 import { fetchDeviceDBData } from './get_device_data';
 import { getSerialNumber,
          checkOBDSupport,
          setDeviceSettings,
+         setDeviceOSDSettings,
          setVehicleInfo,
          setUpTransferData,
          parseTransferDataResponse,
@@ -125,6 +130,15 @@ function handleDeviceSBLStatus(){
   };
 }
 
+export function getOSDSettings(){
+  console.log('Reading OSD settings');
+  ipcRenderer.send('device-read-settings', 0x65);
+  return {
+    type: READ_OSD_SETTINGS,
+    payload: ""
+  };
+}
+
 export function handleDeviceDataResult(){
   let result;
   return dispatch => {
@@ -158,10 +172,19 @@ export function handleDeviceDataResult(){
           //for OBD need mfg_id and sw_id. mfg id has to be already retrieved by sbl status call
           break;
         case 0x1B:
+        case 0x66:
           dispatch({
             type: SUCCESS_SETTINGS_UPDATE,
             payload: ""
           });
+          break;
+        case 0x65: //read osd settings response
+          console.log("+++++++++ OSD RESULT +++++++++++++");
+          console.log(msg);
+          dispatch({
+            type: DEVICE_OSD_SETTINGS,
+            payload: msg
+          })
           break;
         case 0x20: //setup response
           console.log("set up response")
@@ -215,6 +238,15 @@ export function saveDeviceSettings(data, settings){
     ipcRenderer.send('device-write_data', result);
     return {
       type: SAVE_DEVICE_SETTINGS,
+      payload: ""
+    };
+}
+
+export function saveDeviceOSDSettings(settings){
+    let result = setDeviceOSDSettings(settings);
+    ipcRenderer.send('device-write_data', result);
+    return {
+      type: SAVE_DEVICE_OSD_SETTINGS,
       payload: ""
     };
 }

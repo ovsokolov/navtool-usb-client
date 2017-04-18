@@ -26,6 +26,23 @@ export const SYSTEM_SETTINGS = {SoundSupported: '',
                                 SideCameraMode:'',
                                 ResrvedBits:''}
 
+export const OSD_SETTINGS = { BackgroundColor: 16,
+                              TextColor: 7,
+                              HighlightColor: 112,
+                              Reserved1: 255,
+                              OsdCVBS1: '',
+                              OsdCVBS2: '',
+                              OsdCVBS3: '',
+                              OsdCVBS4: '',
+                              TextMenuHDMI: '',
+                              TextMenuRGB: '',
+                              TextMenuCh1: '',
+                              TextMenuCh2: '',
+                              TextMenuCh3: '',
+                              TextMenuCh4: '',
+                              Reserved2: '',
+                              Reserved3: ''}
+
 
 export const TRANSFER_SET_UP_DATA_RESPONSE = {
               block_size: '',
@@ -66,5 +83,30 @@ export const OBD_FEATURES = {
   obd_feature_idx1: '',
   obd_feature_idx2: '',
   obd_feature_idx3: '',
+  obd_disable_all: ''
 }
+
+export const OSD_INPUT_1_DROPDOWN ={ id:'TextMenuCh1',
+values:[
+  {value:'11', label:'Rear Camera',key:'CH1_0',setting:'TextMenuCh1'},
+  {value:'00', label:'Input 1',key:'CH1_1',setting:'TextMenuCh1'}
+]}
+
+export const OSD_INPUT_2_DROPDOWN ={ id:'TextMenuCh2',
+values:[
+  {value:'11', label:'Front Camera',key:'CH2_0',setting:'TextMenuCh2'},
+  {value:'00', label:'Input 2',key:'CH2_1',setting:'TextMenuCh2'}
+]}
+
+export const OSD_INPUT_3_DROPDOWN ={ id:'TextMenuCh3',
+values:[
+  {value:'11', label:'Left Camera',key:'CH3_0',setting:'TextMenuCh3'},
+  {value:'00', label:'Input 3',key:'CH3_1',setting:'TextMenuCh3'}
+]}
+
+export const OSD_INPUT_4_DROPDOWN ={ id:'TextMenuCh4',
+values:[
+  {value:'11', label:'Right Camera',key:'CH4_0',setting:'TextMenuCh4'},
+  {value:'00', label:'Input 4',key:'CH4_1',setting:'TextMenuCh4'}
+]}
 

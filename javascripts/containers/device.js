@@ -4,6 +4,7 @@ import SoftwareSearch from '../containers/software_search'
 import DeviceSettings from '../containers/device_settings'
 import DeviceInfo from  '../containers/device_info'
 import OBDFeatures from '../containers/obd_features'
+import OSDSettings from '../containers/osd_settings'
 import Modal from '../components/modal'
 import UpdateProgress from '../containers/update_progress'
 import ProgrammingProgress from '../containers/programming_progress'
@@ -11,9 +12,10 @@ import ProgrammingProgress from '../containers/programming_progress'
 import { connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { saveDeviceSettings, updateDeviceVichecleInfo, requestSBL, sendSoftwareUpdateData } from'../actions/hid_action';
+import { saveDeviceSettings, updateDeviceVichecleInfo, requestSBL, sendSoftwareUpdateData, saveDeviceOSDSettings } from'../actions/hid_action';
 import { hidAction } from '../actions/hid_action';
 import { startOBDProgramming } from '../actions/hid_action';
+import { getOSDSettings } from '../actions/hid_action';
 
 
 import { loadFTPFile } from '../actions/ftp_action';
@@ -52,6 +54,7 @@ class Device extends Component {
     this.checkDevice = this.checkDevice.bind(this);
     this.saveDeviceSettings = this.saveDeviceSettings.bind(this);
     this.installSoftware = this.installSoftware.bind(this);
+    this.saveDeviceOSDSettings = this.saveDeviceOSDSettings.bind(this);
 
     this.requestSBL = this.requestSBL.bind(this);
     this.clearSBL = this.clearSBL.bind(this);
@@ -190,6 +193,11 @@ class Device extends Component {
     this.props.saveDeviceSettings(device_data, settings);
   }
 
+  saveDeviceOSDSettings(settings){
+    console.log(settings)
+    this.props.saveDeviceOSDSettings(settings);
+  }
+
   onHidePane(panelname1, panelname2){
     //console.log(panelname);
     let first = document.getElementById(panelname1);
@@ -242,6 +250,7 @@ class Device extends Component {
             deviceStatus = {this.props.device_status}
             onDeviceSearch={this.checkDevice}
           />
+          <button onClick={this.props.getOSDSettings} className="mui-btn mui-btn--primary">Read OSD</button>
         </div>
         <ul className="mui-tabs__bar">
           <li className="mui--is-active"><a data-mui-toggle="tab" data-mui-controls="pane-default-1">Device Settings</a></li>
@@ -277,7 +286,10 @@ class Device extends Component {
             </table>
           </div>
           <div id="osd-pane">
-            xxxxx
+            <OSDSettings
+              osdSettings = {this.props.osd_settings}
+              onOSDSettingsSave={this.saveDeviceOSDSettings}
+            />
           </div>
         </div>
         <div className="mui-tabs__pane" id="pane-default-2">
@@ -302,12 +314,13 @@ function mapStateToProps(state){
            software_update: state.software_update,
            software_search: state.software_search,
            obd_features: state.obd_features,
+           osd_settings: state.osd_settings,
            modal_state: state.modal_state
          };
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, requestSBL, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, startOBDProgramming, hideModal }, dispatch);
+  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, requestSBL, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, startOBDProgramming, hideModal, getOSDSettings, saveDeviceOSDSettings }, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Device);

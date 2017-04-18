@@ -120,7 +120,6 @@ export default class DeviceSettings extends Component {
     }
     return (
       <div>
-        <div className="mui-container">
           <div className="mui-row">
             <div className="mui-col-xs-1"></div>
             <div className="mui-col-xs-11">
@@ -237,7 +236,6 @@ export default class DeviceSettings extends Component {
               </select>
             </div>
           </div>
-        </div>
         <br/>
         <button onClick={this.saveSettings} className="mui-btn mui-btn--danger">Save Settings</button>
       </div>

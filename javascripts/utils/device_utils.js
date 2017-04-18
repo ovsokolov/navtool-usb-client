@@ -87,6 +87,50 @@ export function setDeviceSettings(data, settings){
   return result;
 }
 
+export function setDeviceOSDSettings(settings){
+
+  //byte 1
+  let byte1 = "";
+  byte1 = settings["OsdCVBS1"] + byte1;
+  byte1 = settings["OsdCVBS2"] + byte1;
+  byte1 = settings["OsdCVBS3"] + byte1;
+  byte1 = settings["OsdCVBS4"] + byte1;
+
+  console.log(byte1);
+  //byte 2
+  let byte2 = "";
+  byte2 = settings["TextMenuHDMI"] + byte2;
+  byte2 = settings["TextMenuRGB"] + byte2;
+  byte2 = settings["TextMenuCh1"] + byte2;
+  byte2 = settings["TextMenuCh2"] + byte2;
+  console.log(byte2);
+  //byte_3;
+  let byte3 = "";
+  byte3 = settings["TextMenuCh3"] + byte3;
+  byte3 = settings["TextMenuCh4"] + byte3;
+  byte3 = settings["Reserved2"] + byte3;
+  console.log(byte3);
+  //byte_4;
+  let byte4 = settings["Reserved3"];
+  console.log(byte4);
+
+  let result = [];
+  result[0] = 0x00;
+  result[1] = 0x66;
+  result[2] = settings["BackgroundColor"];
+  result[3] = settings["TextColor"];
+  result[4] = settings["HighlightColor"];
+  result[5] = settings["Reserved1"];
+  result[6] = parseInt(byte1,2);
+  result[7] = parseInt(byte2,2);
+  result[8] = parseInt(byte3,2);
+  result[9] = parseInt(byte4,2);
+
+  console.log(result);
+  console.log(result.length);
+  return result;
+}
+
 export function getSerialNumber(msg){
   let bareNum;
   let serial_number = "";
