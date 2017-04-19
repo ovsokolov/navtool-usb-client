@@ -1,3 +1,6 @@
 /node_modules
 /DashConnectPlus-darwin-x64
 log.txt
+/build
+/dist
+/release-builds
