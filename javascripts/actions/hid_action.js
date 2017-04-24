@@ -33,6 +33,7 @@ export const SAVE_DEVICE_OSD_SETTINGS = 'SAVE_DEVICE_OSD_SETTINGS';
 import { fetchDeviceDBData } from './get_device_data';
 import { getSerialNumber,
          checkOBDSupport,
+         getSoftwareId,
          setDeviceSettings,
          setDeviceOSDSettings,
          setVehicleInfo,
@@ -154,15 +155,17 @@ export function handleDeviceDataResult(){
       }
       let serial_number = "";
       let obdsupport = {};
+      let softwareIdResult = {};
       console.log("action handleDeviceDataResult:", action)
       switch(action) {
         case 0x1A: //data settings response
           serial_number = getSerialNumber(msg);
-          obdsupport = checkOBDSupport(msg);
+          //obdsupport = checkOBDSupport(msg);
+          softwareIdResult = getSoftwareId(msg);
           console.log("*******************************");
-          console.log(obdsupport);
+          console.log(softwareIdResult);
           console.log("*******************************");
-          dispatch(fetchDeviceDBData(serial_number,obdsupport));
+          dispatch(fetchDeviceDBData(serial_number,softwareIdResult));
           dispatch({
             type: DEVICE_DATA_SETTINGS,
             payload: msg

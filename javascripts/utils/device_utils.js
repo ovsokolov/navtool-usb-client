@@ -145,6 +145,28 @@ export function getSerialNumber(msg){
   return serial_number.toUpperCase();
 }
 
+export function getSoftwareId(msg){
+      let hexStringFrmt = "00"
+      let binaryStringFrmt = "00000000"
+      let softwareId = ""; //[19][18]
+      let softwareBuild = ""
+      let bareNum;
+
+      for(var i=0; i < 2; i++){
+        console.log(msg[19-i]);
+        bareNum = msg[19-i].toString(16);
+        softwareId += hexStringFrmt.substring((bareNum).length, 2) + bareNum;
+        console.log(softwareId);
+
+      }
+      //build siftwareBuild
+      bareNum = msg[20].toString(10);
+      softwareBuild += hexStringFrmt.substring((bareNum).length, 2) + bareNum;
+      console.log("Software Build",softwareBuild);
+
+      return {softwareId, softwareBuild};
+}
+
 export function checkOBDSupport(msg){
       let hexStringFrmt = "00"
       let binaryStringFrmt = "00000000"

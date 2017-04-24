@@ -3,6 +3,7 @@ import axios from 'axios';
 import { fetchMake } from './get_make';
 import { clearSBL } from './hid_action';
 import { fetchOBDConfig} from './get_obdconfig'
+import { fetchSoftwareConfig } from './get_software'
 import { WEB_SERVICES_URL } from '../utils/constants';
 
 //const ROOT_URL = "https://tranquil-mesa-29755.herokuapp.com/";
@@ -10,7 +11,7 @@ const ROOT_URL = WEB_SERVICES_URL + "/v1/navtooldevices/";
 export const FETCH_DEVICE_DB_DATA = 'FETCH_DEVICE_DB_DATA';
 export const REQUEST_REBOOT_AFTER_UPDATE = 'REQUEST_REBOOT_AFTER_UPDATE';
 
-export function fetchDeviceDBData(serial_number, obd){
+export function fetchDeviceDBData(serial_number, software){
   const url = ROOT_URL + serial_number;
   const request = axios.get(url);
 
@@ -23,9 +24,8 @@ export function fetchDeviceDBData(serial_number, obd){
       console.log("xxxxxxxxxxxxx")
       console.log(serial_number);
       dispatch( { type: FETCH_DEVICE_DB_DATA, payload: data } )
-      if(obd.isOBDSupported){
-        dispatch(fetchOBDConfig(data["mfg_id"], obd.softwareId));
-      }
+      dispatch(fetchSoftwareConfig(data["mfg_id"],software.softwareId,software.softwareBuild))
+      //dispatch(fetchOBDConfig(data["mfg_id"], obd.softwareId));
       dispatch( fetchMake(data["mfg_id"]) )
     });
   };
