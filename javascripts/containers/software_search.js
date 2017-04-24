@@ -10,6 +10,7 @@ import CarMakeList from './make_list';
 import CarModelList from './model_list'
 import CarYearList from './year_list'
 import SoftwareList from './software_list'
+import TransmissionOptionList from './transmission_option'
 
 class SoftwareSearch extends Component {
   constructor(props){
@@ -33,8 +34,9 @@ class SoftwareSearch extends Component {
     );
   }
 
-  handleTransmissionChange(event){
-    this.props.setTransmissionType(event.target.value);
+  handleTransmissionChange(value){
+    //this.props.setTransmissionType(event.target.value);
+    this.props.setTransmissionType(value);
   }
 
   setVehicleMake(vehicle_make){
@@ -59,91 +61,51 @@ class SoftwareSearch extends Component {
   render(){
     return (
       <div>
-        <div className="mui-row">
-        <div className="mui-col-xs-1"></div>
-        <div className="mui-col-xs-5">
-            <div className="mui-row">
-              <div className="mui-col-xs-12">
-                Transmission:
-              </div>
-            </div>
-            <div className="mui-row">
-              <div className="mui-col-xs-6">
-                <input type="radio"
-                       name="transmission_type"
-                       value="1"
-                       checked={this.props.software_search.automatic_transmission == 1}
-                       onChange={this.handleTransmissionChange}
-                /><span className="radio-opt-desc">Automatic</span>
-              </div>
-              <div className="mui-col-xs-6">
-                <input type="radio"
-                       name="transmission_type"
-                       value="0"
-                       checked={this.props.software_search.automatic_transmission == 0}
-                       onChange={this.handleTransmissionChange}
-                /><span className="radio-opt-desc">Manual</span>
-              </div>
-            </div>
+        <div className="ui five column grid container">
+          <div className="column">
+            <CarMakeList
+              onSelectVehicleMake={this.setVehicleMake}
+            />
           </div>
-          <div className="mui-col-xs-6">
-            <div className="mui-row">
-              <button onClick={this.searchSoftware} className="mui-btn mui-btn--danger">Search Software</button>
-              <button onClick={this.props.onInstallClick} className="mui-btn mui-btn--danger">Install</button>
-            </div>
+          <div className="column">
+            <CarModelList
+              onSelectVehicleModel={this.setVehicleModel}
+            />
           </div>
-        </div>
-        <div className="mui-row">
-          <div className="mui-col-xs-1">&nbsp;</div>
-          <div className="mui-col-xs-4">
-            <div className="mui-row">
-              <div className="mui-col-xs-12">
-                Vehicle Make
-              </div>
-            </div>
-            <div className="mui-row">
-              <div className="mui-col-xs-12">
-                <CarMakeList
-                  onSelectVehicleMake={this.setVehicleMake}
-                />
-              </div>
-            </div>
+          <div className="column">
+            <CarYearList
+              onSelectVehicleYear={this.setVehicleYear}
+            />
           </div>
-          <div className="mui-col-xs-4">
-            <div className="mui-row">
-              <div className="mui-col-xs-12">
-                Vehicle Model
-              </div>
-            </div>
-            <div className="mui-row">
-              <div className="mui-col-xs-12">
-                <CarModelList
-                  onSelectVehicleModel={this.setVehicleModel}
-                />
-              </div>
-            </div>
+          <div className="column">
+            <TransmissionOptionList
+              onSelectTransmissionOption={this.handleTransmissionChange}
+            />
           </div>
-          <div className="mui-col-xs-3">
-            <div className="mui-row">
-              <div className="mui-col-xs-12">
-                Vehicle Year
+          <div className="column">
+            <div className="row">
+              <div className="column">
+                <button className="ui compact blue labeled icon button" onClick={this.searchSoftware} >
+                  <i className="search icon"></i>
+                  Search
+                </button>
               </div>
             </div>
-            <div className="mui-row">
-              <div className="mui-col-xs-12">
-                <CarYearList
-                  onSelectVehicleYear={this.setVehicleYear}
-                />
+            <div className="row">&nbsp;</div>
+            <div className="row">
+              <div className="column">
+                <button className="ui compact red labeled icon button" onClick={this.props.onInstallClick} >
+                  <i className="download icon"></i>
+                  Install
+                </button>
               </div>
             </div>
           </div>
         </div>
-        <div className="mui-row">
-          <div className="mui-col-xs-12">
+        <div className="container">
             <SoftwareList
               onSelectSoftware={this.setSelectedSoftware}
             />
-          </div>
         </div>
       </div>
     );

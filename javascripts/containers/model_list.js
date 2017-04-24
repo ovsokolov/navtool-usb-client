@@ -28,7 +28,7 @@ class CarModelList extends Component {
 
   render(){
     return (
-        <select onChange={this.selectModel}>
+        <select className="ui dropdown" onChange={this.selectModel}>
           { this.props.car_model.list.map(this.renderCarModel) }
         </select>
     );

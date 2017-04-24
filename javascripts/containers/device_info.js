@@ -4,8 +4,10 @@ import React, { Component} from 'react';
 import { NO_DEVICE_STATUS, DEVICE_APP_STATUS, DEVICE_SBL_STATUS} from '../utils/device_utils';
 
 var MdImportantDevices = require('react-icons/lib/md/important-devices');
+var iconColor = '';
 
 export default class DeviceInfo extends Component {
+
   constructor(props){
     super(props);
     this.renderDeviceStatus = this.renderDeviceStatus.bind(this);
@@ -23,28 +25,23 @@ export default class DeviceInfo extends Component {
         deviceStatus = "Bootloader Mode";
       }
       return (
-          <div className="mui-col-xs-12 mui--align-middle  mui--text-center">
+          <div className="row">
             {deviceStatus}
           </div>
       );
   }
 
   renderDeviceIcon(){
-      var iconColor = "white";
+      iconColor = "white";
       if(this.props.deviceStatus.app_status == DEVICE_APP_STATUS){
-        iconColor = "green";
+        iconColor = "blue";
       }else if (this.props.deviceStatus.app_status == DEVICE_SBL_STATUS) {
         iconColor = "red";
       }
       return (
-          <div className="mui-col-xs-2">
-              <div>&nbsp;</div>
-              <div className="mui-row">
-                <div className="mui-col-xs-1">&nbsp;</div>
-                <div className="mui-col-xs-4 mui--align-middle  mui--text-left">
-                  <MdImportantDevices color={iconColor} size={60} />
-                </div>
-              </div>
+          <div className="three wide column">
+              <i className={`huge ${iconColor} desktop icon`}></i>
+              { this.renderDeviceStatus() }
           </div>
       );
   }
@@ -58,67 +55,29 @@ export default class DeviceInfo extends Component {
 
   renderSearchDevice(){
     return(
-        <div className="mui-col-xs-10 mui--align-middle">
-            <div className="mui-row">&nbsp;</div>
-            <div className="mui-row">
-              <div className="mui-col-xs-4 mui--align-middle">
-                <button onClick={this.props.onDeviceSearch} className="mui-btn mui-btn--primary">Find Device</button>
-              </div>
-            </div>
+        <div className="thirteen wide column">
+            <button onClick={this.props.onDeviceSearch} className="ui primary button">Find Device</button>
         </div>
     );
   }
   renderDeviceInfo(){
       return(
-        <div className="mui-col-xs-10">
-          <div className="mui-row">
-            <div className="mui-col-xs-4">
-              <div className="mui--text-dark mui--text-left mui--text-body2">
-                Device ID:
-              </div>
+        <div className="thirteen wide column left aligned ">
+            <div className="row">
+                <div className={`ui ${iconColor} horizontal label`}>Device ID:</div>{this.props.deviceInfo.mcu_serial}
+                <br /><br/>
             </div>
-            <div className="mui-col-xs-8">
-              <div className="mui--text-dark mui--text-left mui--text-body2">
-                {this.props.deviceInfo.mcu_serial}
-              </div>
+            <div className="row">
+                <div className={`ui ${iconColor} horizontal label`}>Device Model:</div>{this.props.deviceInfo.mfg_id}
+                <br /><br/>
             </div>
-          </div>
-          <div className="mui-row">
-            <div className="mui-col-xs-4">
-              <div className="mui--text-dark mui--text-left mui--text-body2">
-                Device Model:
-              </div>
+            <div className="row">
+                <div className={`ui ${iconColor} horizontal label`}>Vihecle Make:</div>{this.props.deviceInfo.vehicle_make}
             </div>
-            <div className="mui-col-xs-8">
-              <div className="mui--text-dark mui--text-left mui--text-body2">
-                {this.props.deviceInfo.mfg_id}
-              </div>
+            <div>&nbsp;</div>
+            <div className="row">
+                <div className={`ui ${iconColor} horizontal label`}>Vihecle Model:</div>{this.props.deviceInfo.vehicle_model}
             </div>
-          </div>
-          <div className="mui-row">
-            <div className="mui-col-xs-4">
-              <div className="mui--text-dark mui--text-left mui--text-body2">
-                Vihecle Make:
-              </div>
-            </div>
-            <div className="mui-col-xs-8">
-              <div className="mui--text-dark mui--text-left mui--text-body2">
-                {this.props.deviceInfo.vehicle_make}
-              </div>
-            </div>
-          </div>
-          <div className="mui-row">
-            <div className="mui-col-xs-4">
-              <div className="mui--text-dark mui--text-left mui--text-body2">
-                Vihecle Model:
-              </div>
-            </div>
-            <div className="mui-col-xs-8">
-              <div className="mui--text-dark mui--text-left mui--text-body2">
-                {this.props.deviceInfo.vehicle_model}
-              </div>
-            </div>
-          </div>
         </div>
       );
   }
@@ -126,12 +85,12 @@ export default class DeviceInfo extends Component {
   render(){
     return (
       <div>
-        <div className="mui-row">
-          { this.renderDeviceStatus() }
-        </div>
-        <div className="mui-row">
-          { this.renderDeviceIcon() }
-          { this.renderDevice() }
+        <div className="ui center aligned page grid">
+            <div className="row"/>
+            <div className="sixteen column row">
+              { this.renderDeviceIcon() }
+              { this.renderDevice() }
+            </div>
         </div>
       </div>
     );

@@ -37,7 +37,7 @@ class Modal extends Component{
       <Provider store={store}>
         <div>
           <div>{this.props.children}</div>
-          <button onClick={() => this.props.onCloseModal()} className="mui-btn mui-btn--primary">Close</button>
+          <button onClick={() => this.props.onCloseModal()} className="ui primary button">Close</button>
         </div>
       </Provider>,
       this.modalTarget

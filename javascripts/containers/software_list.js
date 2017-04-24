@@ -10,49 +10,82 @@ class SoftwareList extends Component {
     this.renderSoftware = this.renderSoftware.bind(this);
   }
 
-  selectSoftware(event){
-    console.log("inside selectSoftware", event.target.value);
-    this.props.onSelectSoftware(event.target.value);
+  selectSoftware(value){
+    console.log("inside selectSoftware", value);
+    this.props.onSelectSoftware(value);
   }
 
   renderSoftware(software, index){
     console.log(software);
     return (
-      <tr className="software-tr">
-        <td className="software-td" style={{width: '3%'}}>
-          <input type="radio"
-                 key={software.id}
-                 name="software_id"
-                 value={software.id}
-                 onChange={event => this.selectSoftware(event)}
-                 />
-
-        </td>
-        <td className="software-td" style={{width: '15%'}}>{software.vehicle_make}</td>
-        <td className="software-td" style={{width: '15%'}}>{software.vehicle_model}</td>
-        <td className="software-td" style={{width: '20%'}}>{software.vehicle_year_from} - {software.vehicle_year_to}</td>
-        <td className="software-td" style={{width: '47%'}}>{software.sw_description}</td>
+      <tr>
+        <td>{software.id}</td>
+        <td>{software.vehicle_make}</td>
+        <td>{software.vehicle_model}</td>
+        <td>{software.vehicle_year_from} - {software.vehicle_year_to}</td>
+        <td>{software.sw_description}</td>
       </tr>
+    );
+  }
+
+  componentDidMount(){
+    var table = $('#software-list').DataTable( {
+        bDestroy: true,
+        bFilter: false,
+        data: [],
+        columns: [
+            { title: "Id" },
+            { title: "Make" },
+            { title: "Model" },
+            { title: "Year" },
+            { title: "Description" }
+        ]
+    } );
+
+    $('#software-list tbody').off('click');
+    $('#software-list tbody').on( 'click', 'tr', function () {
+        if ( $(event.target.parentElement).hasClass('selected') ) {
+            $(event.target.parentElement).removeClass('selected');
+        }
+        else {
+            $('#software-list tr').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    } );
+  }
+
+  componentDidUpdate(nextProps){
+    var dataSet = [];
+    console.log(this.props.software_list);
+    this.props.software_list.forEach(function(software){
+      var row = [software.id,software.vehicle_make,software.vehicle_model, "".concat(software.vehicle_year_from, "-", software.vehicle_year_to), software.sw_description];
+      dataSet.push(row);
+     });
+    console.log(dataSet);
+    var table = $('#software-list').DataTable( {
+        bDestroy: true,
+        bFilter: false,
+        data: dataSet
+    } );
+
+    $('#software-list tbody').off('click');
+    $('#software-list tbody').on( 'click', 'tr', () => {
+        if ( $(event.target.parentElement).hasClass('selected') ) {
+            $(event.target.parentElement).removeClass('selected');
+        }
+        else {
+            $('#software-list tr').removeClass('selected');
+            $(event.target.parentElement).addClass('selected');
+            var data = table.row(event.target.parentElement).data();
+            this.selectSoftware(data[0]);
+        }
+    }
     );
   }
 
   render(){
     return (
-        <table className="mui-table mui-table--bordered software-table">
-          <thead className="software-thead">
-            <tr className="software-tr">
-              <th className="software-th" style={{width: '3%'}}>&nbsp;</th>
-              <th className="software-th" style={{width: '15%'}}>Make</th>
-              <th className="software-th" style={{width: '15%'}}>Model</th>
-              <th className="software-th" style={{width: '20%'}}>Year</th>
-              <th className="software-th" style={{width: '47%'}}>Description</th>
-            </tr>
-          </thead>
-          <tbody className="software-tbody">
-            { this.props.software_list.map(this.renderSoftware) }
-          </tbody>
-        </table>
-
+        <table id="software-list" className="display" cellspacing="0" width="100%"></table>
     );
   }
 }

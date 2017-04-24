@@ -56,54 +56,54 @@ export default class OBDFeatures extends Component {
   render() {
     return (
       <div>
-        <div className="mui-container">
-          <div className="mui-row">
-            <div className="mui-col-xs-1"></div>
-            <div className="mui-col-xs-5">
-              <label>
-                <input type="checkbox"
-                       checked={this.state.obd_features["obd_feature_idx1"] == "1" ? 'checked':''}
-                       onChange={event => this.onFeatureChange(event.target.checked,'obd_feature_idx1')}
-                       />
-                      { this.state.obd_features["obd_label_idx1"] }
-              </label>
+        <div className="ui two column grid">
+          <div className="column">
+            <div className="ui raised segment">
+                <div className="inline field">
+                  <input type="checkbox"
+                         checked={this.state.obd_features["obd_feature_idx1"] == "1" ? 'checked':''}
+                         onChange={event => this.onFeatureChange(event.target.checked,'obd_feature_idx1')}
+                         />
+                          <div className="ui left pointing label">
+                            { this.state.obd_features["obd_label_idx1"] }
+                          </div>                          
+                </div>
+                <br />
+                <div className="inline field">
+                  <input type="checkbox"
+                         checked={this.state.obd_features["obd_feature_idx2"] == "1" ? 'checked':''}
+                         onChange={event => this.onFeatureChange(event.target.checked,'obd_feature_idx2')}/>
+                    <div className="ui left pointing label">
+                          { this.state.obd_features["obd_label_idx2"] }
+                    </div>
+                </div>
+                <br />
+                <div className="inline field">
+                  <input type="checkbox"
+                         checked={this.state.obd_features["obd_feature_idx3"] == "1" ? 'checked':''}
+                         onChange={event => this.onFeatureChange(event.target.checked,'obd_feature_idx3')}/>
+                    <div className="ui left pointing label">
+                          { this.state.obd_features["obd_label_idx3"] }
+                    </div>
+                </div>
+              </div>
             </div>
-            <div className="mui-col-xs-1"></div>
-            <div className="mui-col-xs-5">
-              <label>
-                <input type="checkbox"
+            <div className="column">
+              <div className="ui raised segment">
+                <div className="inline field">
+                    <input type="checkbox"
                        checked={this.state.obd_features["obd_disable_all"] == "1" ? 'checked':''}
                        onChange={event => this.onDisableAll(event.target.checked)}
                        />
-                      Turn Off All Previously Activated Features
-              </label>
+                    <div className="ui left pointing label">
+                          Turn Off All Previously Activated Features
+                    </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="mui-row">
-            <div className="mui-col-xs-1"></div>
-            <div className="mui-col-xs-11">
-              <label>
-                <input type="checkbox"
-                       checked={this.state.obd_features["obd_feature_idx2"] == "1" ? 'checked':''}
-                       onChange={event => this.onFeatureChange(event.target.checked,'obd_feature_idx2')}/>
-                      { this.state.obd_features["obd_label_idx2"] }
-              </label>
-            </div>
-          </div>
-          <div className="mui-row">
-            <div className="mui-col-xs-1"></div>
-            <div className="mui-col-xs-11">
-              <label>
-                <input type="checkbox"
-                       checked={this.state.obd_features["obd_feature_idx3"] == "1" ? 'checked':''}
-                       onChange={event => this.onFeatureChange(event.target.checked,'obd_feature_idx3')}/>
-                      { this.state.obd_features["obd_label_idx3"] }
-              </label>
-            </div>
-          </div>
-        </div>
-        <br />
-        <button onClick={this.submitOBD} className="mui-btn mui-btn--danger">Configure</button>
+          <br />
+          <button onClick={this.submitOBD} className="ui primary button">Configure</button>
       </div>
     )
   }

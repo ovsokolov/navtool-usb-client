@@ -1,7 +1,7 @@
 import { FETCH_MAKE } from '../actions/get_make';
 import { DEVICE_REMOVED } from '../actions/hid_action';
 
-const DEFAULT_DROPDOWN_VALUE = {make_id: 0, vehicle_make:"Please Select..."};
+const DEFAULT_DROPDOWN_VALUE = {make_id: 0, vehicle_make:"Select Make..."};
 
 export default function(state = {list: [DEFAULT_DROPDOWN_VALUE]}, action){
   switch (action.type){

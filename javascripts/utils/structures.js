@@ -62,16 +62,61 @@ export const TRANSFER_STATUS_DATA_RESPONSE = {
 
 export const SIDE_CAMERA_DROPDOWN = { id:'SideCameraMode',
 values:[
-  {value:'001', label:'Manual',key:'SC1',setting:'SideCameraMode'},
-  {value:'010', label:'Manual + W/O Speed Check',key:'SC2',setting:'SideCameraMode'},
-  {value:'011', label:'Manual + Speed Cheeck',key:'SC3',setting:'SideCameraMode'}
+  {
+    value:'001', 
+    label:'Manual',
+    key:'SC1',
+    setting:'SideCameraMode',
+    description: [
+      'Left and Right Lane watch cameras can be only turned on manually by the user at anytime.' 
+    ]
+  },
+  {
+    value:'010', 
+    label:'Manual + W/O Speed Check',
+    key:'SC2',
+    setting:'SideCameraMode',
+    description: [
+      'Manual Without Speed Check - Left and Right Lane watch cameras turn on automatically when turn signals are activated at any speed.<br/><br/>', 
+      'Left and Right Lane watch cameras can be turned on manually by the user at anytime.'
+    ]
+  },
+  {
+    value:'011', 
+    label:'Manual + Speed Cheeck',
+    key:'SC3',
+    setting:'SideCameraMode',
+    description: [
+      'Left and Right Lane watch cameras turn on automatically when turn signal are activated and vehicle is moving at speed of above 15 MP/H<br/><br/>', 
+      'Left and Right Lane watch cameras can be turned on manually by the user at anytime.'
+    ]
+  }
 ]}
 
 
 export const FRONT_REAR_CAMERA_DROPDOWN ={ id:'FrontCameraMode',
 values:[
-  {value:'01', label:'Manual',key:'FR1',setting:'SideCameraMode'},
-  {value:'11', label:'Manual + Speed Cheeck',key:'Fr2',setting:'SideCameraMode'}
+  {
+    value:'01', 
+    label:'Manual',
+    key:'FR1',
+    setting:'FrontCameraMode',
+    description: [
+      'Rear camera turns on automatically in reverse or can be turned on manually by the user at anytime (manual camera activation is only possible with aftermarket camera, or if factory camera is re-routed via the interface).<br/><br/>',
+      'Front camera can be only turned on manually by the user at anytime.'
+    ]
+  },
+  {
+    value:'11',
+    label:'Manual + Speed Cheeck',
+    key:'Fr2',
+    setting:'FrontCameraMode',
+    description: [
+      'Rear camera turns on automatically in reverse or can be turned on manually by the user at anytime (manual camera activation is only possible with aftermarket camera, or if factory camera is re-routed via the interface).<br/><br/>' ,
+      'Front camera is activated after vehicle is shifted in Drive out of Reverse and stay on the screen up to 10 MP/H.<br/><br/>',
+      'Front camera can be turned on manually by user at anytime.'
+    ]
+  }
 ]}
 
 export const OBD_FEATURES = { 
@@ -108,5 +153,11 @@ export const OSD_INPUT_4_DROPDOWN ={ id:'TextMenuCh4',
 values:[
   {value:'11', label:'Right Camera',key:'CH4_0',setting:'TextMenuCh4'},
   {value:'00', label:'Input 4',key:'CH4_1',setting:'TextMenuCh4'}
+]}
+
+export const TRANSMISSION_TYPE_DROPDOWN ={ id:'automatic_transmission',
+values:[
+  {value:'1', label:'Automatic Transmission',key:'TRAN_0',setting:'automatic_transmission'},
+  {value:'0', label:'Manual Transmission',key:'TRAN_1',setting:'automatic_transmission'}
 ]}
 

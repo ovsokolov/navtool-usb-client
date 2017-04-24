@@ -2,35 +2,37 @@ import React, { Component} from 'react';
 import { connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { TRANSMISSION_TYPE_DROPDOWN } from '../utils/structures';
 
 
-class CarMakeList extends Component {
+
+class TransmissionOptionList extends Component {
   constructor(props){
     super(props);
-    this.selectMake = this.selectMake.bind(this);
+    this.selectTransmissionOption = this.selectTransmissionOption.bind(this);
     //console.log("in list", this.state.mfg_id);
   }
 
-  selectMake(event){
-    console.log("inside searchModel", event.target.value);
-    this.props.onSelectVehicleMake(event.target.value);
+  selectTransmissionOption(event){
+    console.log("inside selectTransmissionOption", event.target.value);
+    this.props.onSelectTransmissionOption(event.target.value);
   }
 
-  renderCarMake(carMake, index){
-    console.log(carMake);
+  renderTransmissionOption(option, index){
+    console.log(option);
     return (
-      <option key={carMake.vehicle_make}
-              value={carMake.vehicle_make}
+      <option key={option.key}
+              value={option.value}
       >
-      {carMake.vehicle_make}
+        {option.label}
       </option>
     );
   }
 
   render(){
     return (
-        <select onChange={this.selectMake}>
-          { this.props.car_make.list.map(this.renderCarMake) }
+        <select className="ui dropdown" onChange={this.selectTransmissionOption}>
+          { TRANSMISSION_TYPE_DROPDOWN["values"].map(this.renderTransmissionOption) }
         </select>
     );
   }
@@ -38,8 +40,8 @@ class CarMakeList extends Component {
 
 
 function mapStateToProps(state){
-  return { car_make: state.car_make };
+  return { software_search: state.software_search };
 }
 
 
-export default connect(mapStateToProps)(CarMakeList);
+export default connect(mapStateToProps)(TransmissionOptionList);

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>My Electron-React app</title>
+    <title>Software Updater</title>
     <!--
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
     -->
@@ -11,8 +11,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/enc-base64.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/enc-utf16-min.js"></script>
     <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
-    <link href="http://cdn.muicss.com/mui-0.9.4/css/mui.min.css" rel="stylesheet" type="text/css" />
-    <link href="http://npmcdn.com/react-bootstrap-table/dist/react-bootstrap-table-all.min.css"  rel="stylesheet" type="text/css" />
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+    <link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.css" rel="stylesheet" type="text/css" >
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
 </link>
 </link>
@@ -21,15 +21,15 @@
   <body>
     <div id="content"></div>
 
-  <!--
+
   <script src="http://localhost:8080/webpack-dev-server.js"></script>
   <script src="http://localhost:8080/built/bundle.js"></script>
-  -->
 
+  <!--
   <script>
   	require('./app/bundle.js')
   </script>
-
+  -->
 <!-- Insert this line above script imports
 <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 -->
@@ -42,5 +42,4 @@ window.$ = window.jQuery = require('./scripts/jquery-3.1.1.min.js')
 <!-- Insert this line after script imports
 <script>if (window.module) module = window.module;</script>
 -->
-<script src="./scripts/mui.js"></script>
 </html>

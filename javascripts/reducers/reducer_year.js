@@ -2,7 +2,7 @@ var _ = require('lodash');
 import { FETCH_YEAR } from '../actions/get_year';
 import { DEVICE_REMOVED } from '../actions/hid_action';
 
-const DEFAULT_DROPDOWN_VALUE = {id: 0, vehicle_year:"Please Select..."};
+const DEFAULT_DROPDOWN_VALUE = {id: 0, vehicle_year:"Select Year..."};
 const YEAR_LIST = _.range(1980,2020).map((i) => {
       return {id: i, vehicle_year:i};
     });

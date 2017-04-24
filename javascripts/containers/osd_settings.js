@@ -78,76 +78,97 @@ export default class OSDSettings extends Component {
   render() {
     return (
       <div>
-          <div className="mui-row">
-            <div className="mui-col-xs-1"></div>
-            <div className="mui-col-xs-7">
-              <label>
+        <div className="ui raised segment">
+          <a className="ui blue ribbon large label">You can enable/disable overaly text by clicking check mark. If overaly enabled you can select overlay text from corresponding dropdown</a>
+          <div className="ui grid">
+            <div className="ten wide column">
+              <div className="inline field">
                 <input type="checkbox"
                        checked={this.state.osd_settings["OsdCVBS1"] == "01" ? 'checked':''}
                        onChange={event => this.onOverlayChange(event.target.checked,'OsdCVBS1')}
                        />
-                      Enable Aftermarket Rear View Camera Input Text Overlay
-              </label>
+                <div className="ui left pointing label">
+                  Enable Aftermarket Rear View Camera Input Text Overlay
+                </div>
+              </div>
             </div>
-            <div className="mui-col-xs-4">
-              <select onChange={this.setOSDDropdwonValue} id={OSD_INPUT_1_DROPDOWN["id"]} className="mySelect">
-                { OSD_INPUT_1_DROPDOWN["values"].map( (elem, index) => {return this.renderChanelTextDropdown(elem,index,this.state.osd_settings["TextMenuCh1"]);} ) }
-              </select>
+            <div className="six wide column">
+              <div className="inline field">
+                <select onChange={this.setOSDDropdwonValue} id={OSD_INPUT_1_DROPDOWN["id"]} className="ui dropdown">
+                  { OSD_INPUT_1_DROPDOWN["values"].map( (elem, index) => {return this.renderChanelTextDropdown(elem,index,this.state.osd_settings["TextMenuCh1"]);} ) }
+                </select>
+                <div className="ui left pointing label">
+                  Overly Text
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="mui-row">
-            <div className="mui-col-xs-1"></div>
-            <div className="mui-col-xs-7">
-              <label>
+            <div className="ten wide column">
+              <div className="inline field">
                 <input type="checkbox"
                        checked={this.state.osd_settings["OsdCVBS2"] == "01" ? 'checked':''}
                        onChange={event => this.onOverlayChange(event.target.checked,'OsdCVBS2')}
                        />
+                <div className="ui left pointing label">
                       Enable Aftermarket Front View Camera Input Text Overlay
-              </label>
+                </div>
+              </div>
             </div>
-            <div className="mui-col-xs-4">
-              <select onChange={this.setOSDDropdwonValue} id={OSD_INPUT_2_DROPDOWN["id"]} className="mySelect">
-                { OSD_INPUT_2_DROPDOWN["values"].map( (elem, index) => {return this.renderChanelTextDropdown(elem,index,this.state.osd_settings["TextMenuCh2"]);} ) }
-              </select>
+            <div className="six wide column">
+              <div className="inline field">
+                <select onChange={this.setOSDDropdwonValue} id={OSD_INPUT_2_DROPDOWN["id"]} className="ui dropdown">
+                  { OSD_INPUT_2_DROPDOWN["values"].map( (elem, index) => {return this.renderChanelTextDropdown(elem,index,this.state.osd_settings["TextMenuCh2"]);} ) }
+                </select>
+                <div className="ui left pointing label">
+                  Overly Text
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="mui-row">
-            <div className="mui-col-xs-1"></div>
-            <div className="mui-col-xs-7">
-              <label>
+            <div className="ten wide column">
+              <div className="inline field">
                 <input type="checkbox"
                        checked={this.state.osd_settings["OsdCVBS3"] == "01" ? 'checked':''}
                        onChange={event => this.onOverlayChange(event.target.checked,'OsdCVBS3')}
                        />
-                      Enable Aftermarket Left Lane Watch Camera Input Text Overlay
-              </label>
+                <div className="ui left pointing label">
+                  Enable Aftermarket Left Lane Watch Camera Input Text Overlay
+                </div>
+              </div>
             </div>
-            <div className="mui-col-xs-4">
-              <select onChange={this.setOSDDropdwonValue} id={OSD_INPUT_3_DROPDOWN["id"]} className="mySelect">
-                { OSD_INPUT_3_DROPDOWN["values"].map( (elem, index) => {return this.renderChanelTextDropdown(elem,index,this.state.osd_settings["TextMenuCh3"]);} ) }
-              </select>
+            <div className="six wide column">
+              <div className="inline field">
+                <select onChange={this.setOSDDropdwonValue} id={OSD_INPUT_3_DROPDOWN["id"]} className="ui dropdown">
+                  { OSD_INPUT_3_DROPDOWN["values"].map( (elem, index) => {return this.renderChanelTextDropdown(elem,index,this.state.osd_settings["TextMenuCh3"]);} ) }
+                </select>
+                <div className="ui left pointing label">
+                  Overly Text
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="mui-row">
-            <div className="mui-col-xs-1"></div>
-            <div className="mui-col-xs-7">
-              <label>
+            <div className="ten wide column">
+              <div className="inline field">
                 <input type="checkbox"
                        checked={this.state.osd_settings["OsdCVBS4"] == "01" ? 'checked':''}
                        onChange={event => this.onOverlayChange(event.target.checked,'OsdCVBS4')}
                        />
-                      Enable Aftermarket Right Lane Watch Camera Input Text Overlay
-              </label>
+                <div className="ui left pointing label">
+                  Enable Aftermarket Right Lane Watch Camera Input Text Overlay
+                </div>
+              </div>
             </div>
-            <div className="mui-col-xs-4">
-              <select onChange={this.setOSDDropdwonValue} id={OSD_INPUT_4_DROPDOWN["id"]} className="mySelect">
-                { OSD_INPUT_4_DROPDOWN["values"].map( (elem, index) => {return this.renderChanelTextDropdown(elem,index,this.state.osd_settings["TextMenuCh4"]);} ) }
-              </select>
+            <div className="six wide column">
+              <div className="inline field">
+                <select onChange={this.setOSDDropdwonValue} id={OSD_INPUT_4_DROPDOWN["id"]} className="ui dropdown">
+                  { OSD_INPUT_4_DROPDOWN["values"].map( (elem, index) => {return this.renderChanelTextDropdown(elem,index,this.state.osd_settings["TextMenuCh4"]);} ) }
+                </select>
+                <div className="ui left pointing label">
+                  Overly Text
+                </div>
+              </div>
             </div>
+            <br/>
           </div>
-        <br/>
-        <button onClick={this.saveOSDSettings} className="mui-btn mui-btn--danger">Save Settings</button>
+        </div>
+        <button onClick={this.saveOSDSettings} className="ui primary button">Save Settings</button>
       </div>
     );
   }

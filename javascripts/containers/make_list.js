@@ -29,7 +29,7 @@ class CarMakeList extends Component {
 
   render(){
     return (
-        <select onChange={this.selectMake}>
+        <select className="ui dropdown" onChange={this.selectMake}>
           { this.props.car_make.list.map(this.renderCarMake) }
         </select>
     );

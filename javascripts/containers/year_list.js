@@ -28,7 +28,7 @@ class CarYearList extends Component {
 
   render(){
     return (
-        <select onChange={this.selectYear}>
+        <select className="ui dropdown" onChange={this.selectYear}>
           { this.props.car_year.list.map(this.renderCarYear) }
         </select>
     );
