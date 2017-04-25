@@ -11,12 +11,12 @@ class CarModelList extends Component {
   }
 
   selectModel(event){
-    console.log("inside selectModel", event.target.value);
+    //console.log("inside selectModel", event.target.value);
     this.props.onSelectVehicleModel(event.target.value);
   }
 
   renderCarModel(carModel, index){
-    console.log(carModel);
+    //console.log(carModel);
     return (
       <option key={carModel.model_id}
               value={carModel.model_id}

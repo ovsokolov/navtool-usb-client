@@ -52,7 +52,7 @@ export default function(state = DEFAULT_UPDATE_STATE, action){
   let payload_data = {};
   switch (action.type){
     case FTP_LOAD_SUCCESS:
-      //console.log(action.payload);
+      ////console.log(action.payload);
       new_state = JSON.parse(JSON.stringify(state));
       new_state.total_secotrs = Math.ceil(action.payload.size / SECTOR_SIZE);
       new_state.blocks_count = Math.ceil( SECTOR_SIZE /  BLOCK_SIZE );
@@ -69,7 +69,7 @@ export default function(state = DEFAULT_UPDATE_STATE, action){
       }
       new_state.file_check_sum = currentSum;
       new_state.update_progress_status = SET_UP_TRANSFER;
-      //console.log(new_state);
+      ////console.log(new_state);
       return new_state
     case REQUEST_DATA_SETUP_RESPONSE:
       new_state = JSON.parse(JSON.stringify(state));
@@ -79,7 +79,7 @@ export default function(state = DEFAULT_UPDATE_STATE, action){
          new_state.packet_size == payload_data.packet_size &&
          new_state.start_sector == payload_data.start_sector &&
          new_state.total_secotrs == payload_data.total_secotrs){
-            //console.log("Setup Success !!");
+            ////console.log("Setup Success !!");
             new_state.current_packet = 0;
             new_state.current_block = 0;
             new_state.current_sector = 0;
@@ -88,10 +88,10 @@ export default function(state = DEFAULT_UPDATE_STATE, action){
             new_state.update_progress_status = START_TRANSFER;
 
       }else{
-           console.log("Setup Error !!");
+           //console.log("Setup Error !!");
            new_state.update_progress_status = UPDATE_ERROR;
       }
-      //console.log(new_state);
+      ////console.log(new_state);
       return new_state
     case REQUEST_TRANSFER_START_RESPONSE:
       new_state = JSON.parse(JSON.stringify(state));
@@ -100,20 +100,20 @@ export default function(state = DEFAULT_UPDATE_STATE, action){
       new_state = JSON.parse(JSON.stringify(state));
       payload_data = action.payload;
       if(payload_data.remaining_packets == 0){
-        //console.log("end of block");
-        //console.log(new_state.curerent_packet_sum);
-        //console.log(payload_data.check_sum)
+        ////console.log("end of block");
+        ////console.log(new_state.curerent_packet_sum);
+        ////console.log(payload_data.check_sum)
         if(new_state.curerent_packet_sum == payload_data.check_sum){
           new_state.num_of_erorrs = 0;
           new_state.current_running_sum = new_state.current_running_sum + new_state.curerent_packet_sum;
           new_state.update_progress_status = BLOCK_VALIDATE;
-          //console.log("BLOCK VALIDATE", new_state.current_running_sum);
+          ////console.log("BLOCK VALIDATE", new_state.current_running_sum);
         }else{
           new_state.curerent_packet_sum = 0;
           new_state.current_packet = 0;
           new_state.num_of_erorrs = new_state.num_of_erorrs  + 1;
           if(new_state.num_of_erorrs > 3){
-            console.log("Update Error !!");
+            //console.log("Update Error !!");
             new_state.update_progress_status = UPDATE_ERROR;
           }
         }
@@ -142,9 +142,9 @@ export default function(state = DEFAULT_UPDATE_STATE, action){
       if(payload_data == SECTOR_WRITE_SUCCESS){ // write success
         new_state.current_sector = new_state.current_sector + 1;
         if(new_state.current_sector == new_state.total_secotrs){
-          console.log("Transfer Completed");
-          //console.log(new_state.current_running_sum);
-          //console.log(new_state.file_check_sum);
+          //console.log("Transfer Completed");
+          ////console.log(new_state.current_running_sum);
+          ////console.log(new_state.file_check_sum);
           new_state.update_progress_status = TRANSFER_COMPLETED;
         }else{
           new_state.update_progress_status = START_TRANSFER;
@@ -186,9 +186,9 @@ function preparePacketData(new_state){
   new_state.current_packet_data = currentPacket;
   new_state.curerent_packet_sum = new_state.curerent_packet_sum + currentSum;
   new_state.update_progress_status = PACKET_SEND;
-  //console.log(currentPacket);
-  //console.log(currentSum);
-  //console.log(new_state.curerent_packet_sum);
-  //console.log("Packet data in reducer", new_state);
+  ////console.log(currentPacket);
+  ////console.log(currentSum);
+  ////console.log(new_state.curerent_packet_sum);
+  ////console.log("Packet data in reducer", new_state);
   return new_state;
 }

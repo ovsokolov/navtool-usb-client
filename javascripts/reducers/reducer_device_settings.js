@@ -6,8 +6,8 @@ export default function(state = JSON.parse(JSON.stringify(SYSTEM_SETTINGS)), act
     case DEVICE_DATA_SETTINGS:
       //return state.concat([ action.payload.data ]);
       //or (same crete new array). NEVER!!!!! mutate array
-      console.log('Action recieved', DEVICE_DATA_SETTINGS);
-      console.log(action.payload);
+      //console.log('Action recieved', DEVICE_DATA_SETTINGS);
+      //console.log(action.payload);
       let msg = action.payload;
       let action = msg[0];
       let usbResult = msg[1];
@@ -25,7 +25,7 @@ export default function(state = JSON.parse(JSON.stringify(SYSTEM_SETTINGS)), act
         serial_number += hexStringFrmt.substring((bareNum).length, 2) + bareNum;
       }
       serial_number = serial_number.toUpperCase();
-      console.log("Serial Number",serial_number);
+      //console.log("Serial Number",serial_number);
       //build software id (reverse 2 bytes)
       //for(var i=0; i < 2; i++){
       //  bareNum = msg[19-i].toString(10);
@@ -33,28 +33,28 @@ export default function(state = JSON.parse(JSON.stringify(SYSTEM_SETTINGS)), act
 
       //}
       for(var i=0; i < 2; i++){
-        console.log(msg[19-i]);
+        //console.log(msg[19-i]);
         bareNum = msg[19-i].toString(16);
         softwareId += hexStringFrmt.substring((bareNum).length, 2) + bareNum;
-        console.log(softwareId);
+        //console.log(softwareId);
 
       }
-      console.log("Software Id",softwareId);
-      console.log("Software Id",parseInt(softwareId,16));
+      //console.log("Software Id",softwareId);
+      //console.log("Software Id",parseInt(softwareId,16));
       //build siftwareBuild
       bareNum = msg[20].toString(10);
       softwareBuild += hexStringFrmt.substring((bareNum).length, 2) + bareNum;
-      console.log("Software Build",softwareBuild);
+      //console.log("Software Build",softwareBuild);
 
       //get system settings
       let system_settings = JSON.parse(JSON.stringify(SYSTEM_SETTINGS));
-      console.log("System Settings Byte 1", binaryStringFrmt.substring((msg[21].toString(2)).length, 8) + msg[21].toString(2));
+      //console.log("System Settings Byte 1", binaryStringFrmt.substring((msg[21].toString(2)).length, 8) + msg[21].toString(2));
       let byte_1 = binaryStringFrmt.substring((msg[21].toString(2)).length, 8) + msg[21].toString(2);
-      console.log("System Settings Byte 2", binaryStringFrmt.substring((msg[22].toString(2)).length, 8) + msg[22].toString(2));
+      //console.log("System Settings Byte 2", binaryStringFrmt.substring((msg[22].toString(2)).length, 8) + msg[22].toString(2));
       let byte_2 = binaryStringFrmt.substring((msg[22].toString(2)).length, 8) + msg[22].toString(2);
-      console.log("System Settings Byte 3", binaryStringFrmt.substring((msg[23].toString(2)).length, 8) + msg[23].toString(2));
+      //console.log("System Settings Byte 3", binaryStringFrmt.substring((msg[23].toString(2)).length, 8) + msg[23].toString(2));
       let byte_3 = binaryStringFrmt.substring((msg[23].toString(2)).length, 8) + msg[23].toString(2);
-      console.log("System Settings Byte 4", binaryStringFrmt.substring((msg[24].toString(2)).length, 8) + msg[24].toString(2));
+      //console.log("System Settings Byte 4", binaryStringFrmt.substring((msg[24].toString(2)).length, 8) + msg[24].toString(2));
       let byte_4 = binaryStringFrmt.substring((msg[24].toString(2)).length, 8) + msg[24].toString(2);
 
 
@@ -97,10 +97,10 @@ export default function(state = JSON.parse(JSON.stringify(SYSTEM_SETTINGS)), act
       for (var i = 0; i < msg[58]; i++) {
         vihicleModel += String.fromCharCode(msg[43+i]);
       }
-      console.log(vihicleMake);
-      console.log(vihicleModel);
+      //console.log(vihicleMake);
+      //console.log(vihicleModel);
       for (var i = 0; i < 14; i++) {
-        console.log(vihicleModel.charCodeAt(i));
+        //console.log(vihicleModel.charCodeAt(i));
       }
       return system_settings;
     case DEVICE_REMOVED:

@@ -42,9 +42,9 @@ export default function(state = {app_status: NO_DEVICE_STATUS, update_status: UP
       result = Object.assign({}, state, {update_status: UPDATE_NOT_STARTED });
       return result;
     case START_OBD_PROGRAMMING:
-      console.log("******* START_OBD_PROGRAMMING ******");
+      //console.log("******* START_OBD_PROGRAMMING ******");
       result = Object.assign({}, state, {obd_status: OBD_IN_PROGRESS });
-      console.log(result);
+      //console.log(result);
       return result;
     default:
       return state;

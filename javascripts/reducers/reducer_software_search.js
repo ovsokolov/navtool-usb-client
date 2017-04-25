@@ -20,32 +20,32 @@ export default function(state = JSON.parse(JSON.stringify(DEFAULT_STATE)), actio
       //return state.concat([ action.payload.data ]);
       //or (same crete new array). NEVER!!!!! mutate array
       result = Object.assign({}, state, {vehicle_make: action.payload.vehicle_make});
-      console.log(result);
+      //console.log(result);
       return result;
     case FETCH_YEAR:
       //return state.concat([ action.payload.data ]);
       //or (same crete new array). NEVER!!!!! mutate array
       result = Object.assign({}, state, {vehicle_model: action.payload.vehicle_model});
-      console.log(result);
+      //console.log(result);
       return result;
     case SET_TRANSMISSION_TYPE:
       //return state.concat([ action.payload.data ]);
       //or (same crete new array). NEVER!!!!! mutate array
       result = Object.assign({}, state, {automatic_transmission: action.payload});
-      console.log(result);
+      //console.log(result);
       return result;
     case SET_YEAR:
       //return state.concat([ action.payload.data ]);
       //or (same crete new array). NEVER!!!!! mutate array
-      console.log("Software reducer");
+      //console.log("Software reducer");
       result = Object.assign({}, state, {vehicle_year: action.payload});
-      console.log(result);
+      //console.log(result);
       return result;
     case SET_SOFTWARE:
       //return state.concat([ action.payload.data ]);
       //or (same crete new array). NEVER!!!!! mutate array
       result = Object.assign({}, state, {sw_id: action.payload});
-      console.log(result);
+      //console.log(result);
       return result;
     case DEVICE_REMOVED:
       return JSON.parse(JSON.stringify(DEFAULT_STATE));

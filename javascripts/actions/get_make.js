@@ -9,11 +9,11 @@ export function fetchMake(mfg_id){
   const url = ROOT_URL + "?mfg_id=" + mfg_id;
   const request = axios.get(url);
 
-  console.log('URL', url);
+  //console.log('URL', url);
 
   return (dispatch) => {
     request.then( ({data}) =>{
-      console.log(data);
+      //console.log(data);
       let payload_data = {mfg_id, data};
       dispatch( { type: FETCH_MAKE, payload: payload_data } );
     });

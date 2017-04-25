@@ -11,12 +11,12 @@ class SoftwareList extends Component {
   }
 
   selectSoftware(value){
-    console.log("inside selectSoftware", value);
+    //console.log("inside selectSoftware", value);
     this.props.onSelectSoftware(value);
   }
 
   renderSoftware(software, index){
-    console.log(software);
+    //console.log(software);
     return (
       <tr>
         <td>{software.id}</td>
@@ -56,12 +56,12 @@ class SoftwareList extends Component {
 
   componentDidUpdate(nextProps){
     var dataSet = [];
-    console.log(this.props.software_list);
+    //console.log(this.props.software_list);
     this.props.software_list.forEach(function(software){
       var row = [software.id,software.vehicle_make,software.vehicle_model, "".concat(software.vehicle_year_from, "-", software.vehicle_year_to), software.sw_description];
       dataSet.push(row);
      });
-    console.log(dataSet);
+    //console.log(dataSet);
     var table = $('#software-list').DataTable( {
         bDestroy: true,
         bFilter: false,

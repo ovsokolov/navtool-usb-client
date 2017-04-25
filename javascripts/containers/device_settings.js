@@ -8,7 +8,7 @@ export default class DeviceSettings extends Component {
   constructor(props){
     super(props);
     let system_settings = JSON.parse(JSON.stringify(SYSTEM_SETTINGS));
-    console.log("~~~~~~~~~~~~~~~~~~~~~~~~");
+    //console.log("~~~~~~~~~~~~~~~~~~~~~~~~");
     this.state = {system_settings: system_settings};
     this.saveSettings = this.saveSettings.bind(this);
     this.onCameraChange = this.onCameraChange.bind(this);
@@ -24,7 +24,7 @@ export default class DeviceSettings extends Component {
   }
 
   renderDropdown(option, index, value){
-    //console.log("here ", value);
+    ////console.log("here ", value);
     if(option.value == value){
       return (
         <option key={option.key}
@@ -49,10 +49,10 @@ export default class DeviceSettings extends Component {
 
   renderRadioBatton(option, index){
     let system_settings = this.state.system_settings;
-    console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzz');
-    console.log(option.value);
-    console.log(option.setting);
-    console.log(this.state.system_settings[option.setting]);
+    //console.log('zzzzzzzzzzzzzzzzzzzzzzzzzzz');
+    //console.log(option.value);
+    //console.log(option.setting);
+    //console.log(this.state.system_settings[option.setting]);
     return (
           <div>
           <div className="inline field">
@@ -78,7 +78,7 @@ export default class DeviceSettings extends Component {
   setDropdwonValue(event){
     let system_settings = this.state.system_settings;
     system_settings[event.target.id] = event.target.value;
-    //console.log(system_settings);
+    ////console.log(system_settings);
     this.setState({system_settings});
   }
 
@@ -89,14 +89,14 @@ export default class DeviceSettings extends Component {
     }else{
       system_settings[name] = "0";
     }
-    //console.log(system_settings);
+    ////console.log(system_settings);
     this.setState({system_settings});
   }
 
   onRadioBattonChange(checked, value, name){
-    console.log(checked);
-    console.log(value);
-    console.log(name);
+    //console.log(checked);
+    //console.log(value);
+    //console.log(name);
     let system_settings = this.state.system_settings;
     system_settings[name] = value;
     this.setState({system_settings});
@@ -116,7 +116,7 @@ export default class DeviceSettings extends Component {
       system_settings[camera] = "0";
       system_settings[inputName] = "0";
     }
-    //console.log(system_settings);
+    ////console.log(system_settings);
     this.setState({system_settings});
   }
 
@@ -129,7 +129,7 @@ export default class DeviceSettings extends Component {
       system_settings[factoryCamera] = "0";
       system_settings[camera] = system_settings[inputName];
     }
-    //console.log(system_settings);
+    ////console.log(system_settings);
     this.setState({system_settings});
   }
 
@@ -137,8 +137,8 @@ export default class DeviceSettings extends Component {
     if(JSON.stringify(nextProps.systemSettings) != JSON.stringify(this.state.system_settings)){
     //if(nextProps.systemSettings != this.state.system_settings){
       let system_settings = JSON.parse(JSON.stringify(nextProps.systemSettings));
-      console.log("systemSettings", nextProps.systemSettings);
-      console.log("state", this.state.system_settings);
+      //console.log("systemSettings", nextProps.systemSettings);
+      //console.log("state", this.state.system_settings);
       this.setState({system_settings: system_settings});
     }
   }

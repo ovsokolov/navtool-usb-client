@@ -10,14 +10,14 @@ log.transports.file.file = __dirname + '/log.txt';
 
 var platfor_string = os.platform() + '_' + os.arch()
 
-//log.info("data for autoupdate app :\n", app);
-log.info("data for autoupdate os : ", platfor_string);
+////log.info("data for autoupdate app :\n", app);
+//log.info("data for autoupdate os : ", platfor_string);
 
 
 // Module to control application life.
 const app = electron.app
 
-log.info("electron version : ", app.getVersion());
+////log.info("electron version : ", app.getVersion());
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
@@ -40,7 +40,7 @@ function createWindow () {
   mainWindow.loadURL(`file://${__dirname}/index.html`)
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
 
   mainWindow.setMenu(null)
 
@@ -82,22 +82,25 @@ app.on('activate', function () {
 // code. You can also put them in separate files and require them here.
 /*
 usbDetect.on('add:49745:278', function(device) {
-	log.info('device added');
+	//log.info('device added');
 	initListeners()
 	mainWindow.webContents.send('device-arrived' , {msg:'device arrived'});
 
 });
 */
 usbDetect.add(function(device) {
-    log.info("added device:\n", device.deviceDescriptor);
+    ////log.info("added device:\n", device.deviceDescriptor);
+    ////log.info(HID.devices());
     if(device.deviceDescriptor.idVendor == 49745){
 		    initListeners()
-		    mainWindow.webContents.send('device-arrived' , {msg:'device arrived'});
+		    setTimeout(function() {
+		    	mainWindow.webContents.send('device-arrived' , {msg:'device arrived'});
+		    }, 1000);
 	  }
 });
 
 usbDetect.remove(function(device) {
-    log.info("removed device:\n", device.deviceDescriptor);
+    //log.info("removed device:\n", device.deviceDescriptor);
     if(device.deviceDescriptor.idVendor == 49745){
 		    mainWindow.webContents.send('device-removed' , {msg:'device removed'});
 	  }
@@ -113,36 +116,43 @@ function initListeners(){
 
 
 	ipcMain.on('device-sbl-status', (event, arg) => {
-		log.info('Checking Device SBL status....')
+	  ////log.info('Checking Device SBL status....')
 	  //event.sender.send('asynchronous-reply', 'pong')
 	  //if(!isOpen){
-		try{
-	   		device = new HID.HID(49745, 278)
+	  //setTimeout(function() {
+			try{
+				//wait for 1sec for device to arrive
+			  	var devicesList = HID.devices();
+				var deviceInfo = devices.find( function(d) {
 
-	   		isOpen = true
-		}
-		catch(err){
-			log.info(err)
-		}
+			    	return d.vendorId===49745 && d.productId===278;
+				});
+				device = new HID.HID( deviceInfo.path );
 
-		/*
-		device.on("data", function(data) {
-			//for(var i = 0; i < data.length; i++){
 
-				//var letter = String.fromCharCode(data[i]);
-				log.info('data recieved in main')
-				mainWindow.webContents.send('device-data' , {msg: data});
-			//}
-		})
-    */
-		log.info('before sbl check')
-		device.read(function(err,data) {
-				log.info('data recieved for sbl status')
-        log.info(data)
-				mainWindow.webContents.send('device-sbl-status', { msg: data} );
-		})
-    log.info('checking SBL status')
-		device.write([0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00])
+				//log.info("UsagePage: " + deviceInfo.usagePage);
+				//log.info("Usage: " + deviceInfo.usage);
+				//log.info("Path: " + deviceInfo.path);
+
+				////log.info('#### openning device....')
+		   		//device = new HID.HID(49745, 278)
+
+		   		isOpen = true
+			}
+			catch(err){
+				//log.info(err)
+			}
+
+			////log.info('before sbl check')
+			device.read(function(err,data) {
+			//log.info('data recieved for sbl status')
+	        //log.info(data)
+					mainWindow.webContents.send('device-sbl-status', { msg: data} );
+			})
+	    	//log.info('checking SBL status')
+			device.write([0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00]);
+		//}, 1000);
+
 	});
 
 	ipcMain.on('device-sbl', (event, arg) => {
@@ -151,18 +161,18 @@ function initListeners(){
 		device.removeAllListeners("data")
 		device.removeAllListeners("error")
 		try {
-      device.write(arg)
+      		device.write(arg)
 		}
 		catch(err){
 			//device.close()
 		}
 		finally {
-      //device.close()
-		  //device = null
+      		//device.close()
+		  	//device = null
 		}
 
 	});
-	log.info("after init")
+	////log.info("after init")
 
 }
 
@@ -170,20 +180,20 @@ function initListeners(){
 ipcMain.on('check-device', (event, arg) => {
   devices = HID.devices();
 	for (var i = 0; i < devices.length; i++){
-		log.info("@@@@@@@@@@    device found " + devices[i].vendorId)
+		//log.info("@@@@@@@@@@    device found " + devices[i].vendorId)
 		if(devices[i].vendorId == 49745){
 			initListeners()
 			mainWindow.webContents.send('device-arrived' , {msg:'device arrived'});
-			log.info("xxxxxxxxxxx    after found")
+			////log.info("xxxxxxxxxxx    after found")
 		}
 	}
 });
 
 ipcMain.on('device-read-settings', (event, arg) => {
 
-  log.info('before device-read-settings')
+  //log.info('before device-read-settings')
   device.read(function(err,data) {
-      log.info('data recieved device-read-settings')
+      //log.info('data recieved device-read-settings')
       mainWindow.webContents.send('device-data-result' , {msg: data});
   })
   device.write([0x00, arg, 0x00, 0x00, 0x00, 0x00, 0x00])
@@ -191,12 +201,12 @@ ipcMain.on('device-read-settings', (event, arg) => {
 
 ipcMain.on('device-write_data', (event, arg) => {
 
-  log.info('before device-write_data')
-  log.info(arg)
-  log.info(arg.length)
+  //log.info('before device-write_data')
+  //log.info(arg)
+  //log.info(arg.length)
   device.read(function(err,data) {
-      log.info('data recieved device-write_data')
-      log.info(data)
+      //log.info('data recieved device-write_data')
+      //log.info(data)
       mainWindow.webContents.send('device-data-result' , {msg: data});
   })
   device.write(arg)

@@ -54,7 +54,7 @@ class SoftwareSearch extends Component {
   }
 
   setSelectedSoftware(software_id){
-    console.log("Software Slected: ", software_id);
+    //console.log("Software Slected: ", software_id);
     this.props.setSoftware(software_id);
   }
 

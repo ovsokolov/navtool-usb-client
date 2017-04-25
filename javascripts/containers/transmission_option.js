@@ -10,16 +10,16 @@ class TransmissionOptionList extends Component {
   constructor(props){
     super(props);
     this.selectTransmissionOption = this.selectTransmissionOption.bind(this);
-    //console.log("in list", this.state.mfg_id);
+    ////console.log("in list", this.state.mfg_id);
   }
 
   selectTransmissionOption(event){
-    console.log("inside selectTransmissionOption", event.target.value);
+    //console.log("inside selectTransmissionOption", event.target.value);
     this.props.onSelectTransmissionOption(event.target.value);
   }
 
   renderTransmissionOption(option, index){
-    console.log(option);
+    //console.log(option);
     return (
       <option key={option.key}
               value={option.value}

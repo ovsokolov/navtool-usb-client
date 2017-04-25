@@ -8,11 +8,11 @@ class CarYearList extends Component {
   constructor(props){
     super(props);
     this.selectYear = this.selectYear.bind(this);
-    //console.log("in list", this.state.mfg_id);
+    ////console.log("in list", this.state.mfg_id);
   }
 
   selectYear(event){
-    console.log("inside selectYear", event.target.value);
+    //console.log("inside selectYear", event.target.value);
     this.props.onSelectVehicleYear(event.target.value);
   }
 

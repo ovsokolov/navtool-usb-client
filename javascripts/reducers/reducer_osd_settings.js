@@ -6,23 +6,27 @@ export default function(state = JSON.parse(JSON.stringify(OSD_SETTINGS)), action
     case DEVICE_OSD_SETTINGS:
       //return state.concat([ action.payload.data ]);
       //or (same crete new array). NEVER!!!!! mutate array
-      console.log('Action recieved', DEVICE_OSD_SETTINGS);
-      console.log(action.payload);
+      //console.log('Action recieved', DEVICE_OSD_SETTINGS);
+      //console.log(action.payload);
       let msg = action.payload;
       let hexStringFrmt = "00"
       let binaryStringFrmt = "00000000"
       let bareNum;
 
 
+
       //get system settings
       let osd_settings = JSON.parse(JSON.stringify(OSD_SETTINGS));
-      console.log("OSD Settings Byte 1", binaryStringFrmt.substring((msg[5].toString(2)).length, 8) + msg[5].toString(2));
+
+      osd_settings["osd_enabled"] = true;
+      
+      //console.log("OSD Settings Byte 1", binaryStringFrmt.substring((msg[5].toString(2)).length, 8) + msg[5].toString(2));
       let byte_1 = binaryStringFrmt.substring((msg[5].toString(2)).length, 8) + msg[5].toString(2);
-      console.log("OSD Settings Byte 2", binaryStringFrmt.substring((msg[6].toString(2)).length, 8) + msg[6].toString(2));
+      //console.log("OSD Settings Byte 2", binaryStringFrmt.substring((msg[6].toString(2)).length, 8) + msg[6].toString(2));
       let byte_2 = binaryStringFrmt.substring((msg[6].toString(2)).length, 8) + msg[6].toString(2);
-      console.log("OSD Settings Byte 3", binaryStringFrmt.substring((msg[7].toString(2)).length, 8) + msg[7].toString(2));
+      //console.log("OSD Settings Byte 3", binaryStringFrmt.substring((msg[7].toString(2)).length, 8) + msg[7].toString(2));
       let byte_3 = binaryStringFrmt.substring((msg[7].toString(2)).length, 8) + msg[7].toString(2);
-      console.log("OSD Settings Byte 4", binaryStringFrmt.substring((msg[8].toString(2)).length, 8) + msg[8].toString(2));
+      //console.log("OSD Settings Byte 4", binaryStringFrmt.substring((msg[8].toString(2)).length, 8) + msg[8].toString(2));
       let byte_4 = binaryStringFrmt.substring((msg[8].toString(2)).length, 8) + msg[8].toString(2);
 
             
@@ -45,7 +49,7 @@ export default function(state = JSON.parse(JSON.stringify(OSD_SETTINGS)), action
 
       //byte_4;
       osd_settings["Reserved3"] = byte_4;
-      console.log(osd_settings);
+      //console.log(osd_settings);
       return osd_settings;
     case DEVICE_REMOVED:
       return JSON.parse(JSON.stringify(OSD_SETTINGS));

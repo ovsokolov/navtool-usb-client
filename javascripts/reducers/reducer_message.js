@@ -2,8 +2,8 @@ import { SUCCESS_SETTINGS_UPDATE } from '../actions/hid_action';
 import { FTP_LOAD_PROGRESS,FTP_LOAD_FAILURE } from '../actions/ftp_action';
 import { HIDE_MODAL } from '../actions/hide_modal';
 export default function(state = "", action){
-      console.log("In message reducer");
-    console.log(action.type);
+      //console.log("In message reducer");
+    //console.log(action.type);
   switch (action.type){
     case SUCCESS_SETTINGS_UPDATE:
       //return state.concat([ action.payload.data ]);
@@ -14,7 +14,7 @@ export default function(state = "", action){
     case FTP_LOAD_FAILURE:
       return "Error during file download";
     case HIDE_MODAL:
-      console.log("XXXXXXremoveMessageXXXXX");
+      //console.log("XXXXXXremoveMessageXXXXX");
       return "";
     default:
       return state;

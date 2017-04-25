@@ -42,7 +42,7 @@ export function setDeviceSettings(data, settings){
   byte1 = settings["LeftCameraSupported"] + byte1;
   byte1 = settings["RightCameraSupported"] + byte1;
   byte1 = settings["ReservedSupported"] + byte1;
-  console.log(byte1);
+  //console.log(byte1);
   //byte 2
   let byte2 = "";
   byte2 = settings["SoundEnabled"] + byte2;
@@ -53,7 +53,7 @@ export function setDeviceSettings(data, settings){
   byte2 = settings["FactoryRearCamera"] + byte2;
   byte2 = settings["FactoryFrontCamera"] + byte2;
   byte2 = settings["FactoryLeftCamera"] + byte2;
-  console.log(byte2);
+  //console.log(byte2);
   //byte_3;
   let byte3 = "";
   byte3 = settings["HDMIEnabled"] + byte3;
@@ -63,14 +63,14 @@ export function setDeviceSettings(data, settings){
   byte3 = settings["Input3Enabled"] + byte3;
   byte3 = settings["Input4Enabled"] + byte3;
   byte3 = settings["NotUsed"] + byte3;
-  console.log(byte3);
+  //console.log(byte3);
   //byte_4;
   let byte4 = "";
   byte4 = settings["FactoryRightCamera"] + byte4;
   byte4 = settings["FrontCameraMode"] + byte4;
   byte4 = settings["SideCameraMode"] + byte4;
   byte4 = settings["ResrvedBits"] + byte4;
-  console.log(byte4);
+  //console.log(byte4);
 
   device_data[21] = parseInt(byte1,2);
   device_data[22] = parseInt(byte2,2);
@@ -82,8 +82,8 @@ export function setDeviceSettings(data, settings){
   for(var i = 0; i < 43; i++){
     result[2 + i] =   device_data[21 + i];
   }
-  console.log(result);
-  console.log(result.length);
+  //console.log(result);
+  //console.log(result.length);
   return result;
 }
 
@@ -96,23 +96,23 @@ export function setDeviceOSDSettings(settings){
   byte1 = settings["OsdCVBS3"] + byte1;
   byte1 = settings["OsdCVBS4"] + byte1;
 
-  console.log(byte1);
+  //console.log(byte1);
   //byte 2
   let byte2 = "";
   byte2 = settings["TextMenuHDMI"] + byte2;
   byte2 = settings["TextMenuRGB"] + byte2;
   byte2 = settings["TextMenuCh1"] + byte2;
   byte2 = settings["TextMenuCh2"] + byte2;
-  console.log(byte2);
+  //console.log(byte2);
   //byte_3;
   let byte3 = "";
   byte3 = settings["TextMenuCh3"] + byte3;
   byte3 = settings["TextMenuCh4"] + byte3;
   byte3 = settings["Reserved2"] + byte3;
-  console.log(byte3);
+  //console.log(byte3);
   //byte_4;
   let byte4 = settings["Reserved3"];
-  console.log(byte4);
+  //console.log(byte4);
 
   let result = [];
   result[0] = 0x00;
@@ -126,8 +126,8 @@ export function setDeviceOSDSettings(settings){
   result[8] = parseInt(byte3,2);
   result[9] = parseInt(byte4,2);
 
-  console.log(result);
-  console.log(result.length);
+  //console.log(result);
+  //console.log(result.length);
   return result;
 }
 
@@ -153,16 +153,16 @@ export function getSoftwareId(msg){
       let bareNum;
 
       for(var i=0; i < 2; i++){
-        console.log(msg[19-i]);
+        //console.log(msg[19-i]);
         bareNum = msg[19-i].toString(16);
         softwareId += hexStringFrmt.substring((bareNum).length, 2) + bareNum;
-        console.log(softwareId);
+        //console.log(softwareId);
 
       }
       //build siftwareBuild
       bareNum = msg[20].toString(10);
       softwareBuild += hexStringFrmt.substring((bareNum).length, 2) + bareNum;
-      console.log("Software Build",softwareBuild);
+      //console.log("Software Build",softwareBuild);
 
       return {softwareId, softwareBuild};
 }
@@ -176,21 +176,21 @@ export function checkOBDSupport(msg){
       let result = {};
 
       for(var i=0; i < 2; i++){
-        console.log(msg[19-i]);
+        //console.log(msg[19-i]);
         bareNum = msg[19-i].toString(16);
         softwareId += hexStringFrmt.substring((bareNum).length, 2) + bareNum;
-        console.log(softwareId);
+        //console.log(softwareId);
 
       }
-      console.log("Software Id",softwareId);
-      console.log("Software Id",parseInt(softwareId,16));
+      //console.log("Software Id",softwareId);
+      //console.log("Software Id",parseInt(softwareId,16));
 
-      console.log("System Settings Byte 1", binaryStringFrmt.substring((msg[21].toString(2)).length, 8) + msg[21].toString(2));
+      //console.log("System Settings Byte 1", binaryStringFrmt.substring((msg[21].toString(2)).length, 8) + msg[21].toString(2));
       let byte_1 = binaryStringFrmt.substring((msg[21].toString(2)).length, 8) + msg[21].toString(2);
 
 
       OBDSupported = byte_1.substring(6,7); 
-      console.log("OBDSupported", OBDSupported) ;
+      //console.log("OBDSupported", OBDSupported) ;
       if(OBDSupported == "0"){
         result.isOBDSupported = true;
         result.softwareId = parseInt(softwareId,10);
@@ -223,15 +223,15 @@ export function setVehicleInfo(settings, info){
   for (var i = 0; i < settings[58]; i++) {
     vihicleModel += String.fromCharCode(settings[43+i]);
   }
-  console.log(vihicleMake);
-  console.log(vihicleModel);
+  //console.log(vihicleMake);
+  //console.log(vihicleModel);
   let result = [];
   result[0] = 0x00;
   result[1] = 0x1B;
   for(var i = 0; i < 43; i++){
     result[2 + i] =   settings[21 + i];
   }
-  console.log(result);
+  //console.log(result);
   return result;
 }
 
@@ -254,10 +254,10 @@ export function setUpPacketData(update_data){
   arrayMsg = arrayMsg.concat(
     result.match(/.{1,2}/g).map((num)=>{return parseInt(num,16);}).reverse()
   );
-  //console.log("Array Data",update_data);
-  //console.log("setUpPacketData", update_data);
+  ////console.log("Array Data",update_data);
+  ////console.log("setUpPacketData", update_data);
   arrayMsg = arrayMsg.concat(update_data.current_packet_data);
-  //console.log(arrayMsg);
+  ////console.log(arrayMsg);
   return arrayMsg;
 }
 
@@ -279,23 +279,23 @@ export function setUpTransferData(update_data){
   arrayMsg.push(0x00, SETUP_DATA_TRANSFER);
   hex = update_data.block_size.toString(16);
   result = doubleStringFrmt.substring((hex).length, 4) + hex;
-  console.log(result);
-  console.log(result.match(/.{1,2}/g));
-  console.log(result.match(/.{1,2}/g).map((num)=>{return parseInt(num,16);}));
+  //console.log(result);
+  //console.log(result.match(/.{1,2}/g));
+  //console.log(result.match(/.{1,2}/g).map((num)=>{return parseInt(num,16);}));
   arrayMsg = arrayMsg.concat(
     result.match(/.{1,2}/g).map((num)=>{return parseInt(num,16);}).reverse()
   );
-  console.log(arrayMsg);
+  //console.log(arrayMsg);
   hex = update_data.blocks_count.toString(16);
   result = doubleStringFrmt.substring((hex).length, 4) + hex;
   arrayMsg = arrayMsg.concat(
     result.match(/.{1,2}/g).map((num)=>{return parseInt(num,16);}).reverse()
   );
-  console.log(arrayMsg);
+  //console.log(arrayMsg);
   arrayMsg.push(update_data.packet_size);
   arrayMsg.push(update_data.start_sector);
   arrayMsg.push(update_data.total_secotrs);
-  console.log(arrayMsg);
+  //console.log(arrayMsg);
   return arrayMsg;
   //ipcRenderer.send('device-write_data', arrayMsg);
 }
@@ -422,6 +422,6 @@ export function setUpSectorWriteData(data){
   let arrayMsg = [];
   const SETUP_SECTOR_WRITE = 0x07;
   arrayMsg.push(0x00, SETUP_SECTOR_WRITE, data.current_sector);
-  console.log("SETUP_SECTOR_WRITE", arrayMsg);
+  //console.log("SETUP_SECTOR_WRITE", arrayMsg);
   return arrayMsg;
 }

@@ -17,7 +17,7 @@ export default class UpdateProgress extends Component {
     var current = this.props.progress_status.current_position;
     var progress = Math.round((current * 100)/total);
     if(progress < 100 && this.state.progress < progress){
-      console.log("incement");
+      //console.log("incement");
       this.setState({progress});
       $('#example1').progress('increment');
     }

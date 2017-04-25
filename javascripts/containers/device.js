@@ -53,6 +53,7 @@ class Device extends Component {
     this.saveDeviceSettings = this.saveDeviceSettings.bind(this);
     this.installSoftware = this.installSoftware.bind(this);
     this.saveDeviceOSDSettings = this.saveDeviceOSDSettings.bind(this);
+    this.renderOSDSettings = this.renderOSDSettings.bind(this);
 
     //this.requestSBL = this.requestSBL.bind(this);
     //this.clearSBL = this.clearSBL.bind(this);
@@ -84,10 +85,29 @@ class Device extends Component {
     }
   }
 
+  renderOSDSettings(){
+    if(this.props.osd_settings.osd_enabled){
+      return (
+          <div id="obd-pane">
+            <OSDSettings
+              osdSettings = {this.props.osd_settings}
+              onOSDSettingsSave={this.saveDeviceOSDSettings}
+            />
+          </div> 
+      ); 
+    }else{
+      return (
+          <div id="osd-pane">
+            OSD settings not available
+          </div>  
+      );     
+    }
+  }
+
   displayModal(device_status, obd_status, update_status, message){
-    console.log("displayModal", this.props.modal_state);
+    //console.log("displayModal", this.props.modal_state);
     if(update_status.update_progress_status != UPDATE_NOT_STARTED && !this.props.modal_state.hide){
-      console.log("Inside modal function", update_status.update_progress_status);
+      //console.log("Inside modal function", update_status.update_progress_status);
       return (
         <Modal
           onCloseModal={this.closeModal}
@@ -99,7 +119,7 @@ class Device extends Component {
       );
     }
     if(obd_status != OBD_NOT_STARTED && !this.props.modal_state.hide){
-      console.log("Inside modal function obd_status", obd_status);
+      //console.log("Inside modal function obd_status", obd_status);
       return (
         <Modal
           onCloseModal={this.closeModal}
@@ -109,7 +129,7 @@ class Device extends Component {
       );
     }
     if(this.props.modal_state.show_message){
-      console.log("Inside modal function message");
+      //console.log("Inside modal function message");
       return (
         <Modal
           onCloseModal={this.closeModal}
@@ -122,7 +142,7 @@ class Device extends Component {
   }
 
   closeModal(){
-    console.log("close modal function");
+    //console.log("close modal function");
     this.props.hideModal(true);
   }
 
@@ -136,10 +156,10 @@ class Device extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    //console.log(this.state.device_update_status);
-    //console.log(nextProps.software_update.update_progress_status);
-    //console.log(nextProps.device_status.app_status);
-    //console.log(this.props.device_status.update_status);
+    ////console.log(this.state.device_update_status);
+    ////console.log(nextProps.software_update.update_progress_status);
+    ////console.log(nextProps.device_status.app_status);
+    ////console.log(this.props.device_status.update_status);
     if(nextProps.device_status.update_status == UPDATE_READY && this.state.device_update_status != UPDATE_READY){
       this.setState({device_update_status: UPDATE_READY});
     }
@@ -153,19 +173,19 @@ class Device extends Component {
       this.props.sendSoftwareUpdateData(START_TRANSFER, nextProps.software_update);
     }
     if(this.state.device_update_status == UPDATE_IN_PROGRESS && nextProps.software_update.update_progress_status == PACKET_SEND){
-      //console.log("Will start packet send", nextProps.software_update);
+      ////console.log("Will start packet send", nextProps.software_update);
       this.props.sendSoftwareUpdateData(PACKET_SEND, nextProps.software_update);
     }
     if(this.state.device_update_status == UPDATE_IN_PROGRESS && nextProps.software_update.update_progress_status == BLOCK_VALIDATE){
-      //console.log("Will validate block", nextProps.software_update);
+      ////console.log("Will validate block", nextProps.software_update);
       this.props.sendSoftwareUpdateData(BLOCK_VALIDATE, nextProps.software_update);
     }
     if(this.state.device_update_status == UPDATE_IN_PROGRESS && nextProps.software_update.update_progress_status == SECTOR_WRITE){
-      //console.log("Will write sector", nextProps.software_update);
+      ////console.log("Will write sector", nextProps.software_update);
       this.props.sendSoftwareUpdateData(SECTOR_WRITE, nextProps.software_update);
     }
     if(this.state.device_update_status == UPDATE_IN_PROGRESS && nextProps.software_update.update_progress_status == TRANSFER_COMPLETED){
-      //console.log("Transfer completed", nextProps.software_update);
+      ////console.log("Transfer completed", nextProps.software_update);
       this.setState({device_update_status: AFTER_UPDATE_ACTION});
       this.props.updateDeviceDBData(
         this.props.device_db_data.mcu_serial,
@@ -182,8 +202,8 @@ class Device extends Component {
   }
 
   submitOBD(obd){
-    console.log("in device");
-    console.log(obd);
+    //console.log("in device");
+    //console.log(obd);
     this.props.startOBDProgramming();
   }
 
@@ -206,7 +226,7 @@ class Device extends Component {
   }
 
   saveDeviceOSDSettings(settings){
-    console.log(settings)
+    //console.log(settings)
     this.props.saveDeviceOSDSettings(settings);
   }
 
@@ -241,18 +261,12 @@ class Device extends Component {
             />
         </div>
         <div className="ui bottom attached tab segment" data-tab="third">
-            <OSDSettings
-              osdSettings = {this.props.osd_settings}
-              onOSDSettingsSave={this.saveDeviceOSDSettings}
-            />
+            { this.renderOSDSettings() }
         </div>
         <div className="ui bottom attached tab segment" data-tab="fourth">
             { this.renderOBDFeatures() }
         </div>
         {this.displayModal(this.props.device_status.app_status, this.props.device_status.obd_status, this.props.software_update, this.props.message)}
-        <button onClick={this.props.getOSDSettings}  className="ui primary button">
-          Read OSD
-        </button>
       </div>
     );
   }

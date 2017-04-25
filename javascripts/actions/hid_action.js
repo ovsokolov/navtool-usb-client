@@ -70,7 +70,7 @@ export function hidAction(hid_action){
 export function handleDeviceArrived(){
     return dispatch => {
         ipcRenderer.on('device-arrived',(event, data) => {
-            console.log('Device Arrived Handling Action....', data);
+            //console.log('Device Arrived Handling Action....', data);
             ipcRenderer.send('device-sbl-status', 0x01);
             notifyRemoved = true;
             dispatch({
@@ -84,15 +84,15 @@ export function handleDeviceArrived(){
 export function handleDeviceRemoved(){
     return dispatch => {
         ipcRenderer.on('device-removed',(event, data) => {
-            console.log("Notify: ", notifyRemoved);
+            //console.log("Notify: ", notifyRemoved);
             if(notifyRemoved == true){
-              console.log('Device Removed Handling Action....', data);
+              //console.log('Device Removed Handling Action....', data);
               dispatch({
                 type: DEVICE_REMOVED,
                 payload: ''
               });
             }else{
-              console.log('Device reset by user....', data);
+              //console.log('Device reset by user....', data);
               dispatch({
                 type: DEVICE_USER_RESET,
                 payload: ''
@@ -104,10 +104,10 @@ export function handleDeviceRemoved(){
 
 
 function handleDeviceSBLStatus(){
-  console.log('Handle device sbl init....');
+  //console.log('Handle device sbl init....');
   return dispatch => {
       ipcRenderer.on('device-sbl-status',(event, data) => {
-          console.log('SBL Status handling Action');
+          //console.log('SBL Status handling Action');
           //TODO need to change return to read mfg_id and store it somewhere. 
           let msg = data["msg"]
           if(msg[1] == 0){
@@ -122,7 +122,7 @@ function handleDeviceSBLStatus(){
             });
             ipcRenderer.send('device-read-settings', 0x1A);
           }
-          console.log('SBL Status handling Data Action....', data);
+          //console.log('SBL Status handling Data Action....', data);
           dispatch({
             type: READ_DEVICE_SETTINGS,
             payload: ""
@@ -132,7 +132,7 @@ function handleDeviceSBLStatus(){
 }
 
 export function getOSDSettings(){
-  console.log('Reading OSD settings');
+  //console.log('Reading OSD settings');
   ipcRenderer.send('device-read-settings', 0x65);
   return {
     type: READ_OSD_SETTINGS,
@@ -144,9 +144,9 @@ export function handleDeviceDataResult(){
   let result;
   return dispatch => {
     ipcRenderer.on('device-data-result',(event, data) => {
-      //console.log('Handle Device settings Action',data);
+      ////console.log('Handle Device settings Action',data);
       let msg = data["msg"];
-      //console.log(msg);
+      ////console.log(msg);
       let usbResult;
       let action;
       if(msg != undefined){
@@ -156,15 +156,15 @@ export function handleDeviceDataResult(){
       let serial_number = "";
       let obdsupport = {};
       let softwareIdResult = {};
-      console.log("action handleDeviceDataResult:", action)
+      //console.log("action handleDeviceDataResult:", action)
       switch(action) {
         case 0x1A: //data settings response
           serial_number = getSerialNumber(msg);
           //obdsupport = checkOBDSupport(msg);
           softwareIdResult = getSoftwareId(msg);
-          console.log("*******************************");
-          console.log(softwareIdResult);
-          console.log("*******************************");
+          //console.log("*******************************");
+          //console.log(softwareIdResult);
+          //console.log("*******************************");
           dispatch(fetchDeviceDBData(serial_number,softwareIdResult));
           dispatch({
             type: DEVICE_DATA_SETTINGS,
@@ -175,22 +175,29 @@ export function handleDeviceDataResult(){
           //for OBD need mfg_id and sw_id. mfg id has to be already retrieved by sbl status call
           break;
         case 0x1B:
+          dispatch({
+            type: SUCCESS_SETTINGS_UPDATE,
+            payload: ""
+          });
+          ipcRenderer.send('device-read-settings', 0x1A);
+          break;
         case 0x66:
           dispatch({
             type: SUCCESS_SETTINGS_UPDATE,
             payload: ""
           });
+          getOSDSettings();
           break;
         case 0x65: //read osd settings response
-          console.log("+++++++++ OSD RESULT +++++++++++++");
-          console.log(msg);
+          //console.log("+++++++++ OSD RESULT +++++++++++++");
+          //console.log(msg);
           dispatch({
             type: DEVICE_OSD_SETTINGS,
             payload: msg
           })
           break;
         case 0x20: //setup response
-          console.log("set up response")
+          //console.log("set up response")
           result = parseTransferDataResponse(msg);
           dispatch({
             type: REQUEST_DATA_SETUP_RESPONSE,
@@ -198,34 +205,34 @@ export function handleDeviceDataResult(){
           });
           break;
         case 0x30: //start transfer response
-          //console.log("start transfer response")
+          ////console.log("start transfer response")
           dispatch({
             type: REQUEST_TRANSFER_START_RESPONSE,
             payload: msg
           });
           break;
         case 0x40: //send packet response
-          //console.log("send packet response");
+          ////console.log("send packet response");
           result = parsePacketDataResponse(msg);
-          //console.log(result);
+          ////console.log(result);
           dispatch({
             type: REQUEST_PACKET_SEND_RESPONSE,
             payload: result
           });
           break;
         case 0x50: //validate block response
-          //console.log("send packet response");
+          ////console.log("send packet response");
           result = msg[1]; //remaining blocks in sector
-          //console.log(result);
+          ////console.log(result);
           dispatch({
             type: REQUEST_VALIDATE_BLOCK_SEND_RESPONSE,
             payload: result
           });
           break;
         case 0x70: //sector write response
-          //console.log("sector write response");
+          ////console.log("sector write response");
           result = parseSectorWriteResponse(msg); //rwrite secotr result
-          //console.log(result);
+          ////console.log(result);
           dispatch({
             type: REQUEST_SECTOR_WRITE_SEND_RESPONSE,
             payload: result
@@ -274,16 +281,16 @@ export function sendSoftwareUpdateData(action, update_status){
     var data = [];
     switch(action){
       case SET_UP_TRANSFER:
-        //console.log("inside software update action", SET_UP_TRANSFER);
+        ////console.log("inside software update action", SET_UP_TRANSFER);
         data = setUpTransferData(update_status);
-        //console.log(data);
+        ////console.log(data);
         ipcRenderer.send('device-write_data', data);
         return {
           type: REQUEST_DATA_SETUP,
           payload: ""
         };
       case START_TRANSFER:
-        //console.log("inside software update action", START_TRANSFER);
+        ////console.log("inside software update action", START_TRANSFER);
         data = setUpTransferStart()
         ipcRenderer.send('device-write_data', data);
         return {
@@ -291,16 +298,16 @@ export function sendSoftwareUpdateData(action, update_status){
           payload: ""
         };
       case PACKET_SEND:
-        //console.log("inside software update action", PACKET_SEND);
+        ////console.log("inside software update action", PACKET_SEND);
         data = setUpPacketData(update_status);
-        //console.log("sendSoftwareUpdateData", data);
+        ////console.log("sendSoftwareUpdateData", data);
         ipcRenderer.send('device-write_data', data);
         return {
           type: REQUEST_PACKET_SEND,
           payload: ""
         };
       case BLOCK_VALIDATE:
-        //console.log("inside software update action", BLOCK_VALIDATE);
+        ////console.log("inside software update action", BLOCK_VALIDATE);
         data = setUpBlockValidateData(update_status);
         ipcRenderer.send('device-write_data', data);
         return {
@@ -308,7 +315,7 @@ export function sendSoftwareUpdateData(action, update_status){
           payload: ""
         };
       case SECTOR_WRITE:
-        //console.log("inside software update action", SECTOR_WRITE);
+        ////console.log("inside software update action", SECTOR_WRITE);
         data = setUpSectorWriteData(update_status);
         ipcRenderer.send('device-write_data', data);
         return {

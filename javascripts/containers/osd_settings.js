@@ -10,8 +10,9 @@ import { OSD_SETTINGS,
 export default class OSDSettings extends Component {
   constructor(props){
     super(props);
-    let osd_settings = JSON.parse(JSON.stringify(OSD_SETTINGS));
-    this.state = {osd_settings: osd_settings};
+    //let osd_settings = JSON.parse(JSON.stringify(OSD_SETTINGS));
+    let osd_settings = JSON.parse(JSON.stringify(this.props.osdSettings));
+    this.state = {osd_settings: osd_settings };
     this.saveOSDSettings = this.saveOSDSettings.bind(this);
     this.onOverlayChange = this.onOverlayChange.bind(this);
     this.setOSDDropdwonValue = this.setOSDDropdwonValue.bind(this);
@@ -23,7 +24,7 @@ export default class OSDSettings extends Component {
   }
 
   renderChanelTextDropdown(option, index, value){
-    //console.log("here ", value);
+    ////console.log("here ", value);
     if(option.value == value){
       return (
         <option key={option.key}
@@ -49,7 +50,7 @@ export default class OSDSettings extends Component {
   setOSDDropdwonValue(event){
     let osd_settings = this.state.osd_settings;
     osd_settings[event.target.id] = event.target.value;
-    console.log(osd_settings);
+    //console.log(osd_settings);
     this.setState({osd_settings});
   }
 
@@ -61,21 +62,30 @@ export default class OSDSettings extends Component {
     }else{
         osd_settings[inputName] = "00";  
     }
-    console.log(osd_settings);
+    //console.log(osd_settings);
     this.setState({osd_settings});
   }
 
   componentWillReceiveProps(nextProps){
+    //console.log("OSD componentWillReceiveProps");
+    //console.log(nextProps.osdSettings);
     if(JSON.stringify(nextProps.osdSettings) != JSON.stringify(this.state.osd_settings)){
       let osd_settings = JSON.parse(JSON.stringify(nextProps.osdSettings));
-      console.log("osdSettings", nextProps.osdSettings);
-      console.log("state", this.state.osdSettings);
+      //console.log("osdSettings", nextProps.osdSettings);
+      //console.log("state", this.state.osd_settings);
       this.setState({osd_settings: osd_settings});
     }
   }
 
+  componentWillUpdate(){
+    //console.log("OSD componentWillUpdate");    
+  }
+
+
+
 
   render() {
+
     return (
       <div>
         <div className="ui raised segment">

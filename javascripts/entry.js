@@ -11,11 +11,13 @@ import ReduxThunk from 'redux-thunk';
 
 
 import App from './components/app';
-import reducers from './reducers';
+//import reducers from './reducers';
 
-//const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
-const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
-export const store = createStoreWithMiddleware(reducers);
+////const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
+//const createStoreWithMiddleware = applyMiddleware(ReduxThunk)(createStore);
+//export const store = createStoreWithMiddleware(reducers);
+
+import { store } from './utils/store_config'
 
 ReactDOM.render(
   <Provider store={store}>

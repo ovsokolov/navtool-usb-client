@@ -6,8 +6,8 @@ export default function(state = {}, action){
     case FETCH_DEVICE_DB_DATA:
       //return state.concat([ action.payload.data ]);
       //or (same crete new array). NEVER!!!!! mutate array
-      console.log('Action recieved', FETCH_DEVICE_DB_DATA);
-      console.log(action.payload);
+      //console.log('Action recieved', FETCH_DEVICE_DB_DATA);
+      //console.log(action.payload);
       return action.payload;
     case DEVICE_REMOVED:
       return {};

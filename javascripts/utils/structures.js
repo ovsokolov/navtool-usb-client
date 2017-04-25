@@ -26,7 +26,8 @@ export const SYSTEM_SETTINGS = {SoundSupported: '',
                                 SideCameraMode:'',
                                 ResrvedBits:''}
 
-export const OSD_SETTINGS = { BackgroundColor: 16,
+export const OSD_SETTINGS = { osd_enabled: false,
+                              BackgroundColor: 16,
                               TextColor: 7,
                               HighlightColor: 112,
                               Reserved1: 255,

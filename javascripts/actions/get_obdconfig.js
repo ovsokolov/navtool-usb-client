@@ -10,13 +10,13 @@ export function fetchOBDConfig(mfg_id, softwareId){
   const url = ROOT_URL + "?mfg_id=" + mfg_id + "&sw_id=" + softwareId;
   const request = axios.get(url);
 
-  console.log('URL', url);
+  //console.log('URL', url);
 
   return (dispatch) => {
     request.then( ({data}) =>{
       let payload_data = data;
-      console.log("+++++++++++fetchOBDConfig data");
-      console.log(payload_data);
+      //console.log("+++++++++++fetchOBDConfig data");
+      //console.log(payload_data);
       dispatch( { type: FETCH_OBD_CONFIG, payload: payload_data } );
     });
   };

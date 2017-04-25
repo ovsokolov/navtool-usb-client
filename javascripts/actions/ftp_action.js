@@ -17,9 +17,9 @@ export function loadFTPFile(sw_id, device_status){
   const url = ROOT_URL + "?sw_id=" + sw_id;
   const request = axios.get(url);
 
-  console.log('URL', url);
-  console.log('sw_id', sw_id);
-  console.log('status', device_status);
+  //console.log('URL', url);
+  //console.log('sw_id', sw_id);
+  //console.log('status', device_status);
 
   return (dispatch) => {
     dispatch( { type: FTP_LOAD_PROGRESS, payload: "" } );
@@ -27,7 +27,7 @@ export function loadFTPFile(sw_id, device_status){
       let words  = CryptoJS.enc.Base64.parse(data.file);
       let fileMD5 = CryptoJS.MD5(words).toString();
       if(fileMD5 == data.md5){
-        console.log("MD5 calculation is correct");
+        //console.log("MD5 calculation is correct");
 
         dispatch( { type: FTP_LOAD_SUCCESS, payload: data } );
         if(device_status == DEVICE_APP_STATUS){

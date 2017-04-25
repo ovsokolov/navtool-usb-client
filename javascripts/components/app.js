@@ -11,11 +11,11 @@ export default class App extends Component {
   }
 
   onChange(i, value, tab, ev) {
-    console.log(arguments);
+    //console.log(arguments);
   }
 
   onActive(tab) {
-    console.log(arguments);
+    //console.log(arguments);
   }
 
   render() {

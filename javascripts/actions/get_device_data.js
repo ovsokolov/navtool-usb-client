@@ -15,14 +15,14 @@ export function fetchDeviceDBData(serial_number, software){
   const url = ROOT_URL + serial_number;
   const request = axios.get(url);
 
-  console.log('URL', url);
+  //console.log('URL', url);
 
   return (dispatch) => {
     request.then( ({data}) =>{
-      console.log(data);
-      console.log(data["mfg_id"])
-      console.log("xxxxxxxxxxxxx")
-      console.log(serial_number);
+      //console.log(data);
+      //console.log(data["mfg_id"])
+      //console.log("xxxxxxxxxxxxx")
+      //console.log(serial_number);
       dispatch( { type: FETCH_DEVICE_DB_DATA, payload: data } )
       dispatch(fetchSoftwareConfig(data["mfg_id"],software.softwareId,software.softwareBuild))
       //dispatch(fetchOBDConfig(data["mfg_id"], obd.softwareId));
@@ -40,12 +40,12 @@ export function updateDeviceDBData(serial_number, update_date, reboot){
     vehicle_model: update_date.vehicle_model
   });
 
-  console.log('URL', url);
+  //console.log('URL', url);
 
   return (dispatch) => {
     request.then( ({data}) =>{
-      console.log(data);
-      console.log(data["mfg_id"])
+      //console.log(data);
+      //console.log(data["mfg_id"])
       dispatch( { type: FETCH_DEVICE_DB_DATA, payload: data } )
       if(reboot){
         clearSBL()

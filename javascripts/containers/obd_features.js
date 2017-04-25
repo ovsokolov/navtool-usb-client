@@ -5,7 +5,7 @@ import { OBD_FEATURES } from '../utils/structures';
 export default class OBDFeatures extends Component {
   constructor(props){
     super(props);
-    let obd_features = {};
+    let obd_features = JSON.parse(JSON.stringify(this.props.OBDSettings));;
     this.state = {obd_features: obd_features};
     this.onFeatureChange = this.onFeatureChange.bind(this);
     this.onDisableAll = this.onDisableAll.bind(this);
@@ -15,9 +15,9 @@ export default class OBDFeatures extends Component {
   componentWillReceiveProps(nextProps){
     if(JSON.stringify(nextProps.OBDSettings) != JSON.stringify(this.state.obd_features)){
       let obd_features = JSON.parse(JSON.stringify(nextProps.OBDSettings));
-      console.log("OBDSettings", nextProps.OBDSettings);
-      console.log("state", this.state.obd_features);
-      console.log("Update OBDSettings");
+      //console.log("OBDSettings", nextProps.OBDSettings);
+      //console.log("state", this.state.obd_features);
+      //console.log("Update OBDSettings");
       this.setState({obd_features: obd_features});
     }
   }
@@ -34,9 +34,9 @@ export default class OBDFeatures extends Component {
     }else{
       obd_features[featureName] = "0"
     }
-    //console.log(system_settings);
+    ////console.log(system_settings);
     this.setState({obd_features});
-    console.log(this.state.obd_features)
+    //console.log(this.state.obd_features)
   }
 
   onDisableAll(checked){
@@ -50,7 +50,7 @@ export default class OBDFeatures extends Component {
         obd_features["obd_disable_all"] = "0";
     }
     this.setState({obd_features});
-    console.log(this.state.obd_features)
+    //console.log(this.state.obd_features)
   }
 
   render() {

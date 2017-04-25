@@ -3,7 +3,6 @@ import React, { Component} from 'react';
 
 import { NO_DEVICE_STATUS, DEVICE_APP_STATUS, DEVICE_SBL_STATUS} from '../utils/device_utils';
 
-var MdImportantDevices = require('react-icons/lib/md/important-devices');
 var iconColor = '';
 
 export default class DeviceInfo extends Component {

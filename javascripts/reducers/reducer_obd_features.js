@@ -12,13 +12,13 @@ export default function(state = JSON.parse(JSON.stringify(OBD_FEATURES)), action
 		  //return state.concat([ action.payload.data ]);
 		  //or (same crete new array). NEVER!!!!! mutate array
 		  	result = Object.assign({}, state);
-		  	console.log("############# FETCH_DEVICE_DB_DATA~OBD REDUCER");
-		  	console.log(action.payload.sw_feature_exp_date)
+		  	//console.log("############# FETCH_DEVICE_DB_DATA~OBD REDUCER");
+		  	//console.log(action.payload.sw_feature_exp_date)
 		  	result.obd_expired = convertMySQLDate(action.payload.sw_feature_exp_date);
-		  	console.log(result);
+		  	//console.log(result);
 			return result;
 		case FETCH_OBD_CONFIG:
-			console.log("############# FETCH_OBD_CONFIG~~OBD REDUCER");
+			//console.log("############# FETCH_OBD_CONFIG~~OBD REDUCER");
 			result = Object.assign({}, state);
 			result.obd_enabled = true;
 			action.payload.forEach( function (arrayItem)
@@ -26,7 +26,7 @@ export default function(state = JSON.parse(JSON.stringify(OBD_FEATURES)), action
 			    var label_name = 'obd_label_idx' + arrayItem.label_idx;;
 			    result[label_name] = arrayItem.label_desc;
 			});
-			console.log(result);
+			//console.log(result);
 			return result;
 		case DEVICE_REMOVED:
 		  return JSON.parse(JSON.stringify(OBD_FEATURES));
@@ -41,9 +41,9 @@ function convertMySQLDate(mysql_string){
    {
 		var formated_date = mysql_string.replace('T',' ');
 		t = formated_date.split(/[- :]/);
-		console.log('convertMySQLDate');
-		console.log(formated_date);
-		console.log(t);
+		//console.log('convertMySQLDate');
+		//console.log(formated_date);
+		//console.log(t);
 		result = new Date(t[0], t[1] - 1, t[2]);          
    }else{
    		result = new Date('1990', '11', '31');
