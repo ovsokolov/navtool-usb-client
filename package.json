@@ -1,6 +1,6 @@
 {
-  "name": "electron-quick-start",
-  "productName": "DashConnectPlus",
+  "name": "software-updater",
+  "productName": "NavTool Updater",
   "version": "1.1.0",
   "description": "A minimal Electron application",
   "main": "main.js",
@@ -10,7 +10,7 @@
     "postinstall": "install-app-deps",
     "watch": "./node_modules/.bin/webpack-dev-server",
     "webpack": "webpack -p --config ./webpack-production.config.js",
-    "build": "electron-packager ./ DashConnectPlus --platform=darwin --ignore=node_modules/electron-*",
+    "build": "electron-packager ./ DashConnectPlus --platform=darwin --icon=assets/nsu.icns --ignore=node_modules/electron-* --overwrite",
     "pack": "build --dir",
     "dist": "build"
   },
@@ -23,9 +23,9 @@
     "demo"
   ],
   "build": {
-    "appId": "your.id",
+    "appId": "nsu.installer",
     "mac": {
-      "category": "your.app.category.type"
+      "category": "nsu.app.installer"
     }
   },
   "author": "GitHub",

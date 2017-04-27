@@ -1,12 +1,12 @@
 const electron = require('electron')
 var os = require('os');
 var HID = require('node-hid')
-var log = require('electron-log');
+//var log = require('electron-log');
 var usbDetect = require('node-usb-detection');
 var devices = HID.devices()
 const {ipcMain} = require('electron')
 const {ipcRenderer} = require('electron')
-log.transports.file.file = __dirname + '/log.txt';
+//log.transports.file.file = __dirname + '/log.txt';
 
 var platfor_string = os.platform() + '_' + os.arch()
 
