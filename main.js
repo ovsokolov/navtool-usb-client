@@ -1,12 +1,12 @@
 const electron = require('electron')
 var os = require('os');
 var HID = require('node-hid')
-//var log = require('electron-log');
+var log = require('electron-log');
 var usbDetect = require('node-usb-detection');
 var devices = HID.devices()
 const {ipcMain} = require('electron')
 const {ipcRenderer} = require('electron')
-//log.transports.file.file = __dirname + '/log.txt';
+log.transports.file.file = __dirname + '/log.txt';
 
 var platfor_string = os.platform() + '_' + os.arch()
 
@@ -34,7 +34,7 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1000, height: 800})
+  mainWindow = new BrowserWindow({width: 1200, height: 800})
 
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/index.html`)
@@ -92,6 +92,7 @@ usbDetect.add(function(device) {
     ////log.info("added device:\n", device.deviceDescriptor);
     ////log.info(HID.devices());
     if(device.deviceDescriptor.idVendor == 49745){
+    		log.info("XXX", device.deviceDescriptor);
 		    initListeners()
 		    setTimeout(function() {
 		    	mainWindow.webContents.send('device-arrived' , {msg:'device arrived'});
@@ -114,6 +115,7 @@ function initListeners(){
 	}
 	isInitialized = true
 
+	/*
 
 	ipcMain.on('device-sbl-status', (event, arg) => {
 	  ////log.info('Checking Device SBL status....')
@@ -140,9 +142,10 @@ function initListeners(){
 		   		isOpen = true
 			}
 			catch(err){
-				//log.info(err)
+				log.info(err)
 			}
 
+	    	log.info(device);
 			////log.info('before sbl check')
 			device.read(function(err,data) {
 			//log.info('data recieved for sbl status')
@@ -150,6 +153,7 @@ function initListeners(){
 					mainWindow.webContents.send('device-sbl-status', { msg: data} );
 			})
 	    	//log.info('checking SBL status')
+
 			device.write([0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00]);
 		//}, 1000);
 
@@ -173,8 +177,70 @@ function initListeners(){
 
 	});
 	////log.info("after init")
+	*/
 
 }
+
+ipcMain.on('device-sbl-status', (event, arg) => {
+  ////log.info('Checking Device SBL status....')
+  //event.sender.send('asynchronous-reply', 'pong')
+  //if(!isOpen){
+  //setTimeout(function() {
+		try{
+			//wait for 1sec for device to arrive
+		  	var devicesList = HID.devices();
+			var deviceInfo = devicesList.find( function(d) {
+		    	return d.vendorId===49745 && d.productId===278;
+			});
+
+			log.info(deviceInfo);
+			device = new HID.HID( deviceInfo.path );
+
+
+			//log.info("UsagePage: " + deviceInfo.usagePage);
+			//log.info("Usage: " + deviceInfo.usage);
+			//log.info("Path: " + deviceInfo.path);
+
+			////log.info('#### openning device....')
+	   		//device = new HID.HID(49745, 278)
+
+	   		isOpen = true
+		}
+		catch(err){
+			log.info(err)
+		}
+
+    	log.info(device);
+		////log.info('before sbl check')
+		device.read(function(err,data) {
+		//log.info('data recieved for sbl status')
+        //log.info(data)
+				mainWindow.webContents.send('device-sbl-status', { msg: data} );
+		})
+    	//log.info('checking SBL status')
+
+		device.write([0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00]);
+	//}, 1000);
+
+});
+
+ipcMain.on('device-sbl', (event, arg) => {
+	//log.info('request SBL')  // prints "ping"
+	//device.pause()
+	device.removeAllListeners("data")
+	device.removeAllListeners("error")
+	try {
+  		device.write(arg)
+	}
+	catch(err){
+		//device.close()
+	}
+	finally {
+  		//device.close()
+	  	//device = null
+	}
+
+});
 
 
 ipcMain.on('check-device', (event, arg) => {
