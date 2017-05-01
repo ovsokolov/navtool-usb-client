@@ -1,6 +1,6 @@
-import { DEVICE_SBL_ARRIVED, DEVICE_APP_ARRIVED, DEVICE_REMOVED } from '../actions/hid_action';
+import { DEVICE_SBL_ARRIVED, DEVICE_APP_ARRIVED, DEVICE_MFG_ID_RECIEVED, DEVICE_DATA_SETTINGS, DEVICE_REMOVED } from '../actions/hid_action';
 import { REQUEST_DATA_SETUP, COMPLETE_UPDATE_REQUEST } from '../actions/hid_action';
-import { START_OBD_PROGRAMMING, COMPLETE_OBD_PROGRAMMING } from '../actions/hid_action';
+import { START_OBD_PROGRAMMING, COMPLETE_OBD_PROGRAMMING, REQUEST_REBOOT_AFTER_UPDATE } from '../actions/hid_action';
 import { NO_DEVICE_STATUS, DEVICE_APP_STATUS, DEVICE_SBL_STATUS} from '../utils/device_utils';
 import { WAITING_FOR_SBL, 
          WAITING_FOR_APP_UPDATE, 
@@ -9,10 +9,10 @@ import { WAITING_FOR_SBL,
          UPDATE_IN_PROGRESS,
          OBD_NOT_STARTED,
          OBD_IN_PROGRESS } from '../utils/device_utils';
-import { REQUEST_SBL_FOR_UPDATE } from '../actions/ftp_action';
-import { REQUEST_REBOOT_AFTER_UPDATE } from  '../actions/get_device_data';
+import { REQUEST_SBL_FOR_UPDATE, START_SOFTWARE_UPDATE } from '../actions/ftp_action';
+import {getSoftwareId} from '../utils/device_utils';
 
-export default function(state = {app_status: NO_DEVICE_STATUS, update_status: UPDATE_NOT_STARTED, obd_status: OBD_NOT_STARTED }, action){
+export default function(state = {app_status: NO_DEVICE_STATUS, update_status: UPDATE_NOT_STARTED, obd_status: OBD_NOT_STARTED, device_mfg_id: '', device_sw_id: '', device_sw_build: '' }, action){
   let result = {};
   switch (action.type){
     case DEVICE_APP_ARRIVED:
@@ -27,8 +27,19 @@ export default function(state = {app_status: NO_DEVICE_STATUS, update_status: UP
       //result.update_status = UPDATE_READY;
       //*******
       return result;
+    case DEVICE_MFG_ID_RECIEVED:
+      result = Object.assign({}, state, {device_mfg_id: action.payload.mfg_id.trim()});
+      return result;
+    case DEVICE_DATA_SETTINGS:
+      var software = getSoftwareId(action.payload);
+      result = Object.assign({}, state, {device_sw_id: software.softwareId, device_sw_build:  software.softwareBuild});
+      //console.log(DEVICE_DATA_SETTINGS, ": ", software.softwareId, ".", software.softwareBuild);
+      return result;
+    case START_SOFTWARE_UPDATE:
+      result = Object.assign({}, state, {update_status: UPDATE_READY});
+      return result;
     case DEVICE_REMOVED:
-      return {app_status: NO_DEVICE_STATUS, update_status: UPDATE_NOT_STARTED, obd_status: OBD_NOT_STARTED };
+      return {app_status: NO_DEVICE_STATUS, update_status: UPDATE_NOT_STARTED, obd_status: OBD_NOT_STARTED, device_mfg_id: '', device_sw_id: '', device_sw_build: '' };
     case REQUEST_SBL_FOR_UPDATE:
       result = Object.assign({}, state, {update_status: WAITING_FOR_SBL });
       return result;

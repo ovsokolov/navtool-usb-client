@@ -27,10 +27,13 @@ export const COMPLETE_OBD_PROGRAMMING = 'COMPLETE_OBD_PROGRAMMING';
 export const READ_OSD_SETTINGS = 'READ_OSD_SETTINGS';
 export const DEVICE_OSD_SETTINGS = 'DEVICE_OSD_SETTINGS';
 export const SAVE_DEVICE_OSD_SETTINGS = 'SAVE_DEVICE_OSD_SETTINGS';
+export const DEVICE_MFG_ID_RECIEVED = 'DEVICE_MFG_ID_RECIEVED';
+export const REQUEST_REBOOT_AFTER_UPDATE = 'REQUEST_REBOOT_AFTER_UPDATE';
 
 
 
 import { fetchDeviceDBData } from './get_device_data';
+import { fetchMake } from './get_make';
 import { getSerialNumber,
          checkOBDSupport,
          getSoftwareId,
@@ -53,6 +56,7 @@ import { SET_UP_TRANSFER,
          SECTOR_WRITE } from '../utils/device_utils'
 
 var notifyRemoved = true;
+var g_MFG_ID =""
 
 export function hidAction(hid_action){
   return dispatch => {
@@ -60,6 +64,7 @@ export function hidAction(hid_action){
     dispatch(handleDeviceSBLStatus());
     dispatch(handleDeviceDataResult());
     dispatch(handleDeviceRemoved());
+    dispatch(handleDeviceMfgId());
     dispatch({
       type: INIT_IPC,
       payload: ''
@@ -127,6 +132,25 @@ function handleDeviceSBLStatus(){
             type: READ_DEVICE_SETTINGS,
             payload: ""
           });
+      });
+  };
+}
+
+
+function handleDeviceMfgId(){
+  //console.log('Handle device sbl init....');
+  return dispatch => {
+      ipcRenderer.on('device-mfg-id',(event, data) => {
+          //console.log('SBL Status handling Action');
+          //TODO need to change return to read mfg_id and store it somewhere. 
+          let mfg_id = data["mfgid"];
+          console.log("MFG ID: ", mfg_id);
+          g_MFG_ID = mfg_id;
+          dispatch({
+            type: DEVICE_MFG_ID_RECIEVED,
+            payload: {mfg_id}
+          });
+          dispatch(fetchMake(mfg_id));
       });
   };
 }
@@ -334,6 +358,15 @@ export function requestSBL(){
     payload: ""
   };
 }
+
+export function rebootAfterUpdate(){
+    clearSBL();
+    return { 
+      type: REQUEST_REBOOT_AFTER_UPDATE, 
+      payload: ""
+    };
+}
+
 
 export function clearSBL(){
   let arg = [];

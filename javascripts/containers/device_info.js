@@ -14,6 +14,7 @@ export default class DeviceInfo extends Component {
     this.renderDeviceInfo = this.renderDeviceInfo.bind(this);
     this.renderDevice = this.renderDevice.bind(this);
     this.renderSearchDevice = this.renderSearchDevice.bind(this);
+    this.renderSoftwareVersion = this.renderSoftwareVersion.bind(this);
   }
 
   renderDeviceStatus(){
@@ -44,6 +45,7 @@ export default class DeviceInfo extends Component {
           </div>
       );
   }
+
   renderDevice(){
     if(this.props.deviceStatus.app_status == NO_DEVICE_STATUS){
       return this.renderSearchDevice();
@@ -59,15 +61,30 @@ export default class DeviceInfo extends Component {
         </div>
     );
   }
+
+  renderSoftwareVersion(){
+      if(this.props.deviceStatus.app_status == DEVICE_APP_STATUS){
+        return (
+          <span>
+            &nbsp;&nbsp;Software: {this.props.deviceStatus.device_sw_id}.{this.props.deviceStatus.device_sw_build}
+          </span>
+        );
+      }else if (this.props.deviceStatus.app_status == DEVICE_SBL_STATUS) {
+        return(
+          <span />
+        );
+      }
+  }
   renderDeviceInfo(){
       return(
         <div className="thirteen wide column left aligned ">
             <div className="row">
-                <div className={`ui ${iconColor} horizontal label`}>Device ID:</div>{this.props.deviceInfo.mcu_serial}
+                <div className={`ui ${iconColor} horizontal label`}>Device Model:</div>{this.props.deviceStatus.device_mfg_id}
+                {this.renderSoftwareVersion()}
                 <br /><br/>
             </div>
             <div className="row">
-                <div className={`ui ${iconColor} horizontal label`}>Device Model:</div>{this.props.deviceInfo.mfg_id}
+                <div className={`ui ${iconColor} horizontal label`}>Device ID:</div>{this.props.deviceInfo.mcu_serial}
                 <br /><br/>
             </div>
             <div className="row">

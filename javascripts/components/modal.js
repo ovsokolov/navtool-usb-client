@@ -8,6 +8,7 @@ class Modal extends Component{
   constructor(props){
     super(props);
     this.closeModal = this.closeModal.bind(this);
+    this.renderCloseButton = this.renderCloseButton.bind(this);
   }
 
   closeModal(){
@@ -32,12 +33,20 @@ class Modal extends Component{
     document.body.removeChild(this.modalTarget);
   }
 
+  renderCloseButton(){
+    if(this.props.showCloseButton==true){
+      return (
+        <button onClick={() => this.props.onCloseModal()} className="ui primary button">Close</button>
+      );
+    }
+  }
+
   _render(){
     ReactDOM.render(
       <Provider store={store}>
         <div>
           <div>{this.props.children}</div>
-          <button onClick={() => this.props.onCloseModal()} className="ui primary button">Close</button>
+          {this.renderCloseButton()}
         </div>
       </Provider>,
       this.modalTarget

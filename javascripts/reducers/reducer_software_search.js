@@ -1,7 +1,7 @@
 import { FETCH_MAKE } from '../actions/get_make';
 import { FETCH_MODEL } from '../actions/get_model';
 import { FETCH_YEAR, SET_YEAR } from '../actions/get_year';
-import { DEVICE_REMOVED } from '../actions/hid_action';
+import { DEVICE_REMOVED, DEVICE_MFG_ID_RECIEVED } from '../actions/hid_action';
 import { SET_TRANSMISSION_TYPE } from '../actions/set_transmission';
 import { SET_SOFTWARE } from '../actions/get_software';
 
@@ -11,6 +11,7 @@ const DEFAULT_STATE = {mfg_id: '', vehicle_make: '', vehicle_model: '', vehicle_
 export default function(state = JSON.parse(JSON.stringify(DEFAULT_STATE)), action){
   let result = {};
   switch (action.type){
+    case DEVICE_MFG_ID_RECIEVED:
     case FETCH_MAKE:
       //return state.concat([ action.payload.data ]);
       //or (same crete new array). NEVER!!!!! mutate array

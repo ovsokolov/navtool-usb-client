@@ -1,11 +1,11 @@
 import { FTP_LOAD_SUCCESS } from '../actions/ftp_action';
-import { REQUEST_REBOOT_AFTER_UPDATE } from  '../actions/get_device_data';
 import { COMPLETE_UPDATE_REQUEST } from '../actions/hid_action'
 import { REQUEST_DATA_SETUP_RESPONSE,
          REQUEST_TRANSFER_START_RESPONSE,
          REQUEST_PACKET_SEND_RESPONSE,
          REQUEST_VALIDATE_BLOCK_SEND_RESPONSE,
-         REQUEST_SECTOR_WRITE_SEND_RESPONSE } from '../actions/hid_action';
+         REQUEST_SECTOR_WRITE_SEND_RESPONSE,
+         REQUEST_REBOOT_AFTER_UPDATE } from '../actions/hid_action';
 
 import { UPDATE_NOT_STARTED,
          SET_UP_TRANSFER,

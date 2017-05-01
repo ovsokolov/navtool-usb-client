@@ -78,22 +78,11 @@ app.on('activate', function () {
   }
 })
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
-/*
-usbDetect.on('add:49745:278', function(device) {
-	//log.info('device added');
-	initListeners()
-	mainWindow.webContents.send('device-arrived' , {msg:'device arrived'});
-
-});
-*/
 usbDetect.add(function(device) {
     ////log.info("added device:\n", device.deviceDescriptor);
-    ////log.info(HID.devices());
+    //log.info(HID.devices());
     if(device.deviceDescriptor.idVendor == 49745){
-    		log.info("XXX", device.deviceDescriptor);
-		    initListeners()
+    		//log.info("XXX", device.deviceDescriptor);
 		    setTimeout(function() {
 		    	mainWindow.webContents.send('device-arrived' , {msg:'device arrived'});
 		    }, 1000);
@@ -108,79 +97,6 @@ usbDetect.remove(function(device) {
 });
 
 
-
-function initListeners(){
-	if(isInitialized){
-		return;
-	}
-	isInitialized = true
-
-	/*
-
-	ipcMain.on('device-sbl-status', (event, arg) => {
-	  ////log.info('Checking Device SBL status....')
-	  //event.sender.send('asynchronous-reply', 'pong')
-	  //if(!isOpen){
-	  //setTimeout(function() {
-			try{
-				//wait for 1sec for device to arrive
-			  	var devicesList = HID.devices();
-				var deviceInfo = devices.find( function(d) {
-
-			    	return d.vendorId===49745 && d.productId===278;
-				});
-				device = new HID.HID( deviceInfo.path );
-
-
-				//log.info("UsagePage: " + deviceInfo.usagePage);
-				//log.info("Usage: " + deviceInfo.usage);
-				//log.info("Path: " + deviceInfo.path);
-
-				////log.info('#### openning device....')
-		   		//device = new HID.HID(49745, 278)
-
-		   		isOpen = true
-			}
-			catch(err){
-				log.info(err)
-			}
-
-	    	log.info(device);
-			////log.info('before sbl check')
-			device.read(function(err,data) {
-			//log.info('data recieved for sbl status')
-	        //log.info(data)
-					mainWindow.webContents.send('device-sbl-status', { msg: data} );
-			})
-	    	//log.info('checking SBL status')
-
-			device.write([0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00]);
-		//}, 1000);
-
-	});
-
-	ipcMain.on('device-sbl', (event, arg) => {
-		//log.info('request SBL')  // prints "ping"
-		//device.pause()
-		device.removeAllListeners("data")
-		device.removeAllListeners("error")
-		try {
-      		device.write(arg)
-		}
-		catch(err){
-			//device.close()
-		}
-		finally {
-      		//device.close()
-		  	//device = null
-		}
-
-	});
-	////log.info("after init")
-	*/
-
-}
-
 ipcMain.on('device-sbl-status', (event, arg) => {
   ////log.info('Checking Device SBL status....')
   //event.sender.send('asynchronous-reply', 'pong')
@@ -194,6 +110,7 @@ ipcMain.on('device-sbl-status', (event, arg) => {
 			});
 
 			log.info(deviceInfo);
+			mainWindow.webContents.send('device-mfg-id', { mfgid: deviceInfo.serialNumber} );
 			device = new HID.HID( deviceInfo.path );
 
 
@@ -207,10 +124,10 @@ ipcMain.on('device-sbl-status', (event, arg) => {
 	   		isOpen = true
 		}
 		catch(err){
-			log.info(err)
+			//log.info(err)
 		}
 
-    	log.info(device);
+    	//log.info(device);
 		////log.info('before sbl check')
 		device.read(function(err,data) {
 		//log.info('data recieved for sbl status')
@@ -245,10 +162,10 @@ ipcMain.on('device-sbl', (event, arg) => {
 
 ipcMain.on('check-device', (event, arg) => {
   devices = HID.devices();
+  //log.info(devices);
 	for (var i = 0; i < devices.length; i++){
 		//log.info("@@@@@@@@@@    device found " + devices[i].vendorId)
 		if(devices[i].vendorId == 49745){
-			initListeners()
 			mainWindow.webContents.send('device-arrived' , {msg:'device arrived'});
 			////log.info("xxxxxxxxxxx    after found")
 		}

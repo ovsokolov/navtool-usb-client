@@ -12,10 +12,11 @@ import ModalMessage from '../containers/modal_messages'
 import { connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { saveDeviceSettings, updateDeviceVichecleInfo, sendSoftwareUpdateData, saveDeviceOSDSettings } from'../actions/hid_action';
+import { saveDeviceSettings, updateDeviceVichecleInfo, sendSoftwareUpdateData, saveDeviceOSDSettings, rebootAfterUpdate } from'../actions/hid_action';
 import { hidAction } from '../actions/hid_action';
 import { startOBDProgramming } from '../actions/hid_action';
 import { getOSDSettings } from '../actions/hid_action';
+import { getSerialNumber } from '../utils/device_utils';
 
 
 import { loadFTPFile } from '../actions/ftp_action';
@@ -110,6 +111,7 @@ class Device extends Component {
       //console.log("Inside modal function", update_status.update_progress_status);
       return (
         <Modal
+          showCloseButton={false}
           onCloseModal={this.closeModal}
         >
           <UpdateProgress
@@ -122,6 +124,7 @@ class Device extends Component {
       //console.log("Inside modal function obd_status", obd_status);
       return (
         <Modal
+          showCloseButton={false}
           onCloseModal={this.closeModal}
         >
           <ProgrammingProgress />
@@ -132,6 +135,7 @@ class Device extends Component {
       //console.log("Inside modal function message");
       return (
         <Modal
+          showCloseButton={true}
           onCloseModal={this.closeModal}
         >
           <ModalMessage 
@@ -166,6 +170,7 @@ class Device extends Component {
     if(nextProps.device_status.app_status == DEVICE_APP_STATUS && this.state.device_update_status == AFTER_UPDATE_ACTION){
       if(nextProps.device_data != this.props.device_data){
         this.setState({device_update_status: UPDATE_COMPLETED});
+        this.props.updateDeviceDBData(getSerialNumber(nextProps.device_data), nextProps.software_update);
         this.props.updateDeviceVichecleInfo(nextProps.device_data, this.props.software_update);
       }
     }
@@ -187,10 +192,7 @@ class Device extends Component {
     if(this.state.device_update_status == UPDATE_IN_PROGRESS && nextProps.software_update.update_progress_status == TRANSFER_COMPLETED){
       ////console.log("Transfer completed", nextProps.software_update);
       this.setState({device_update_status: AFTER_UPDATE_ACTION});
-      this.props.updateDeviceDBData(
-        this.props.device_db_data.mcu_serial,
-        nextProps.software_update,
-        true);
+      this.props.rebootAfterUpdate();
     }
   }
 
@@ -287,7 +289,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, startOBDProgramming, hideModal, getOSDSettings, saveDeviceOSDSettings }, dispatch);
+  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, startOBDProgramming, hideModal, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate }, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Device);
