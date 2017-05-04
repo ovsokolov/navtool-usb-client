@@ -24,7 +24,25 @@ export const SYSTEM_SETTINGS = {SoundSupported: '',
                                 FactoryRightCamera:'',
                                 FrontCameraMode:'',
                                 SideCameraMode:'',
-                                ResrvedBits:''}
+                                ResrvedBits:'',
+                                IsDefaultSettings: '',
+                                VideoInputs: '',
+                                VIMCapacity: '',
+                                RGBCapacity: '',
+                                HDMICapacity: '',
+                                ParkingLinesDisabled: '',
+                                ScreenSize: '',
+                                CSyncPolarity: '',
+                                SOGEnabled: '',
+                                VIMEnabled: '',
+                                VideoSize1: '',
+                                VideoSize2: '',
+                                VideoSize3: '',
+                                VideoSize4: '',
+                                VideoFunction1: '',
+                                VideoFunction2: '',
+                                VideoFunction3: '',
+                                VideoFunction4: ''}
 
 export const OSD_SETTINGS = { osd_enabled: false,
                               BackgroundColor: 16,
@@ -160,5 +178,11 @@ export const TRANSMISSION_TYPE_DROPDOWN ={ id:'automatic_transmission',
 values:[
   {value:'1', label:'Automatic Transmission',key:'TRAN_0',setting:'automatic_transmission'},
   {value:'0', label:'Manual Transmission',key:'TRAN_1',setting:'automatic_transmission'}
+]}
+
+export const SYNC_POLARITY_DROPDOWN ={ id:'CSyncPolarity',
+values:[
+  {value:'01', label:'Positive',key:'SYNC_0',setting:'CSyncPolarity'},
+  {value:'10', label:'Negative',key:'SYNC_1',setting:'CSyncPolarity'}
 ]}
 

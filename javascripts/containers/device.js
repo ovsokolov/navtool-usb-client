@@ -49,6 +49,8 @@ class Device extends Component {
     var init_system_settings = JSON.parse(JSON.stringify(SYSTEM_SETTINGS));
     this.state = {device_data: [], mfg_id: '', serial_number: '', system_settings: init_system_settings, device_update_status: ''}
 
+    this.renderDeviceSettings = this.renderDeviceSettings.bind(this);
+
     this.readDeviceSettings = this.readDeviceSettings.bind(this);
     this.checkDevice = this.checkDevice.bind(this);
     this.saveDeviceSettings = this.saveDeviceSettings.bind(this);
@@ -65,6 +67,25 @@ class Device extends Component {
 
     this.closeModal = this.closeModal.bind(this);
     this.displayModal = this.displayModal.bind(this);
+
+  }
+
+  renderDeviceSettings(){
+    if(this.props.device_status.device_settings_type){
+      return(
+            <DeviceSettings
+              systemSettings = {this.props.system_settings}
+              settingsType = {this.props.device_status.device_settings_type}
+              onDeviceSettingsSave={this.saveDeviceSettings}
+            />
+      );
+    }else{
+      return (
+          <div id="settings-pane">
+            Settings not available
+          </div>  
+      );       
+    }
   }
 
   renderOBDFeatures(){
@@ -257,10 +278,7 @@ class Device extends Component {
           />
         </div>
         <div className="ui bottom attached tab segment" data-tab="second">
-            <DeviceSettings
-              systemSettings = {this.props.system_settings}
-              onDeviceSettingsSave={this.saveDeviceSettings}
-            />
+            { this.renderDeviceSettings() }
         </div>
         <div className="ui bottom attached tab segment" data-tab="third">
             { this.renderOSDSettings() }

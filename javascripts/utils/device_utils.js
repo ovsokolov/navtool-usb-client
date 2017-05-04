@@ -71,11 +71,47 @@ export function setDeviceSettings(data, settings){
   byte4 = settings["SideCameraMode"] + byte4;
   byte4 = settings["ResrvedBits"] + byte4;
   //console.log(byte4);
+  //byte_5;
+  let byte5 = "";
+  byte5 = settings["IsDefaultSettings"] + byte5;
+  byte5 = settings["VideoInputs"] + byte5;
+  byte5 = settings["VIMCapacity"] + byte5;
+  byte5 = settings["RGBCapacity"] + byte5;
+  byte5 = settings["HDMICapacity"] + byte5;
+  byte5 = settings["ParkingLinesDisabled"] + byte5;
+
+  //byte 6  
+  let byte6 = "";
+  byte6 = settings["ScreenSize"] + byte6;
+  byte6 = settings["CSyncPolarity"] + byte6;
+  byte6 = settings["SOGEnabled"] + byte6;
+  byte6 = settings["VIMEnabled"] + byte6; 
+
+
+  //byte 7
+  let byte7 = "";
+  byte7 = settings["VideoSize1"] + byte7;
+  byte7 = settings["VideoSize2"] + byte7;
+  byte7 = settings["VideoSize3"] + byte7;
+  byte7 = settings["VideoSize4"] + byte7; 
+  
+  //byte 8
+  let byte8 = "";
+  byte8 = settings["VideoFunction1"] + byte8;
+  byte8 = settings["VideoFunction2"] + byte8;
+  byte8 = settings["VideoFunction3"] + byte8;
+  byte8 = settings["VideoFunction4"] + byte8; 
+
 
   device_data[21] = parseInt(byte1,2);
   device_data[22] = parseInt(byte2,2);
   device_data[23] = parseInt(byte3,2);
   device_data[24] = parseInt(byte4,2);
+  device_data[25] = parseInt(byte5,2);
+  device_data[26] = parseInt(byte6,2);
+  device_data[27] = parseInt(byte7,2);
+  device_data[28] = parseInt(byte8,2);
+  
   let result = [];
   result[0] = 0x00;
   result[1] = 0x1B;

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 
 import { SYSTEM_SETTINGS } from '../utils/structures';
-import { FRONT_REAR_CAMERA_DROPDOWN } from '../utils/structures';
-import { SIDE_CAMERA_DROPDOWN } from '../utils/structures';
+import { FRONT_REAR_CAMERA_DROPDOWN, SIDE_CAMERA_DROPDOWN, SYNC_POLARITY_DROPDOWN } from '../utils/structures';
 
 export default class DeviceSettings extends Component {
   constructor(props){
     super(props);
-    let system_settings = JSON.parse(JSON.stringify(SYSTEM_SETTINGS));
+    let system_settings = JSON.parse(JSON.stringify(this.props.systemSettings));
     //console.log("~~~~~~~~~~~~~~~~~~~~~~~~");
     this.state = {system_settings: system_settings};
     this.saveSettings = this.saveSettings.bind(this);
@@ -17,15 +16,24 @@ export default class DeviceSettings extends Component {
     this.renderDropdown = this.renderDropdown.bind(this);
     this.renderRadioBatton = this.renderRadioBatton.bind(this);
     this.onRadioBattonChange = this.onRadioBattonChange.bind(this);
+    this.onIputChange = this.onIputChange.bind(this);
+
+    this.renderSettings = this.renderSettings.bind(this);
+    this.renderHDMISettings = this.renderHDMISettings.bind(this)
+    this.renderAfterMarketCameras = this.renderAfterMarketCameras.bind(this);
+    this.renderOEMCameras = this.renderOEMCameras.bind(this);
+    this.renderFrontCameraSettings = this.renderFrontCameraSettings.bind(this);
+    this.renderLaneWatchCameraSettings = this.renderLaneWatchCameraSettings.bind(this);
+    this.renderSync = this.renderSync.bind(this);
   }
 
   saveSettings(){
     this.props.onDeviceSettingsSave(this.state.system_settings);
   }
 
-  renderDropdown(option, index, value){
+  renderDropdown(option, index){
     ////console.log("here ", value);
-    if(option.value == value){
+    if(option.value == this.state.system_settings[option.setting]){
       return (
         <option key={option.key}
                 value={option.value}
@@ -144,35 +152,57 @@ export default class DeviceSettings extends Component {
   }
 
 
-  render() {
-    var settings = [];
-    for (let property in this.state.system_settings) {
-      let div_key = "div_" + property;
-      settings.push(<div key={div_key}>{property} :<input type="text"
-                                            key={property}
-                                            ref={property}
-                                            //ref={(input) => this.input = input}
-                                            value={this.state.system_settings[property]}
-                                            onChange={event => this.onIputChange(event.target.value,property)}
-                                      />
-                    </div>);
-    }
+  renderSettings(){
     return (
-      <div>
-          <div className="ui two column grid">
+      <div className="ui two column grid">
+        { this.renderHDMISettings() }
+        { this.renderAfterMarketCameras() }
+        { this.renderOEMCameras() }
+        { this.props.settingsType == "1" &&
+            <div className="column">
+              { this.renderFrontCameraSettings() }
+            </div>
+        }
+        { this.props.settingsType == "1" &&
+            <div className="column">
+              { this.renderLaneWatchCameraSettings() }
+            </div>
+        }
+        { this.props.settingsType == "2" &&
+            <div className="column">
+              { this.renderSync() }
+            </div>
+        }
+      </div>
+    )
+  }
+
+  renderHDMISettings(){
+    return (
+      <div className="row">
+        <div className="column">
+          <div className="ui raised segment">
+            <a className="ui blue ribbon label">ACTIVATE MIRRORING/HDMI INPUT</a>
+              <div className="inline field">
+                <input type="checkbox"
+                       checked={this.state.system_settings["HDMIEnabled"] == "1" ? 'checked':''}
+                       onChange={event => this.onIputChange(event.target.checked,'HDMIEnabled')}
+                       />
+                      <div className="ui left pointing label">
+                        Turn On HDMI Video Input
+                      </div>                          
+              </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  renderAfterMarketCameras(){
+    return (
             <div className="column">
               <div className="ui raised segment">
                 <a className="ui blue ribbon label">SET CHECKMARK FOR AFTERMARKET INSTALLED CAMERA</a>
-                <div className="inline field">
-                    <input type="checkbox"
-                           checked={this.state.system_settings["HDMIEnabled"] == "1" ? 'checked':''}
-                           onChange={event => this.onIputChange(event.target.checked,'HDMIEnabled')}
-                           />
-                          <div className="ui left pointing label">
-                            Turn On HDMI Video Input
-                          </div>                          
-                </div>
-                <br />
                 <div className="inline field">
                     <input type="checkbox"
                            checked={this.state.system_settings["Input1Enabled"] == "1" ? 'checked':''}
@@ -193,27 +223,37 @@ export default class DeviceSettings extends Component {
                     </div>
                 </div>
                 <br />
-                <div className="inline field">
-                  <input type="checkbox"
-                    checked={this.state.system_settings["Input3Enabled"] == "1" ? 'checked':''}
-                    onChange={event => this.onCameraChange(event.target.checked,'FactoryLeftCamera','LeftCameraEnabled','Input3Enabled')}
-                    />
-                    <div className="ui left pointing label">
-                       Aftermarket Left Lane Watch Camera   
+                {this.props.settingsType == "1" &&
+                  <div>
+                    <div className="inline field">
+                      <input type="checkbox"
+                        checked={this.state.system_settings["Input3Enabled"] == "1" ? 'checked':''}
+                        onChange={event => this.onCameraChange(event.target.checked,'FactoryLeftCamera','LeftCameraEnabled','Input3Enabled')}
+                        />
+                        <div className="ui left pointing label">
+                           Aftermarket Left Lane Watch Camera   
+                        </div>
                     </div>
-                </div>
-                <br />
-                <div className="inline field">
-                  <input type="checkbox"
-                    checked={this.state.system_settings["Input4Enabled"] == "1" ? 'checked':''}
-                    onChange={event => this.onCameraChange(event.target.checked,'FactoryRightCamera','RightCameraEnabled','Input4Enabled')}
-                    />
-                    <div className="ui left pointing label">
-                         Aftermarket Right Lane Watch Camera   
+                    <br />
+                    <div className="inline field">
+                      <input type="checkbox"
+                        checked={this.state.system_settings["Input4Enabled"] == "1" ? 'checked':''}
+                        onChange={event => this.onCameraChange(event.target.checked,'FactoryRightCamera','RightCameraEnabled','Input4Enabled')}
+                        />
+                        <div className="ui left pointing label">
+                             Aftermarket Right Lane Watch Camera   
+                        </div>
                     </div>
-                </div>
+                  </div>
+                }
               </div>
             </div>
+    );
+
+  }
+
+  renderOEMCameras(){
+    return (
             <div className="column">
               <div className="ui raised segment">
                 <a className="ui blue ribbon label">SET CHECKMARK FOR FACTORY INSTALLED CAMERA</a>
@@ -227,50 +267,114 @@ export default class DeviceSettings extends Component {
                           </div>                          
                 </div>
                 <br />
-                <div className="inline field">
-                      <input type="checkbox"
-                        checked={this.state.system_settings["FactoryFrontCamera"] == "1"? 'checked':''}
-                        onChange={event => this.onOEMCameraChange(event.target.checked,'FactoryFrontCamera','FrontCameraEnabled','Input2Enabled')}
-                        />
-                          <div className="ui left pointing label">
-                            Factory Equiped Forward Facing Camera
-                          </div>                          
-                </div>
-                <br />
-                <div className="inline field">
-                    <input type="checkbox"
-                      checked={this.state.system_settings["FactoryLeftCamera"] == "1"? 'checked':''}
-                      onChange={event => this.onOEMCameraChange(event.target.checked,'FactoryLeftCamera','LeftCameraEnabled','Input3Enabled')}
-                      />
-                          <div className="ui left pointing label">
-                            Factory Equiped Left Lane Watch Camera
-                          </div>                          
-                </div>
-                <br />
-                <div className="inline field">
-                    <input type="checkbox"
-                      checked={this.state.system_settings["FactoryRightCamera"] == "1"? 'checked':''}
-                      onChange={event => this.onOEMCameraChange(event.target.checked,'FactoryRightCamera','RightCameraEnabled','Input4Enabled')}
-                      />
-                          <div className="ui left pointing label">
-                            Factory Equiped Right Lane Watch Camera
-                          </div>                          
-                </div>
+                {this.props.settingsType == "1" &&
+                  <div>
+                    <div className="inline field">
+                          <input type="checkbox"
+                            checked={this.state.system_settings["FactoryFrontCamera"] == "1"? 'checked':''}
+                            onChange={event => this.onOEMCameraChange(event.target.checked,'FactoryFrontCamera','FrontCameraEnabled','Input2Enabled')}
+                            />
+                              <div className="ui left pointing label">
+                                Factory Equiped Forward Facing Camera
+                              </div>                          
+                    </div>
+                    <br />
+                    <div className="inline field">
+                        <input type="checkbox"
+                          checked={this.state.system_settings["FactoryLeftCamera"] == "1"? 'checked':''}
+                          onChange={event => this.onOEMCameraChange(event.target.checked,'FactoryLeftCamera','LeftCameraEnabled','Input3Enabled')}
+                          />
+                              <div className="ui left pointing label">
+                                Factory Equiped Left Lane Watch Camera
+                              </div>                          
+                    </div>
+                    <br />
+                    <div className="inline field">
+                        <input type="checkbox"
+                          checked={this.state.system_settings["FactoryRightCamera"] == "1"? 'checked':''}
+                          onChange={event => this.onOEMCameraChange(event.target.checked,'FactoryRightCamera','RightCameraEnabled','Input4Enabled')}
+                          />
+                              <div className="ui left pointing label">
+                                Factory Equiped Right Lane Watch Camera
+                              </div>                          
+                    </div>
+                  </div>
+                }
               </div>
             </div>
-            <div className="column">
-                <div className="ui raised segment">
-                  <a className="ui blue ribbon label">FORWARD FACING CAMERA SETTINGS</a>
-                    { FRONT_REAR_CAMERA_DROPDOWN["values"].map( (elem, index) => {return this.renderRadioBatton(elem,index)})}                      
-                </div>
-              </div>
-              <div className="column">
-                <div className="ui raised segment">
-                  <a className="ui blue ribbon label">LEFT/RIGHT LANE CAMERA SETTINGS</a>
-                    { SIDE_CAMERA_DROPDOWN["values"].map( (elem, index) => {return this.renderRadioBatton(elem,index)})}                      
-                </div>
-              </div>
+    );
+  }
+
+  renderFrontCameraSettings(){
+    return(
+          <div className="ui raised segment">
+            <a className="ui blue ribbon label">FORWARD FACING CAMERA SETTINGS</a>
+              { FRONT_REAR_CAMERA_DROPDOWN["values"].map( (elem, index) => {return this.renderRadioBatton(elem,index)})}                      
           </div>
+    );
+  }
+
+  renderLaneWatchCameraSettings(){
+    return (
+        <div className="ui raised segment">
+          <a className="ui blue ribbon label">LEFT/RIGHT LANE CAMERA SETTINGS</a>
+            { SIDE_CAMERA_DROPDOWN["values"].map( (elem, index) => {return this.renderRadioBatton(elem,index)})}                      
+        </div>
+    );
+  }
+
+  renderSync(){
+    return (
+      <div className="ui raised segment">
+          <a className="ui blue ribbon label">SYNC POLARITY</a>
+          <div className="inline field">
+              <select onChange={this.setDropdwonValue} id={SYNC_POLARITY_DROPDOWN["id"]} className="ui dropdown">
+                { SYNC_POLARITY_DROPDOWN["values"].map( (elem, index) => {return this.renderDropdown(elem,index)})} 
+              </select> 
+          </div>   
+          <br /> 
+          <div className="inline field">
+            <input type="checkbox"
+              checked={this.state.system_settings["SOGEnabled"] == "1" ? 'checked':''}
+              onChange={event => this.onIputChange(event.target.checked,'SOGEnabled')}
+              />
+              <div className="ui left pointing label">
+                  Sync on Green
+              </div>
+          </div> 
+          <br />     
+          <div className="inline field">
+            <input type="checkbox"
+              checked={this.state.system_settings["ParkingLinesDisabled"] == "0" ? 'checked':''}
+              onChange={event => this.onIputChange(!(event.target.checked),'ParkingLinesDisabled')}
+              />
+              <div className="ui left pointing label">
+                  Rear Camera Parking Lines
+              </div>
+          </div>          
+      </div>
+    );
+  }
+
+
+
+
+  render() {
+    var settings = [];
+    for (let property in this.state.system_settings) {
+      let div_key = "div_" + property;
+      settings.push(<div key={div_key}>{property} :<input type="text"
+                                            key={property}
+                                            ref={property}
+                                            //ref={(input) => this.input = input}
+                                            value={this.state.system_settings[property]}
+                                            onChange={event => this.onIputChange(event.target.value,property)}
+                                      />
+                    </div>);
+    }
+    return (
+      <div>
+        { this.renderSettings() }
         <br/>
         <button onClick={this.saveSettings} className="ui primary button">
           Save Settings

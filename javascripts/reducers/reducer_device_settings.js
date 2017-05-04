@@ -56,6 +56,14 @@ export default function(state = JSON.parse(JSON.stringify(SYSTEM_SETTINGS)), act
       let byte_3 = binaryStringFrmt.substring((msg[23].toString(2)).length, 8) + msg[23].toString(2);
       //console.log("System Settings Byte 4", binaryStringFrmt.substring((msg[24].toString(2)).length, 8) + msg[24].toString(2));
       let byte_4 = binaryStringFrmt.substring((msg[24].toString(2)).length, 8) + msg[24].toString(2);
+      //console.log("System Settings Byte 5", binaryStringFrmt.substring((msg[25].toString(2)).length, 8) + msg[25].toString(2));
+      let byte_5 = binaryStringFrmt.substring((msg[25].toString(2)).length, 8) + msg[25].toString(2);
+      //console.log("System Settings Byte 6", binaryStringFrmt.substring((msg[26].toString(2)).length, 8) + msg[26].toString(2));
+      let byte_6 = binaryStringFrmt.substring((msg[26].toString(2)).length, 8) + msg[26].toString(2);
+      //console.log("System Settings Byte 7", binaryStringFrmt.substring((msg[27].toString(2)).length, 8) + msg[27].toString(2));
+      let byte_7 = binaryStringFrmt.substring((msg[27].toString(2)).length, 8) + msg[27].toString(2);
+      //console.log("System Settings Byte 8", binaryStringFrmt.substring((msg[28].toString(2)).length, 8) + msg[28].toString(2));
+      let byte_8 = binaryStringFrmt.substring((msg[28].toString(2)).length, 8) + msg[28].toString(2);
 
 
       //byte 1
@@ -89,6 +97,31 @@ export default function(state = JSON.parse(JSON.stringify(SYSTEM_SETTINGS)), act
       system_settings["FrontCameraMode"] = byte_4.substring(5,7);
       system_settings["SideCameraMode"] = byte_4.substring(2,5);
       system_settings["ResrvedBits"] = byte_4.substring(0,2);
+      //byte 5
+      system_settings["IsDefaultSettings"] = byte_5.substring(7,8);
+      system_settings["VideoInputs"] = byte_5.substring(4,7);
+      system_settings["VIMCapacity"] = byte_5.substring(3,4);
+      system_settings["RGBCapacity"] = byte_5.substring(2,3);
+      system_settings["HDMICapacity"] = byte_5.substring(1,2);
+      system_settings["ParkingLinesDisabled"] = byte_5.substring(0,1);
+      //byte 6
+      system_settings["ScreenSize"] = byte_6.substring(4,8);
+      system_settings["CSyncPolarity"] = byte_6.substring(2,4);
+      system_settings["SOGEnabled"] = byte_6.substring(1,2);
+      system_settings["VIMEnabled"] = byte_6.substring(0,1);
+      //byte 7
+      system_settings["VideoSize1"] = byte_7.substring(6,8);
+      system_settings["VideoSize2"] = byte_7.substring(4,6);
+      system_settings["VideoSize3"] = byte_7.substring(2,4);
+      system_settings["VideoSize4"] = byte_7.substring(0,2);
+      //byte 8
+      system_settings["VideoFunction1"] = byte_8.substring(6,8);
+      system_settings["VideoFunction2"] = byte_8.substring(4,6);
+      system_settings["VideoFunction3"] = byte_8.substring(2,4);
+      system_settings["VideoFunction4"] = byte_8.substring(0,2);
+
+      console.log("SYSTEM SETTINGS: ", system_settings);
+
       var vihicleMake = "";
       var vihicleModel = "";
       for (var i = 0; i < msg[57]; i++) {

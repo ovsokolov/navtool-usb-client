@@ -5,6 +5,7 @@ import { getOSDSettings } from './hid_action';
 
 export const FETCH_SOFTWARE = 'FETCH_SOFTWARE';
 export const SET_SOFTWARE = 'SET_SOFTWARE';
+export const FETCH_SETTINGS_TYPE = 'FETCH_SETTINGS_TYPE';
 
 //const ROOT_URL = "https://tranquil-mesa-29755.herokuapp.com/navtoolsws/make";
 const ROOT_URL = WEB_SERVICES_URL + "/v1/navtoolsws";
@@ -56,6 +57,7 @@ export function fetchSoftwareConfig(mfg_id,sw_id, sw_build){
       if(sw_config["sw_osd_support"] == "1"){
         dispatch(getOSDSettings());
       }
+      dispatch( { type: FETCH_SETTINGS_TYPE, payload: sw_config["sw_settings_type"]  } );
     });
   };
 }
