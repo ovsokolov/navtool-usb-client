@@ -6,16 +6,51 @@ var usbDetect = require('node-usb-detection');
 var devices = HID.devices()
 const {ipcMain} = require('electron')
 const {ipcRenderer} = require('electron')
-log.transports.file.file = __dirname + '/log.txt';
+const { autoUpdater } = require("electron-updater")
+const settings = require('electron-settings');
+
+const app = electron.app
+// Module to control application life.
+var environment = 'PROD';
+var log_level = 'error';
+var open_dev_tool = 'false';
+
+if(settings.has('environment')) {
+  environment = settings.get('environment');
+}else{
+  settings.set('environment', 'PROD' );
+}
+
+if(settings.has('log_level')) {
+  log_level = settings.get('log_level');
+}else{
+  settings.set('log_level', 'error' );
+}
+
+if(settings.has('open_dev_tool')) {
+  open_dev_tool = settings.get('open_dev_tool');
+}else{
+  settings.set('open_dev_tool', 'false' );
+}
+
+if(environment == 'PROD') {
+  log.transports.console.level = false;
+}
+
+
+log.transports.file.file = app.getPath('userData') + '/app_log.txt';
+log.transports.file.level = log_level;
+
+autoUpdater.logger = require("electron-log")
+autoUpdater.logger.transports.file.level = "info"
+autoUpdater.logger.transports.file.file = app.getPath('userData') + '/autoupdater_log.txt';
+
 
 var platfor_string = os.platform() + '_' + os.arch()
 
 ////log.info("data for autoupdate app :\n", app);
 //log.info("data for autoupdate os : ", platfor_string);
 
-
-// Module to control application life.
-const app = electron.app
 
 ////log.info("electron version : ", app.getVersion());
 // Module to create native browser window.
@@ -31,16 +66,40 @@ let isInitialized = false
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+let updateWindow
+
+
+function sendStatusToWindow(text) {
+  log.info(text);
+  updateWindow.webContents.send('message', text);
+}
+function createUpdateWindow() {
+  mainWindow = null;
+  updateWindow = new BrowserWindow();
+  updateWindow.setMenu(null)
+  updateWindow.on('closed', () => {
+    updateWindow = null;
+  });
+  updateWindow.loadURL(`file://${__dirname}/version.html#v${app.getVersion()}`);
+  return updateWindow;
+}
 
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 1200, height: 800})
 
-  // and load the index.html of the app.
-  mainWindow.loadURL(`file://${__dirname}/index.html`)
+  if(environment == 'DEV') {
+    // and load the index.html of the app.
+    mainWindow.loadURL(`file://${__dirname}/index_dev.html#v${app.getVersion()}`)
 
-  // Open the DevTools.
-  //mainWindow.webContents.openDevTools()
+    // Open the DevTools.
+  }else{
+    mainWindow.loadURL(`file://${__dirname}/index.html#v${app.getVersion()}`)
+  }
+
+  if(open_dev_tool != 'false'){
+      mainWindow.webContents.openDevTools()
+  }
 
   mainWindow.setMenu(null)
 
@@ -99,9 +158,6 @@ usbDetect.remove(function(device) {
 
 ipcMain.on('device-sbl-status', (event, arg) => {
   ////log.info('Checking Device SBL status....')
-  //event.sender.send('asynchronous-reply', 'pong')
-  //if(!isOpen){
-  //setTimeout(function() {
 		try{
 			//wait for 1sec for device to arrive
 		  	var devicesList = HID.devices();
@@ -109,7 +165,7 @@ ipcMain.on('device-sbl-status', (event, arg) => {
 		    	return d.vendorId===49745 && d.productId===278;
 			});
 
-			log.info(deviceInfo);
+			//log.info(deviceInfo);
 			mainWindow.webContents.send('device-mfg-id', { mfgid: deviceInfo.serialNumber} );
 			device = new HID.HID( deviceInfo.path );
 
@@ -118,10 +174,8 @@ ipcMain.on('device-sbl-status', (event, arg) => {
 			//log.info("Usage: " + deviceInfo.usage);
 			//log.info("Path: " + deviceInfo.path);
 
-			////log.info('#### openning device....')
-	   		//device = new HID.HID(49745, 278)
 
-	   		isOpen = true
+	   	isOpen = true
 		}
 		catch(err){
 			//log.info(err)
@@ -137,7 +191,6 @@ ipcMain.on('device-sbl-status', (event, arg) => {
     	//log.info('checking SBL status')
 
 		device.write([0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00]);
-	//}, 1000);
 
 });
 
@@ -193,4 +246,37 @@ ipcMain.on('device-write_data', (event, arg) => {
       mainWindow.webContents.send('device-data-result' , {msg: data});
   })
   device.write(arg)
+});
+
+
+
+app.on('ready', function()  {
+  autoUpdater.checkForUpdates();
+}); 
+
+autoUpdater.on('update-downloaded', (ev, info) => {
+  // Wait 5 seconds, then quit and install
+  // In your application, you don't need to wait 5 seconds.
+  // You could call autoUpdater.quitAndInstall(); immediately
+  setTimeout(function() {
+    autoUpdater.quitAndInstall();  
+  }, 5000)
+})
+
+autoUpdater.on('update-available', (ev, info) => {
+  createUpdateWindow();
+  sendStatusToWindow('Update available.');
+})
+
+autoUpdater.on('error', (ev, err) => {
+  sendStatusToWindow('Error in auto-updater.');
+})
+autoUpdater.on('download-progress', (progressObj) => {
+  let log_message = "Download speed: " + progressObj.bytesPerSecond;
+  log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+  log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+  sendStatusToWindow(log_message);
+})
+autoUpdater.on('update-downloaded', (ev, info) => {
+  sendStatusToWindow('Update downloaded; will install in 5 seconds');
 });

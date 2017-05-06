@@ -85,7 +85,7 @@ class SoftwareList extends Component {
 
   render(){
     return (
-        <table id="software-list" className="display" cellspacing="0" width="100%"></table>
+        <table id="software-list" className="display" cellSpacing="0" width="100%"></table>
     );
   }
 }

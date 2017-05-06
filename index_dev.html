@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Software Updater 0.0.2</title>
+    <title>Software Updater 0.0.1</title>
     <!--
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
     -->
@@ -28,8 +28,7 @@
     document.title =  titleString;
   </script>
 
-  <script>
-  	require('./app/bundle.js')
-  </script>
+  <script src="http://localhost:8080/webpack-dev-server.js"></script>
+  <script src="http://localhost:8080/built/bundle.js"></script>
 
 </html>
