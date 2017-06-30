@@ -29,7 +29,19 @@ export const DEVICE_OSD_SETTINGS = 'DEVICE_OSD_SETTINGS';
 export const SAVE_DEVICE_OSD_SETTINGS = 'SAVE_DEVICE_OSD_SETTINGS';
 export const DEVICE_MFG_ID_RECIEVED = 'DEVICE_MFG_ID_RECIEVED';
 export const REQUEST_REBOOT_AFTER_UPDATE = 'REQUEST_REBOOT_AFTER_UPDATE';
+export const DEVICE_OBD_RESULT = 'DEVICE_OBD_RESULT';
+export const DEVICE_OBD_RUNING = 'DEVICE_OBD_RUNING';
+export const DEVICE_OBD_SUCCESS = 'DEVICE_OBD_SUCCESS';
+export const DEVICE_OBD_FAILED = 'DEVICE_OBD_FAILED';
 
+export const WRITE_SUCESS = 44;
+export const WRITE_FAILED = 55;
+export const READ_SUCESS = 22;
+export const READ_FAILED = 33;
+
+export const OBD_RUNNING = 1;
+export const OBD_SUCCESS = 2;
+export const OBD_FAILED = 3;
 
 
 import { fetchDeviceDBData } from './get_device_data';
@@ -39,6 +51,7 @@ import { getSerialNumber,
          getSoftwareId,
          setDeviceSettings,
          setDeviceOSDSettings,
+         setDeviceOBDSettings,
          setVehicleInfo,
          setUpTransferData,
          parseTransferDataResponse,
@@ -47,7 +60,8 @@ import { getSerialNumber,
          parsePacketDataResponse,
          setUpBlockValidateData,
          parseSectorWriteResponse,
-         setUpSectorWriteData} from '../utils/device_utils';
+         setUpSectorWriteData,
+         parseOBDStatus,} from '../utils/device_utils';
 
 import { SET_UP_TRANSFER,
          START_TRANSFER,
@@ -65,12 +79,46 @@ export function hidAction(hid_action){
     dispatch(handleDeviceDataResult());
     dispatch(handleDeviceRemoved());
     dispatch(handleDeviceMfgId());
+    dispatch(handleOBDUpdateStatus());
     dispatch({
       type: INIT_IPC,
       payload: ''
     });
   };
 }
+
+
+
+export function handleOBDUpdateStatus(){
+    return dispatch => {
+        ipcRenderer.on('device-obd-status',(event, data) => {
+            console.log('Device OBD Status Result...', data);
+            let result = parseOBDStatus(data["msg"]);
+            let obdStatus = "";
+            console.log(result);
+            if(result.obdReadStatus == READ_SUCESS){
+              if(result.obdStatus == OBD_RUNNING){
+                const getStatus = () => ipcRenderer.send('device-obd-status', 0x62);
+                obdStatus = DEVICE_OBD_RUNING;
+                setTimeout(getStatus, 1000);
+              }
+              if(result.obdStatus == OBD_SUCCESS){
+                obdStatus = DEVICE_OBD_SUCCESS;
+                console.log('OBD Success');
+              }
+              if(result.obdStatus == OBD_FAILED){
+                obdStatus = DEVICE_OBD_FAILED;
+                console.log('OBD FAILED');
+              }
+            }
+            dispatch({
+              type: obdStatus,
+              payload: ''
+            });
+        });
+    }; 
+}
+
 
 export function handleDeviceArrived(){
     return dispatch => {
@@ -186,9 +234,9 @@ export function handleDeviceDataResult(){
           serial_number = getSerialNumber(msg);
           //obdsupport = checkOBDSupport(msg);
           softwareIdResult = getSoftwareId(msg);
-          //console.log("*******************************");
-          //console.log(softwareIdResult);
-          //console.log("*******************************");
+          console.log("*******************************");
+          console.log(msg);
+          console.log("*******************************");
           dispatch(fetchDeviceDBData(serial_number,softwareIdResult));
           dispatch({
             type: DEVICE_DATA_SETTINGS,
@@ -203,6 +251,7 @@ export function handleDeviceDataResult(){
             type: SUCCESS_SETTINGS_UPDATE,
             payload: ""
           });
+          console.log('ZZZZZZZZZZZZZZZ');
           ipcRenderer.send('device-read-settings', 0x1A);
           break;
         case 0x66:
@@ -253,6 +302,17 @@ export function handleDeviceDataResult(){
             payload: result
           });
           break;
+        case 0x61: //validate block response
+          console.log("OBD Status Handler");
+          result = msg[1]; //result
+          console.log(result);
+          if(result == WRITE_SUCESS){
+            console.log('OBD Write Success');
+            ipcRenderer.send('device-obd-status', 0x62);
+          }else if(result == WRITE_FAILED){
+            console.log('OBD Write Failed');
+          }
+          break;
         case 0x70: //sector write response
           ////console.log("sector write response");
           result = parseSectorWriteResponse(msg); //rwrite secotr result
@@ -268,7 +328,10 @@ export function handleDeviceDataResult(){
 }
 
 export function saveDeviceSettings(data, settings){
+    console.log('@@@@@@saveDeviceSettings@@@@@@');
     let result = setDeviceSettings(data,settings);
+    console.log(result);
+    console.log('@@@@@@saveDeviceSettings@@@@@@');
     ipcRenderer.send('device-write_data', result);
     return {
       type: SAVE_DEVICE_SETTINGS,
@@ -285,7 +348,10 @@ export function saveDeviceOSDSettings(settings){
     };
 }
 
-export function startOBDProgramming(){
+export function startOBDProgramming(settings){
+    let result = setDeviceOBDSettings(settings);
+    console.log(result);
+    ipcRenderer.send('device-write_data', result);
     return {
       type: START_OBD_PROGRAMMING,
       payload: ""

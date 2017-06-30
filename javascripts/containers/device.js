@@ -20,7 +20,7 @@ import { getSerialNumber } from '../utils/device_utils';
 
 
 import { loadFTPFile } from '../actions/ftp_action';
-import { updateDeviceDBData } from '../actions/get_device_data';
+import { updateDeviceDBData, updateDeviceOBDData } from '../actions/get_device_data';
 
 import { hideModal } from '../actions/hide_modal';
 
@@ -40,6 +40,8 @@ import { UPDATE_NOT_STARTED,
          WAITING_FOR_APP_UPDATE,
          OBD_NOT_STARTED, 
          OBD_IN_PROGRESS } from '../utils/device_utils'
+
+import { DEVICE_OBD_SUCCESS, DEVICE_OBD_FAILED } from '../actions/hid_action';
 
 const {ipcRenderer} = require('electron');
 
@@ -127,7 +129,7 @@ class Device extends Component {
   }
 
   displayModal(device_status, obd_status, update_status, message){
-    //console.log("displayModal", this.props.modal_state);
+    console.log("displayModal", this.props.modal_state);
     if(update_status.update_progress_status != UPDATE_NOT_STARTED && !this.props.modal_state.hide){
       //console.log("Inside modal function", update_status.update_progress_status);
       return (
@@ -142,7 +144,7 @@ class Device extends Component {
       );
     }
     if(obd_status != OBD_NOT_STARTED && !this.props.modal_state.hide){
-      //console.log("Inside modal function obd_status", obd_status);
+      console.log("Inside modal function obd_status", obd_status);
       return (
         <Modal
           showCloseButton={false}
@@ -153,7 +155,7 @@ class Device extends Component {
       );
     }
     if(this.props.modal_state.show_message){
-      //console.log("Inside modal function message");
+      console.log("Inside modal function message");
       return (
         <Modal
           showCloseButton={true}
@@ -215,6 +217,11 @@ class Device extends Component {
       this.setState({device_update_status: AFTER_UPDATE_ACTION});
       this.props.rebootAfterUpdate();
     }
+    console.log("########Current#######", this.props.device_status.obd_status)
+    console.log("########Next#######", nextProps.device_status.obd_status)
+    if(this.props.device_status.obd_status == OBD_IN_PROGRESS && nextProps.device_status.obd_status != OBD_IN_PROGRESS){
+      this.props.updateDeviceOBDData(getSerialNumber(nextProps.device_data),nextProps.device_status.obd_status);
+    }
   }
 
   componentDidUpdate(){
@@ -227,7 +234,7 @@ class Device extends Component {
   submitOBD(obd){
     //console.log("in device");
     //console.log(obd);
-    this.props.startOBDProgramming();
+    this.props.startOBDProgramming(obd);
   }
 
   installSoftware(){
@@ -307,7 +314,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, startOBDProgramming, hideModal, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate }, dispatch);
+  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, updateDeviceOBDData, startOBDProgramming, hideModal, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate }, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Device);

@@ -25,6 +25,7 @@ export const UPDATE_ERROR = 'UPDATE_ERROR';
 
 export const OBD_NOT_STARTED = "OBD_NOT_STARTED";
 export const OBD_IN_PROGRESS = "OBD_IN_PROGRESS";
+export const OBD_COMPLETED = "OBD_COMPLETED";
 
 import { TRANSFER_SET_UP_DATA_RESPONSE ,
          TRANSFER_STATUS_DATA_RESPONSE } from '../utils/structures';
@@ -167,6 +168,27 @@ export function setDeviceOSDSettings(settings){
   return result;
 }
 
+export function setDeviceOBDSettings(settings){
+  console.log("OBD Settings ", settings);
+  //byte 1
+  let byte1 = "";
+  byte1 = settings["obd_feature_idx1"] + byte1;
+  byte1 = settings["obd_feature_idx2"] + byte1;
+  byte1 = settings["obd_feature_idx3"] + byte1;
+  byte1 = "00000" + byte1;
+
+  console.log(byte1);
+
+  let result = [];
+  result[0] = 0x00;
+  result[1] = 0x61;
+  result[2] = parseInt(byte1,2);
+
+  console.log(result);
+  //console.log(result.length);
+  return result;
+}
+
 export function getSerialNumber(msg){
   let bareNum;
   let serial_number = "";
@@ -184,23 +206,25 @@ export function getSerialNumber(msg){
 export function getSoftwareId(msg){
       let hexStringFrmt = "00"
       let binaryStringFrmt = "00000000"
-      let softwareId = ""; //[19][18]
-      let softwareBuild = ""
+      let hexSoftwareId = ""; //[19][18]
+      let hexSoftwareBuild = ""
       let bareNum;
 
       for(var i=0; i < 2; i++){
         //console.log(msg[19-i]);
         bareNum = msg[19-i].toString(16);
-        softwareId += hexStringFrmt.substring((bareNum).length, 2) + bareNum;
+        hexSoftwareId += hexStringFrmt.substring((bareNum).length, 2) + bareNum;
         //console.log(softwareId);
 
       }
+      console.log("Software Id: ", parseInt(hexSoftwareId, 16));
       //build siftwareBuild
       bareNum = msg[20].toString(10);
-      softwareBuild += hexStringFrmt.substring((bareNum).length, 2) + bareNum;
-      //console.log("Software Build",softwareBuild);
-
-      return {softwareId, softwareBuild};
+      hexSoftwareBuild += hexStringFrmt.substring((bareNum).length, 2) + bareNum;
+      console.log("Software Build",parseInt(hexSoftwareBuild, 16));
+      var softwareId = parseInt(hexSoftwareId, 16);
+      var softwareBuild = parseInt(hexSoftwareBuild, 16);
+      return { softwareId, softwareBuild};
 }
 
 export function checkOBDSupport(msg){
@@ -460,4 +484,15 @@ export function setUpSectorWriteData(data){
   arrayMsg.push(0x00, SETUP_SECTOR_WRITE, data.current_sector);
   //console.log("SETUP_SECTOR_WRITE", arrayMsg);
   return arrayMsg;
+}
+
+export function parseOBDStatus(msg){
+  console.log(msg);
+  var obdReadStatus;
+  var obdStatus;
+  obdReadStatus = msg[1];
+  obdStatus = msg[2];
+  console.log(msg[1]);
+  console.log(msg[2]);
+  return { obdReadStatus, obdStatus};
 }

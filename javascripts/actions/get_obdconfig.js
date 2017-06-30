@@ -21,3 +21,4 @@ export function fetchOBDConfig(mfg_id, softwareId){
     });
   };
 }
+

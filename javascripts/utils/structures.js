@@ -141,12 +141,13 @@ values:[
 export const OBD_FEATURES = { 
   obd_enabled: false,
   obd_expired: '',
+  obd_count: 0,
   obd_label_idx1: '',
   obd_label_idx2: '',
   obd_label_idx3: '',
-  obd_feature_idx1: '',
-  obd_feature_idx2: '',
-  obd_feature_idx3: '',
+  obd_feature_idx1: '0',
+  obd_feature_idx2: '0',
+  obd_feature_idx3: '0',
   obd_disable_all: ''
 }
 

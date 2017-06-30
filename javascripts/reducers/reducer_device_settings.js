@@ -2,6 +2,7 @@ import { SYSTEM_SETTINGS } from '../utils/structures';
 import { DEVICE_DATA_SETTINGS, DEVICE_REMOVED } from '../actions/hid_action';
 
 export default function(state = JSON.parse(JSON.stringify(SYSTEM_SETTINGS)), action){
+
   switch (action.type){
     case DEVICE_DATA_SETTINGS:
       //return state.concat([ action.payload.data ]);
@@ -65,7 +66,7 @@ export default function(state = JSON.parse(JSON.stringify(SYSTEM_SETTINGS)), act
       //console.log("System Settings Byte 8", binaryStringFrmt.substring((msg[28].toString(2)).length, 8) + msg[28].toString(2));
       let byte_8 = binaryStringFrmt.substring((msg[28].toString(2)).length, 8) + msg[28].toString(2);
 
-
+      console.log('Settings reducer XXXXXXXXXXXXXXXX');
       //byte 1
       system_settings["SoundSupported"] = byte_1.substring(7,8);
       system_settings["ObdSupported"] = byte_1.substring(6,7);

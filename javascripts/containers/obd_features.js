@@ -10,6 +10,7 @@ export default class OBDFeatures extends Component {
     this.onFeatureChange = this.onFeatureChange.bind(this);
     this.onDisableAll = this.onDisableAll.bind(this);
     this.submitOBD = this.submitOBD.bind(this);
+    this.renderSubmitButton = this.renderSubmitButton.bind(this);
   }
 
   componentWillReceiveProps(nextProps){
@@ -51,6 +52,35 @@ export default class OBDFeatures extends Component {
     }
     this.setState({obd_features});
     //console.log(this.state.obd_features)
+  }
+
+  renderSubmitButton(){
+    let obd_features = this.state.obd_features;
+    console.log("OBD BUTTON ", obd_features);
+    let todaysDate = new Date();
+    let expireDate = new Date(obd_features["obd_expired"]);
+    console.log(todaysDate);
+    console.log(expireDate);
+    if( todaysDate < expireDate ){
+      console.log("Not Expired");
+    }else{
+      console.log("Expired");
+    }
+    if(obd_features["obd_count"] >= 10 || ( expireDate < todaysDate )){
+      return(
+        <div>
+          Activation Locked
+        </div>
+      );
+    }else{
+      return(
+        <div>
+          <button onClick={this.submitOBD} className="ui primary button">
+           Configure
+          </button>
+        </div>
+      );
+    }
   }
 
   render() {
@@ -103,7 +133,7 @@ export default class OBDFeatures extends Component {
             </div>
           </div>
           <br />
-          <button onClick={this.submitOBD} className="ui primary button">Configure</button>
+          { this.renderSubmitButton() }
       </div>
     )
   }

@@ -1,6 +1,7 @@
 /node_modules
 /DashConnectPlus-darwin-x64
 log.txt
+gh_token.txt
 /build
 /dist
 /release-builds

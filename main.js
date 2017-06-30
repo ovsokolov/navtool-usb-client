@@ -14,12 +14,18 @@ const app = electron.app
 var environment = 'PROD';
 var log_level = 'error';
 var open_dev_tool = 'false';
+var var_env = 'environment'
+
 
 if(settings.has('environment')) {
+  //log.info("has settings  #######");
   environment = settings.get('environment');
 }else{
+  //log.info("rewrite settings");
   settings.set('environment', 'PROD' );
 }
+
+log.info("environment :\n", environment);
 
 if(settings.has('log_level')) {
   log_level = settings.get('log_level');
@@ -34,12 +40,13 @@ if(settings.has('open_dev_tool')) {
 }
 
 if(environment == 'PROD') {
-  log.transports.console.level = false;
+  log.transports.console.level = true;
 }
 
 
 log.transports.file.file = app.getPath('userData') + '/app_log.txt';
 log.transports.file.level = log_level;
+log.info(settings.getAll());
 
 autoUpdater.logger = require("electron-log")
 autoUpdater.logger.transports.file.level = "info"
@@ -48,8 +55,8 @@ autoUpdater.logger.transports.file.file = app.getPath('userData') + '/autoupdate
 
 var platfor_string = os.platform() + '_' + os.arch()
 
-////log.info("data for autoupdate app :\n", app);
-//log.info("data for autoupdate os : ", platfor_string);
+log.info("data for autoupdate app :\n", app);
+log.info("data for autoupdate os : ", platfor_string);
 
 
 ////log.info("electron version : ", app.getVersion());
@@ -101,6 +108,7 @@ function createWindow () {
       mainWindow.webContents.openDevTools()
   }
 
+  
   mainWindow.setMenu(null)
 
 
@@ -220,16 +228,16 @@ ipcMain.on('check-device', (event, arg) => {
 		//log.info("@@@@@@@@@@    device found " + devices[i].vendorId)
 		if(devices[i].vendorId == 49745){
 			mainWindow.webContents.send('device-arrived' , {msg:'device arrived'});
-			////log.info("xxxxxxxxxxx    after found")
+			//log.info("xxxxxxxxxxx    after found")
 		}
 	}
 });
 
 ipcMain.on('device-read-settings', (event, arg) => {
 
-  //log.info('before device-read-settings')
+  log.info('before device-read-settings')
   device.read(function(err,data) {
-      //log.info('data recieved device-read-settings')
+      log.info('data recieved device-read-settings', data);
       mainWindow.webContents.send('device-data-result' , {msg: data});
   })
   device.write([0x00, arg, 0x00, 0x00, 0x00, 0x00, 0x00])
@@ -237,17 +245,26 @@ ipcMain.on('device-read-settings', (event, arg) => {
 
 ipcMain.on('device-write_data', (event, arg) => {
 
-  //log.info('before device-write_data')
-  //log.info(arg)
-  //log.info(arg.length)
+  log.info('before device-write_data')
+  log.info(arg)
+  log.info(arg.length)
   device.read(function(err,data) {
-      //log.info('data recieved device-write_data')
-      //log.info(data)
+      log.info('data recieved device-write_data')
+      log.info(data)
       mainWindow.webContents.send('device-data-result' , {msg: data});
   })
   device.write(arg)
 });
 
+ipcMain.on('device-obd-status', (event, arg) => {
+  log.info('device-obd-status')
+  device.read(function(err,data) {
+      log.info('data recieved device-obd-status')
+      log.info(data)
+      mainWindow.webContents.send('device-obd-status' , {msg: data});
+  })
+  device.write([0x00, arg, 0x00, 0x00, 0x00, 0x00, 0x00]);
+});
 
 
 app.on('ready', function()  {

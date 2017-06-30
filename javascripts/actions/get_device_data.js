@@ -5,6 +5,8 @@ import { clearSBL } from './hid_action';
 import { fetchOBDConfig} from './get_obdconfig'
 import { fetchSoftwareConfig } from './get_software'
 import { WEB_SERVICES_URL } from '../utils/constants';
+import { OBD_COMPLETED } from '../utils/device_utils';
+import { DEVICE_OBD_SUCCESS, DEVICE_OBD_FAILED } from './hid_action';
 
 //const ROOT_URL = "https://tranquil-mesa-29755.herokuapp.com/";
 const ROOT_URL = WEB_SERVICES_URL + "/v1/navtooldevices/";
@@ -15,18 +17,21 @@ export function fetchDeviceDBData(serial_number, software){
   const url = ROOT_URL + serial_number;
   const request = axios.get(url);
 
-  //console.log('URL', url);
+  console.log('URL', url);
 
   return (dispatch) => {
     request.then( ({data}) =>{
-      //console.log(data);
-      //console.log(data["mfg_id"])
-      //console.log("xxxxxxxxxxxxx")
-      //console.log(serial_number);
+      console.log(data);
+      console.log(data["mfg_id"])
+      console.log("xxxxxxxxxxxxx")
+      console.log(serial_number);
       dispatch( { type: FETCH_DEVICE_DB_DATA, payload: data } )
-      dispatch(fetchSoftwareConfig(data["mfg_id"],software.softwareId,software.softwareBuild))
-      //dispatch(fetchOBDConfig(data["mfg_id"], obd.softwareId));
-      dispatch( fetchMake(data["mfg_id"]) )
+      if (software !== undefined){
+        console.log("%%%%%%%%Software parameter exists")
+        dispatch(fetchSoftwareConfig(data["mfg_id"],software.softwareId,software.softwareBuild))
+        //dispatch(fetchOBDConfig(data["mfg_id"], obd.softwareId));
+        dispatch( fetchMake(data["mfg_id"]) )
+      }
     });
   };
 }
@@ -49,5 +54,28 @@ export function updateDeviceDBData(serial_number, update_date){
       dispatch( { type: FETCH_DEVICE_DB_DATA, payload: data } )
     });
   };
+}
+
+export function updateDeviceOBDData(serial_number, obd_status){
+  if(obd_status == DEVICE_OBD_SUCCESS){
+    const url = WEB_SERVICES_URL + '/v1/obdupdate/' + "?mcu_id=" + serial_number;
+    const request = axios.get(url);
+
+    console.log('OBD MCU ', serial_number);
+
+    return (dispatch) => {
+      request.then( ({data}) =>{
+        //console.log(data);
+        //console.log(data["mfg_id"])
+        dispatch( { type: OBD_COMPLETED, payload: 'Programming Completed' } )
+        dispatch(fetchDeviceDBData(serial_number))
+      });
+    };
+  }else{
+    return { 
+      type: OBD_COMPLETED, 
+      payload: 'Programming Failed' 
+    }; 
+  }
 }
 

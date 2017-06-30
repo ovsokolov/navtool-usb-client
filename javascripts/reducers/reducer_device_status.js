@@ -1,6 +1,7 @@
 import { DEVICE_SBL_ARRIVED, DEVICE_APP_ARRIVED, DEVICE_MFG_ID_RECIEVED, DEVICE_DATA_SETTINGS, DEVICE_REMOVED } from '../actions/hid_action';
 import { REQUEST_DATA_SETUP, COMPLETE_UPDATE_REQUEST } from '../actions/hid_action';
 import { START_OBD_PROGRAMMING, COMPLETE_OBD_PROGRAMMING, REQUEST_REBOOT_AFTER_UPDATE } from '../actions/hid_action';
+import { DEVICE_OBD_SUCCESS,DEVICE_OBD_FAILED } from '../actions/hid_action';
 import { NO_DEVICE_STATUS, DEVICE_APP_STATUS, DEVICE_SBL_STATUS} from '../utils/device_utils';
 import { WAITING_FOR_SBL, 
          WAITING_FOR_APP_UPDATE, 
@@ -8,7 +9,8 @@ import { WAITING_FOR_SBL,
          UPDATE_READY, 
          UPDATE_IN_PROGRESS,
          OBD_NOT_STARTED,
-         OBD_IN_PROGRESS } from '../utils/device_utils';
+         OBD_IN_PROGRESS,
+         OBD_COMPLETED } from '../utils/device_utils';
 import { REQUEST_SBL_FOR_UPDATE, START_SOFTWARE_UPDATE } from '../actions/ftp_action';
 import {FETCH_SETTINGS_TYPE} from  '../actions/get_software'
 import {getSoftwareId} from '../utils/device_utils';
@@ -60,6 +62,18 @@ export default function(state = {app_status: NO_DEVICE_STATUS, update_status: UP
     case START_OBD_PROGRAMMING:
       //console.log("******* START_OBD_PROGRAMMING ******");
       result = Object.assign({}, state, {obd_status: OBD_IN_PROGRESS });
+      //console.log(result);
+      return result;
+    case DEVICE_OBD_SUCCESS:
+      result = Object.assign({}, state, {obd_status: DEVICE_OBD_SUCCESS });
+      //console.log(result);
+      return result;
+    case DEVICE_OBD_FAILED:
+      result = Object.assign({}, state, {obd_status: DEVICE_OBD_FAILED });
+      //console.log(result);
+      return result;
+    case OBD_COMPLETED:
+      result = Object.assign({}, state, {obd_status: OBD_NOT_STARTED });
       //console.log(result);
       return result;
     default:

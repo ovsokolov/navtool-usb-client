@@ -1,7 +1,7 @@
 {
   "name": "NavToolUpdater",
   "productName": "NavToolUpdater",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "NavTool Devices USB Updater",
   "main": "main.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "dist-dev-win": "build --win",
     "dist-dev-mac": "build --mac",
     "dist-mac": "build --mac -p always",
-    "dist-win": "build --win -p always",
+    "dist-win": "build --win -p onTagOrDraft",
     "dist-all": "build --mac --win --x64 --ia32  -p always"
   },
   "repository": "https://github.com/electron/electron-quick-start",
