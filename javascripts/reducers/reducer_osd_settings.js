@@ -1,5 +1,6 @@
 import { OSD_SETTINGS } from '../utils/structures';
 import { DEVICE_OSD_SETTINGS, DEVICE_REMOVED } from '../actions/hid_action';
+import { DEVICE_NOT_SUPPORTED } from '../utils/device_utils';
 
 export default function(state = JSON.parse(JSON.stringify(OSD_SETTINGS)), action){
   switch (action.type){
@@ -52,6 +53,8 @@ export default function(state = JSON.parse(JSON.stringify(OSD_SETTINGS)), action
       //console.log(osd_settings);
       return osd_settings;
     case DEVICE_REMOVED:
+      return JSON.parse(JSON.stringify(OSD_SETTINGS));
+    case DEVICE_NOT_SUPPORTED:
       return JSON.parse(JSON.stringify(OSD_SETTINGS));
   }
   return state;

@@ -1,5 +1,6 @@
 import { FETCH_MAKE } from '../actions/get_make';
 import { DEVICE_REMOVED } from '../actions/hid_action';
+import { DEVICE_NOT_SUPPORTED } from '../utils/device_utils';
 
 const DEFAULT_DROPDOWN_VALUE = {make_id: 0, vehicle_make:"Select Make..."};
 
@@ -11,6 +12,8 @@ export default function(state = {list: [DEFAULT_DROPDOWN_VALUE]}, action){
       return {list: [DEFAULT_DROPDOWN_VALUE, ...action.payload.data]};
     case DEVICE_REMOVED:
       return {list: [DEFAULT_DROPDOWN_VALUE]};
+    case DEVICE_NOT_SUPPORTED:
+       return {list: [DEFAULT_DROPDOWN_VALUE]};
   }
   return state;
 }

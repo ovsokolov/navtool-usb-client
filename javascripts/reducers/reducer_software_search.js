@@ -4,6 +4,7 @@ import { FETCH_YEAR, SET_YEAR } from '../actions/get_year';
 import { DEVICE_REMOVED, DEVICE_MFG_ID_RECIEVED } from '../actions/hid_action';
 import { SET_TRANSMISSION_TYPE } from '../actions/set_transmission';
 import { SET_SOFTWARE } from '../actions/get_software';
+import { DEVICE_NOT_SUPPORTED } from '../utils/device_utils';
 
 
 const DEFAULT_STATE = {mfg_id: '', vehicle_make: '', vehicle_model: '', vehicle_year: '', sw_id: '', sw_valid_status: 1, automatic_transmission: 1};
@@ -49,6 +50,8 @@ export default function(state = JSON.parse(JSON.stringify(DEFAULT_STATE)), actio
       //console.log(result);
       return result;
     case DEVICE_REMOVED:
+      return JSON.parse(JSON.stringify(DEFAULT_STATE));
+    case DEVICE_NOT_SUPPORTED:
       return JSON.parse(JSON.stringify(DEFAULT_STATE));
   }
   return state;

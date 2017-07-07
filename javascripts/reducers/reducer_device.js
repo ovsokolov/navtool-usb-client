@@ -1,4 +1,5 @@
 import { DEVICE_DATA_SETTINGS, DEVICE_REMOVED } from '../actions/hid_action';
+import { DEVICE_NOT_SUPPORTED } from '../utils/device_utils';
 
 export default function(state = {}, action){
   switch (action.type){
@@ -9,6 +10,8 @@ export default function(state = {}, action){
       console.log(action.payload);
       return action.payload;
     case DEVICE_REMOVED:
+      return {};
+    case DEVICE_NOT_SUPPORTED:
       return {};
   }
   return state;

@@ -44,7 +44,7 @@ export const OBD_SUCCESS = 2;
 export const OBD_FAILED = 3;
 
 
-import { fetchDeviceDBData } from './get_device_data';
+import { fetchDeviceDBData, checkDeviceSupport } from './get_device_data';
 import { fetchMake } from './get_make';
 import { getSerialNumber,
          checkOBDSupport,
@@ -198,6 +198,7 @@ function handleDeviceMfgId(){
             type: DEVICE_MFG_ID_RECIEVED,
             payload: {mfg_id}
           });
+          dispatch(checkDeviceSupport(mfg_id));
           dispatch(fetchMake(mfg_id));
       });
   };

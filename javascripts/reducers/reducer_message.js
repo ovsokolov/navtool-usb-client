@@ -3,6 +3,7 @@ import { DEVICE_OBD_SUCCESS,DEVICE_OBD_FAILED } from '../actions/hid_action';
 import { FTP_LOAD_PROGRESS,FTP_LOAD_FAILURE } from '../actions/ftp_action';
 import { HIDE_MODAL } from '../actions/hide_modal';
 import { OBD_COMPLETED } from '../utils/device_utils';
+import { DEVICE_NOT_SUPPORTED } from '../utils/device_utils';
 
 export default function(state = "", action){
       //console.log("In message reducer");
@@ -20,6 +21,8 @@ export default function(state = "", action){
       return "Activation Completed";
     case DEVICE_OBD_FAILED:
       return "Activation Failed";
+    case DEVICE_NOT_SUPPORTED:
+      return "Device Not Supported with this software version. Please use Windows Updater"
     case OBD_COMPLETED:
       return action.payload;
     case HIDE_MODAL:

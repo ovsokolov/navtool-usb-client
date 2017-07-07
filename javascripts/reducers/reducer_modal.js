@@ -2,6 +2,7 @@ import { HIDE_MODAL } from '../actions/hide_modal';
 import { FTP_LOAD_SUCCESS } from '../actions/ftp_action';
 import { DEVICE_REMOVED, START_OBD_PROGRAMMING, SUCCESS_SETTINGS_UPDATE, DEVICE_OBD_SUCCESS, DEVICE_OBD_FAILED } from '../actions/hid_action';
 import { OBD_COMPLETED } from '../utils/device_utils';
+import { DEVICE_NOT_SUPPORTED } from '../utils/device_utils';
 
 export default function(state = {hide: false, show_message: false}, action){
   switch (action.type){
@@ -23,6 +24,8 @@ export default function(state = {hide: false, show_message: false}, action){
       return {show_message: true}; //obd completed
     case DEVICE_REMOVED:
     	return {hide: false, show_message: false};
+    case DEVICE_NOT_SUPPORTED:
+      return {show_message: true}; //show not supporteed message
   }
   return state;
 }

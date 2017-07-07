@@ -2,6 +2,7 @@ import { OBD_FEATURES } from '../utils/structures';
 import { FETCH_DEVICE_DB_DATA } from '../actions/get_device_data';
 import { FETCH_OBD_CONFIG } from '../actions/get_obdconfig';
 import { DEVICE_REMOVED } from '../actions/hid_action';
+import { DEVICE_NOT_SUPPORTED } from '../utils/device_utils';
 
 
 
@@ -30,6 +31,8 @@ export default function(state = JSON.parse(JSON.stringify(OBD_FEATURES)), action
 			//console.log(result);
 			return result;
 		case DEVICE_REMOVED:
+		  return JSON.parse(JSON.stringify(OBD_FEATURES));
+		case DEVICE_NOT_SUPPORTED:
 		  return JSON.parse(JSON.stringify(OBD_FEATURES));
 	}
   	return state;

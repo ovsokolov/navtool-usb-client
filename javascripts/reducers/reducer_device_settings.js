@@ -1,5 +1,6 @@
 import { SYSTEM_SETTINGS } from '../utils/structures';
 import { DEVICE_DATA_SETTINGS, DEVICE_REMOVED } from '../actions/hid_action';
+import { DEVICE_NOT_SUPPORTED } from '../utils/device_utils';
 
 export default function(state = JSON.parse(JSON.stringify(SYSTEM_SETTINGS)), action){
 
@@ -138,6 +139,8 @@ export default function(state = JSON.parse(JSON.stringify(SYSTEM_SETTINGS)), act
       }
       return system_settings;
     case DEVICE_REMOVED:
+      return JSON.parse(JSON.stringify(SYSTEM_SETTINGS));
+    case DEVICE_NOT_SUPPORTED:
       return JSON.parse(JSON.stringify(SYSTEM_SETTINGS));
   }
   return state;

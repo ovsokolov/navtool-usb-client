@@ -12,7 +12,8 @@ import { WAITING_FOR_SBL,
          OBD_IN_PROGRESS,
          OBD_COMPLETED } from '../utils/device_utils';
 import { REQUEST_SBL_FOR_UPDATE, START_SOFTWARE_UPDATE } from '../actions/ftp_action';
-import {FETCH_SETTINGS_TYPE} from  '../actions/get_software'
+import { FETCH_SETTINGS_TYPE } from  '../actions/get_software'
+import { DEVICE_NOT_SUPPORTED } from '../utils/device_utils';
 import {getSoftwareId} from '../utils/device_utils';
 
 export default function(state = {app_status: NO_DEVICE_STATUS, update_status: UPDATE_NOT_STARTED, obd_status: OBD_NOT_STARTED, device_mfg_id: '', device_sw_id: '', device_sw_build: '', device_settings_type: '' }, action){
@@ -46,6 +47,8 @@ export default function(state = {app_status: NO_DEVICE_STATUS, update_status: UP
       result = Object.assign({}, state, {update_status: UPDATE_READY});
       return result;
     case DEVICE_REMOVED:
+      return {app_status: NO_DEVICE_STATUS, update_status: UPDATE_NOT_STARTED, obd_status: OBD_NOT_STARTED, device_mfg_id: '', device_sw_id: '', device_sw_build: '', device_settings_type: '' };
+    case DEVICE_NOT_SUPPORTED:
       return {app_status: NO_DEVICE_STATUS, update_status: UPDATE_NOT_STARTED, obd_status: OBD_NOT_STARTED, device_mfg_id: '', device_sw_id: '', device_sw_build: '', device_settings_type: '' };
     case REQUEST_SBL_FOR_UPDATE:
       result = Object.assign({}, state, {update_status: WAITING_FOR_SBL });
