@@ -17,42 +17,6 @@ var open_dev_tool = 'false';
 var var_env = 'environment'
 
 
-if(settings.has('environment')) {
-  //log.info("has settings  #######");
-  environment = settings.get('environment');
-}else{
-  //log.info("rewrite settings");
-  settings.set('environment', 'PROD' );
-}
-
-log.info("environment :\n", environment);
-
-if(settings.has('log_level')) {
-  log_level = settings.get('log_level');
-}else{
-  settings.set('log_level', 'error' );
-}
-
-if(settings.has('open_dev_tool')) {
-  open_dev_tool = settings.get('open_dev_tool');
-}else{
-  settings.set('open_dev_tool', 'false' );
-}
-
-if(environment == 'PROD') {
-  log.transports.console.level = true;
-}
-
-
-log.transports.file.file = app.getPath('userData') + '/app_log.txt';
-log.transports.file.level = log_level;
-log.info(settings.getAll());
-
-autoUpdater.logger = require("electron-log")
-autoUpdater.logger.transports.file.level = "info"
-autoUpdater.logger.transports.file.file = app.getPath('userData') + '/autoupdater_log.txt';
-
-
 var platfor_string = os.platform() + '_' + os.arch()
 
 log.info("data for autoupdate app :\n", app);
@@ -92,6 +56,7 @@ function createUpdateWindow() {
 }
 
 function createWindow () {
+  log.info('createWindow');
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 1200, height: 800})
 
@@ -126,6 +91,44 @@ function createWindow () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
+app.on('ready', function()  {
+  log.info('load settings');
+  if(settings.has('environment')) {
+    //log.info("has settings  #######");
+    environment = settings.get('environment');
+  }else{
+    //log.info("rewrite settings");
+    settings.set('environment', 'PROD' );
+  }
+
+  log.info("environment :\n", environment);
+
+  if(settings.has('log_level')) {
+    log_level = settings.get('log_level');
+  }else{
+    settings.set('log_level', 'error' );
+  }
+
+  if(settings.has('open_dev_tool')) {
+    open_dev_tool = settings.get('open_dev_tool');
+  }else{
+    settings.set('open_dev_tool', 'false' );
+  }
+
+  if(environment == 'PROD') {
+    log.transports.console.level = true;
+  }
+
+
+  log.transports.file.file = app.getPath('userData') + '/app_log.txt';
+  log.transports.file.level = log_level;
+  log.info(settings.getAll());
+
+  autoUpdater.logger = require("electron-log")
+  autoUpdater.logger.transports.file.level = "info"
+  autoUpdater.logger.transports.file.file = app.getPath('userData') + '/autoupdater_log.txt';
+}); 
+
 app.on('ready', createWindow)
 
 // Quit when all windows are closed.
@@ -268,6 +271,7 @@ ipcMain.on('device-obd-status', (event, arg) => {
 
 
 app.on('ready', function()  {
+  log.info('checkForUpdates');
   autoUpdater.checkForUpdates();
 }); 
 
