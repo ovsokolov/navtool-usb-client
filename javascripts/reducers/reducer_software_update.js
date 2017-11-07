@@ -145,7 +145,11 @@ export default function(state = DEFAULT_UPDATE_STATE, action){
           //console.log("Transfer Completed");
           ////console.log(new_state.current_running_sum);
           ////console.log(new_state.file_check_sum);
-          new_state.update_progress_status = TRANSFER_COMPLETED;
+          if(new_state.file_check_sum != new_state.current_running_sum){
+            new_state.update_progress_status = UPDATE_ERROR;
+          }else{
+            new_state.update_progress_status = TRANSFER_COMPLETED;
+          }
         }else{
           new_state.update_progress_status = START_TRANSFER;
         }
