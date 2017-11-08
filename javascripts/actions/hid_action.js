@@ -67,7 +67,9 @@ import { SET_UP_TRANSFER,
          START_TRANSFER,
          PACKET_SEND,
          BLOCK_VALIDATE,
-         SECTOR_WRITE } from '../utils/device_utils'
+         SECTOR_WRITE,
+         UPDATE_ERROR ,
+         DISPLAY_UPDATE_ERROR} from '../utils/device_utils'
 
 var notifyRemoved = true;
 var g_MFG_ID =""
@@ -450,4 +452,19 @@ export function clearSBL(){
   arg[3] = 0x00;
   arg[4] = 0x00;
   ipcRenderer.send('device-sbl', arg);
+}
+
+export function softwareUpdateError(status){
+    if(status == UPDATE_ERROR){
+      return {
+        type: UPDATE_ERROR,
+        payload: ""
+      };
+    }else{
+      console.log("dispatching DISPLAY_UPDATE_ERROR");
+      return {
+        type: DISPLAY_UPDATE_ERROR,
+        payload: "Error During Software Update"
+      };      
+    }
 }

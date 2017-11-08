@@ -15,7 +15,8 @@ import { UPDATE_NOT_STARTED,
          SECTOR_WRITE,
          TRANSFER_COMPLETED,
          DB_UPDATE_COMPLETED,
-         UPDATE_ERROR } from '../utils/device_utils'
+         UPDATE_ERROR,
+         DISPLAY_UPDATE_ERROR } from '../utils/device_utils'
 
 const PACKET_SIZE = 16;
 const BLOCK_SIZE = 256;
@@ -103,7 +104,7 @@ export default function(state = DEFAULT_UPDATE_STATE, action){
         ////console.log("end of block");
         ////console.log(new_state.curerent_packet_sum);
         ////console.log(payload_data.check_sum)
-        if(new_state.curerent_packet_sum == payload_data.check_sum){
+        if(new_state.curerent_packet_sum == payload_data.check_sum ){
           new_state.num_of_erorrs = 0;
           new_state.current_running_sum = new_state.current_running_sum + new_state.curerent_packet_sum;
           new_state.update_progress_status = BLOCK_VALIDATE;
@@ -142,9 +143,9 @@ export default function(state = DEFAULT_UPDATE_STATE, action){
       if(payload_data == SECTOR_WRITE_SUCCESS){ // write success
         new_state.current_sector = new_state.current_sector + 1;
         if(new_state.current_sector == new_state.total_secotrs){
-          //console.log("Transfer Completed");
-          ////console.log(new_state.current_running_sum);
-          ////console.log(new_state.file_check_sum);
+          console.log("Transfer Completed");
+          console.log(new_state.current_running_sum);
+          console.log(new_state.file_check_sum);
           if(new_state.file_check_sum != new_state.current_running_sum){
             new_state.update_progress_status = UPDATE_ERROR;
           }else{
@@ -166,6 +167,14 @@ export default function(state = DEFAULT_UPDATE_STATE, action){
       new_state.update_progress_status = DB_UPDATE_COMPLETED;
       return new_state;
     case COMPLETE_UPDATE_REQUEST:
+      new_state = JSON.parse(JSON.stringify(state));
+      new_state.update_progress_status = UPDATE_NOT_STARTED;
+      return new_state;
+    case UPDATE_ERROR:
+      new_state = JSON.parse(JSON.stringify(DEFAULT_UPDATE_STATE));
+      new_state.update_progress_status = DISPLAY_UPDATE_ERROR;
+      return new_state;
+    case DISPLAY_UPDATE_ERROR:
       new_state = JSON.parse(JSON.stringify(state));
       new_state.update_progress_status = UPDATE_NOT_STARTED;
       return new_state;

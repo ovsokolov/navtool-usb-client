@@ -12,7 +12,7 @@ import ModalMessage from '../containers/modal_messages'
 import { connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { saveDeviceSettings, updateDeviceVichecleInfo, sendSoftwareUpdateData, saveDeviceOSDSettings, rebootAfterUpdate } from'../actions/hid_action';
+import { saveDeviceSettings, updateDeviceVichecleInfo, sendSoftwareUpdateData, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError } from'../actions/hid_action';
 import { hidAction } from '../actions/hid_action';
 import { startOBDProgramming } from '../actions/hid_action';
 import { getOSDSettings } from '../actions/hid_action';
@@ -39,7 +39,9 @@ import { UPDATE_NOT_STARTED,
          TRANSFER_COMPLETED,
          WAITING_FOR_APP_UPDATE,
          OBD_NOT_STARTED, 
-         OBD_IN_PROGRESS } from '../utils/device_utils'
+         OBD_IN_PROGRESS,
+         UPDATE_ERROR,
+         DISPLAY_UPDATE_ERROR } from '../utils/device_utils'
 
 import { DEVICE_OBD_SUCCESS, DEVICE_OBD_FAILED } from '../actions/hid_action';
 
@@ -187,6 +189,14 @@ class Device extends Component {
     ////console.log(nextProps.software_update.update_progress_status);
     ////console.log(nextProps.device_status.app_status);
     ////console.log(this.props.device_status.update_status);
+    if(nextProps.software_update.update_progress_status == UPDATE_ERROR) {
+      console.log('$$$$$$$$$$ERRRROR$$$$$$$$$$$$$$$$$');
+      this.props.softwareUpdateError(UPDATE_ERROR);
+    }
+    if(nextProps.software_update.update_progress_status == DISPLAY_UPDATE_ERROR) {
+      console.log('$$$$$$$$$$DISPLAY ERRRROR$$$$$$$$$$$$$$$$$');
+      this.props.softwareUpdateError(DISPLAY_UPDATE_ERROR);
+    }
     if(nextProps.device_status.update_status == UPDATE_READY && this.state.device_update_status != UPDATE_READY){
       this.setState({device_update_status: UPDATE_READY});
     }
@@ -314,7 +324,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, updateDeviceOBDData, startOBDProgramming, hideModal, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate }, dispatch);
+  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, updateDeviceOBDData, startOBDProgramming, hideModal, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError }, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Device);
