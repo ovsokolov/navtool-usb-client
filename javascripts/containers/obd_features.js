@@ -56,15 +56,15 @@ export default class OBDFeatures extends Component {
 
   renderSubmitButton(){
     let obd_features = this.state.obd_features;
-    console.log("OBD BUTTON ", obd_features);
+    //console.log("OBD BUTTON ", obd_features);
     let todaysDate = new Date();
     let expireDate = new Date(obd_features["obd_expired"]);
-    console.log(todaysDate);
-    console.log(expireDate);
+    //console.log(todaysDate);
+    //console.log(expireDate);
     if( todaysDate < expireDate ){
-      console.log("Not Expired");
+      //console.log("Not Expired");
     }else{
-      console.log("Expired");
+      //console.log("Expired");
     }
     if(obd_features["obd_count"] >= 10 || ( expireDate < todaysDate )){
       return(

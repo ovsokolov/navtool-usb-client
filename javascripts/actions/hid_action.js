@@ -94,10 +94,10 @@ export function hidAction(hid_action){
 export function handleOBDUpdateStatus(){
     return dispatch => {
         ipcRenderer.on('device-obd-status',(event, data) => {
-            console.log('Device OBD Status Result...', data);
+            //console.log('Device OBD Status Result...', data);
             let result = parseOBDStatus(data["msg"]);
             let obdStatus = "";
-            console.log(result);
+            //console.log(result);
             if(result.obdReadStatus == READ_SUCESS){
               if(result.obdStatus == OBD_RUNNING){
                 const getStatus = () => ipcRenderer.send('device-obd-status', 0x62);
@@ -106,11 +106,11 @@ export function handleOBDUpdateStatus(){
               }
               if(result.obdStatus == OBD_SUCCESS){
                 obdStatus = DEVICE_OBD_SUCCESS;
-                console.log('OBD Success');
+                //console.log('OBD Success');
               }
               if(result.obdStatus == OBD_FAILED){
                 obdStatus = DEVICE_OBD_FAILED;
-                console.log('OBD FAILED');
+                //console.log('OBD FAILED');
               }
             }
             dispatch({
@@ -237,9 +237,9 @@ export function handleDeviceDataResult(){
           serial_number = getSerialNumber(msg);
           //obdsupport = checkOBDSupport(msg);
           softwareIdResult = getSoftwareId(msg);
-          console.log("*******************************");
-          console.log(msg);
-          console.log("*******************************");
+          //console.log("*******************************");
+          //console.log(msg);
+          //console.log("*******************************");
           dispatch(fetchDeviceDBData(serial_number,softwareIdResult));
           dispatch({
             type: DEVICE_DATA_SETTINGS,
@@ -254,7 +254,7 @@ export function handleDeviceDataResult(){
             type: SUCCESS_SETTINGS_UPDATE,
             payload: ""
           });
-          console.log('ZZZZZZZZZZZZZZZ');
+          //console.log('ZZZZZZZZZZZZZZZ');
           ipcRenderer.send('device-read-settings', 0x1A);
           break;
         case 0x66:
@@ -306,14 +306,14 @@ export function handleDeviceDataResult(){
           });
           break;
         case 0x61: //validate block response
-          console.log("OBD Status Handler");
+          //console.log("OBD Status Handler");
           result = msg[1]; //result
-          console.log(result);
+          //console.log(result);
           if(result == WRITE_SUCESS){
-            console.log('OBD Write Success');
+            //console.log('OBD Write Success');
             ipcRenderer.send('device-obd-status', 0x62);
           }else if(result == WRITE_FAILED){
-            console.log('OBD Write Failed');
+            //console.log('OBD Write Failed');
           }
           break;
         case 0x70: //sector write response
@@ -331,10 +331,10 @@ export function handleDeviceDataResult(){
 }
 
 export function saveDeviceSettings(data, settings){
-    console.log('@@@@@@saveDeviceSettings@@@@@@');
+    //console.log('@@@@@@saveDeviceSettings@@@@@@');
     let result = setDeviceSettings(data,settings);
-    console.log(result);
-    console.log('@@@@@@saveDeviceSettings@@@@@@');
+    //console.log(result);
+    //console.log('@@@@@@saveDeviceSettings@@@@@@');
     ipcRenderer.send('device-write_data', result);
     return {
       type: SAVE_DEVICE_SETTINGS,
@@ -353,7 +353,7 @@ export function saveDeviceOSDSettings(settings){
 
 export function startOBDProgramming(settings){
     let result = setDeviceOBDSettings(settings);
-    console.log(result);
+    //console.log(result);
     ipcRenderer.send('device-write_data', result);
     return {
       type: START_OBD_PROGRAMMING,
@@ -461,7 +461,7 @@ export function softwareUpdateError(status){
         payload: ""
       };
     }else{
-      console.log("dispatching DISPLAY_UPDATE_ERROR");
+      //console.log("dispatching DISPLAY_UPDATE_ERROR");
       return {
         type: DISPLAY_UPDATE_ERROR,
         payload: "Error During Software Update"

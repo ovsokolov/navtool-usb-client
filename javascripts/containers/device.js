@@ -142,11 +142,15 @@ class Device extends Component {
           <UpdateProgress
             progress_status={update_status}
           />
+          <br/><br/>
+          <ModalMessage 
+            display_message='PROGRAMMING IN PROGRESS! DO NOT DISCONNECT DEVICE OR CLOSE PROGRAM!!'
+            show_flush={true}/>
         </Modal>
       );
     }
     if(obd_status != OBD_NOT_STARTED && !this.props.modal_state.hide){
-      console.log("Inside modal function obd_status", obd_status);
+      //console.log("Inside modal function obd_status", obd_status);
       return (
         <Modal
           showCloseButton={false}
@@ -157,14 +161,15 @@ class Device extends Component {
       );
     }
     if(this.props.modal_state.show_message){
-      console.log("Inside modal function message");
+      //console.log("Inside modal function message");
       return (
         <Modal
           showCloseButton={true}
           onCloseModal={this.closeModal}
         >
           <ModalMessage 
-            display_message={message}/>
+            display_message={message}
+            show_flush={false}/>
         </Modal>
       );
     }
@@ -227,8 +232,8 @@ class Device extends Component {
       this.setState({device_update_status: AFTER_UPDATE_ACTION});
       this.props.rebootAfterUpdate();
     }
-    console.log("########Current#######", this.props.device_status.obd_status)
-    console.log("########Next#######", nextProps.device_status.obd_status)
+    //console.log("########Current#######", this.props.device_status.obd_status)
+    //console.log("########Next#######", nextProps.device_status.obd_status)
     if(this.props.device_status.obd_status == OBD_IN_PROGRESS && nextProps.device_status.obd_status != OBD_IN_PROGRESS){
       this.props.updateDeviceOBDData(getSerialNumber(nextProps.device_data),nextProps.device_status.obd_status);
     }

@@ -5,6 +5,7 @@ import { getOSDSettings } from './hid_action';
 
 export const FETCH_SOFTWARE = 'FETCH_SOFTWARE';
 export const SET_SOFTWARE = 'SET_SOFTWARE';
+export const SET_SOFTWARE_DESCRIPTION = 'SET_SOFTWARE_DESCRIPTION';
 export const FETCH_SETTINGS_TYPE = 'FETCH_SETTINGS_TYPE';
 
 //const ROOT_URL = "https://tranquil-mesa-29755.herokuapp.com/navtoolsws/make";
@@ -43,7 +44,7 @@ export function fetchSoftwareConfig(mfg_id,sw_id, sw_build){
   const url = ROOT_URL + param_url;
   const request = axios.get(url);
 
-  console.log('fetchSoftwareConfig URL', url);
+  //console.log('fetchSoftwareConfig URL', url);
 
   return (dispatch) => {
     request.then( ({data}) =>{
@@ -58,6 +59,7 @@ export function fetchSoftwareConfig(mfg_id,sw_id, sw_build){
         dispatch(getOSDSettings());
       }
       dispatch( { type: FETCH_SETTINGS_TYPE, payload: sw_config["sw_settings_type"]  } );
+      dispatch( { type: SET_SOFTWARE_DESCRIPTION, payload: {sw_description: sw_config["sw_description"], sw_year_from: sw_config["vehicle_year_from"], sw_year_to: sw_config["vehicle_year_to"],} });
     });
   };
 }

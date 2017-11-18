@@ -15,6 +15,12 @@ export default class DeviceInfo extends Component {
     this.renderDevice = this.renderDevice.bind(this);
     this.renderSearchDevice = this.renderSearchDevice.bind(this);
     this.renderSoftwareVersion = this.renderSoftwareVersion.bind(this);
+    this.renderMCU = this.renderMCU.bind(this);
+    this.createCopyButton = this.createCopyButton.bind(this);
+  }
+
+  componentDidMount(){
+    const clipboard = new Clipboard('.mcu')
   }
 
   renderDeviceStatus(){
@@ -75,18 +81,38 @@ export default class DeviceInfo extends Component {
         );
       }
   }
+
+  renderMCU(){
+      if(this.props.deviceStatus.app_status == DEVICE_APP_STATUS){
+        return (
+          <span>
+            &nbsp;&nbsp;MCU: {this.props.deviceInfo.mcu_serial}
+          </span>
+        );
+      }else if (this.props.deviceStatus.app_status == DEVICE_SBL_STATUS) {
+        return(
+          <span />
+        );
+      }   
+  }
+
+  createCopyButton(){
+       if(this.props.deviceStatus.app_status == DEVICE_APP_STATUS){
+        return (
+          <button className="mcu" data-clipboard-text={this.props.deviceInfo.mcu_serial}>
+               <i className="copy icon"></i>Copy MCU
+          </button>
+        );
+      }else if (this.props.deviceStatus.app_status == DEVICE_SBL_STATUS) {
+        return(
+          <span />
+        );
+      }      
+  }
+
   renderDeviceInfo(){
       return(
         <div className="thirteen wide column left aligned ">
-            <div className="row">
-                <div className={`ui ${iconColor} horizontal label`}>Device Model:</div>{this.props.deviceStatus.device_mfg_id}
-                {this.renderSoftwareVersion()}
-                <br /><br/>
-            </div>
-            <div className="row">
-                <div className={`ui ${iconColor} horizontal label`}>Device ID:</div>{this.props.deviceInfo.mcu_serial}
-                <br /><br/>
-            </div>
             <div className="row">
                 <div className={`ui ${iconColor} horizontal label`}>Vihecle Make:</div>{this.props.deviceInfo.vehicle_make}
             </div>
@@ -94,6 +120,22 @@ export default class DeviceInfo extends Component {
             <div className="row">
                 <div className={`ui ${iconColor} horizontal label`}>Vihecle Model:</div>{this.props.deviceInfo.vehicle_model}
             </div>
+            <div>&nbsp;</div>
+            <div className="row">
+                <div className={`ui ${iconColor} horizontal label`}>Vihecle Years:</div>{this.props.deviceStatus.device_sw_years}
+            </div>
+            <div>&nbsp;</div>
+            <div className="row">
+                <div className={`ui ${iconColor} horizontal label`}>Software Description::</div>{this.props.deviceStatus.device_sw_description}
+                <br /><br/>
+            </div>
+            <div className="row">
+                <div className={`ui ${iconColor} horizontal label`}>Device Model:</div>{this.props.deviceStatus.device_mfg_id}
+                {this.renderSoftwareVersion()}
+                {this.renderMCU()}
+                &nbsp;&nbsp;
+                {this.createCopyButton()}
+            </div>            
         </div>
       );
   }

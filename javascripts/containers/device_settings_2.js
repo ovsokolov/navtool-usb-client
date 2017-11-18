@@ -80,7 +80,7 @@ export default class DeviceSettingsType2 extends Component {
   setDropdwonValue(event){
     let system_settings = this.state.system_settings;
     system_settings[event.target.id] = event.target.value;
-    console.log(system_settings);
+    //console.log(system_settings);
     this.setState({system_settings});
   }
 
@@ -91,8 +91,8 @@ export default class DeviceSettingsType2 extends Component {
     }else{
       system_settings[name] = "0";
     }
-    console.log("XXXXX");
-    console.log(system_settings);
+    //console.log("XXXXX");
+    //console.log(system_settings);
     this.setState({system_settings});
   }
 

@@ -34,11 +34,13 @@ class SoftwareList extends Component {
         bFilter: false,
         data: [],
         columns: [
-            { title: "Id" },
-            { title: "Make" },
-            { title: "Model" },
-            { title: "Year" },
-            { title: "Description" }
+            { title: "ID" },
+            { title: "SW ID" },
+            { title: "SW BUILD" },
+            { title: "MAKE" },
+            { title: "MODEL" },
+            { title: "YEAR" },
+            { title: "DESCRIPTION" }
         ]
     } );
 
@@ -58,7 +60,7 @@ class SoftwareList extends Component {
     var dataSet = [];
     //console.log(this.props.software_list);
     this.props.software_list.forEach(function(software){
-      var row = [software.id,software.vehicle_make,software.vehicle_model, "".concat(software.vehicle_year_from, "-", software.vehicle_year_to), software.sw_description];
+      var row = [software.id, software.sw_id,software.sw_build,software.vehicle_make,software.vehicle_model, "".concat(software.vehicle_year_from, "-", software.vehicle_year_to), software.sw_description];
       dataSet.push(row);
      });
     //console.log(dataSet);

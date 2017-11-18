@@ -45,8 +45,13 @@ class Modal extends Component{
     ReactDOM.render(
       <Provider store={store}>
         <div>
-          <div>{this.props.children}</div>
-          {this.renderCloseButton()}
+          <div className="center-message">
+            <div>{this.props.children}</div>
+          </div>
+          <br/><br/><br/>
+          <div className="center-message">
+            {this.renderCloseButton()}
+          </div>
         </div>
       </Provider>,
       this.modalTarget

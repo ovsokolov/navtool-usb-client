@@ -18,17 +18,17 @@ export function fetchDeviceDBData(serial_number, software){
   const url = ROOT_URL + serial_number;
   const request = axios.get(url);
 
-  console.log('URL', url);
+  //console.log('URL', url);
 
   return (dispatch) => {
     request.then( ({data}) =>{
-      console.log(data);
-      console.log(data["mfg_id"])
-      console.log("xxxxxxxxxxxxx")
-      console.log(serial_number);
+      //console.log(data);
+      //console.log(data["mfg_id"])
+      //console.log("xxxxxxxxxxxxx")
+      //console.log(serial_number);
       dispatch( { type: FETCH_DEVICE_DB_DATA, payload: data } )
       if (software !== undefined){
-        console.log("%%%%%%%%Software parameter exists")
+        //console.log("%%%%%%%%Software parameter exists")
         dispatch(fetchSoftwareConfig(data["mfg_id"],software.softwareId,software.softwareBuild))
         //dispatch(fetchOBDConfig(data["mfg_id"], obd.softwareId));
         dispatch( fetchMake(data["mfg_id"]) )
@@ -62,7 +62,7 @@ export function updateDeviceOBDData(serial_number, obd_status){
     const url = WEB_SERVICES_URL + '/v1/obdupdate/' + "?mcu_id=" + serial_number;
     const request = axios.get(url);
 
-    console.log('OBD MCU ', serial_number);
+    //console.log('OBD MCU ', serial_number);
 
     return (dispatch) => {
       request.then( ({data}) =>{

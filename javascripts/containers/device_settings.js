@@ -7,7 +7,7 @@ export default class DeviceSettings extends Component {
   constructor(props){
     super(props);
     let system_settings = JSON.parse(JSON.stringify(this.props.systemSettings));
-    console.log("~~~~~~~~~~~~~~~~~~~~~~~~");
+    //console.log("~~~~~~~~~~~~~~~~~~~~~~~~");
     this.state = {system_settings: system_settings};
     this.saveSettings = this.saveSettings.bind(this);
     this.onCameraChange = this.onCameraChange.bind(this);
@@ -153,8 +153,8 @@ export default class DeviceSettings extends Component {
 
 
   renderSettings(){
-    console.log('renderSettingsFunction');
-    console.log(this.state);
+    //console.log('renderSettingsFunction');
+    //console.log(this.state);
     return (
       <div className="ui two column grid">
         { this.renderHDMISettings() }
@@ -201,7 +201,7 @@ export default class DeviceSettings extends Component {
   }
 
   renderAfterMarketCameras(){
-    console.log('renderAfterMarketCamerasFunction');
+    //console.log('renderAfterMarketCamerasFunction');
     return (
             <div className="column">
               <div className="ui raised segment">

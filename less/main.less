@@ -1,5 +1,8 @@
 @body-bg: #9E9E9E;
 @myDiv-fg: #f00;
+@keyframes blinker {  
+  50% { opacity: 0; }
+}
 body {
   background-color: @body-bg;
   height: 100%;
@@ -106,4 +109,22 @@ body .modal {
 
 .radio-opt-desc {
     padding-left: 10px;
+}
+
+.blink_me {
+  animation: blinker 2s linear infinite;
+  font-size: xx-large;
+  color: red;
+  padding: 0 20px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.center-message {
+    margin: 0 auto;
+    font-size: xx-large;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

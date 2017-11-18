@@ -14,7 +14,12 @@ export default class ModalMessage extends Component {
       return (
         <div>
           <i className={`red info icon`}></i>
-          {this.props.display_message}
+          { this.props.show_flush == true &&
+            <span className="blink_me">{this.props.display_message}</span>
+          }
+          { this.props.show_flush == false &&
+            <span>{this.props.display_message}</span>
+          }
         </div>
       );
     }
