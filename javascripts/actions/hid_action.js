@@ -39,6 +39,7 @@ export const WRITE_FAILED = 55;
 export const READ_SUCESS = 22;
 export const READ_FAILED = 33;
 
+export const OBD_NO_ERROR = 0;
 export const OBD_RUNNING = 1;
 export const OBD_SUCCESS = 2;
 export const OBD_FAILED = 3;
@@ -103,6 +104,7 @@ export function handleOBDUpdateStatus(){
                 const getStatus = () => ipcRenderer.send('device-obd-status', 0x62);
                 obdStatus = DEVICE_OBD_RUNING;
                 setTimeout(getStatus, 1000);
+                //obdStatus = DEVICE_OBD_SUCCESS;
               }
               if(result.obdStatus == OBD_SUCCESS){
                 obdStatus = DEVICE_OBD_SUCCESS;
@@ -112,6 +114,11 @@ export function handleOBDUpdateStatus(){
                 obdStatus = DEVICE_OBD_FAILED;
                 //console.log('OBD FAILED');
               }
+              if(result.obdStatus == OBD_NO_ERROR){
+                obdStatus = DEVICE_OBD_SUCCESS;
+                //console.log('OBD FAILED');
+              }
+              
             }
             dispatch({
               type: obdStatus,
