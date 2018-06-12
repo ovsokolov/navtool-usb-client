@@ -86,7 +86,7 @@ class Device extends Component {
     }else{
       return (
           <div id="settings-pane">
-            Settings not available
+            Settings options not available for your vehicle
           </div>  
       );       
     }
@@ -105,7 +105,7 @@ class Device extends Component {
     }else{
       return (
           <div id="obd-pane">
-            Programming Features not available
+            Programming Features not available for your vehicle
           </div>  
       );     
     }
@@ -114,7 +114,7 @@ class Device extends Component {
   renderOSDSettings(){
     if(this.props.osd_settings.osd_enabled){
       return (
-          <div id="obd-pane">
+          <div id="osd-pane">
             <OSDSettings
               osdSettings = {this.props.osd_settings}
               onOSDSettingsSave={this.saveDeviceOSDSettings}
@@ -124,7 +124,7 @@ class Device extends Component {
     }else{
       return (
           <div id="osd-pane">
-            OSD settings not available
+            OSD settings not available for your vehicle
           </div>  
       );     
     }
@@ -291,7 +291,7 @@ class Device extends Component {
         <div className="ui top attached tabular menu">
           <a className="active item" data-tab="first">Software Update</a>
           <a className="item" data-tab="second">Camera Settings</a>
-          <a className="item" data-tab="third">Text Settings</a>
+          <a className="item" data-tab="third">OSD Settings</a>
           <a className="item" data-tab="fourth">Features Activation</a>
         </div>
         <div className="ui bottom attached active tab segment" data-tab="first">

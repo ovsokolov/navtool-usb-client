@@ -1,7 +1,7 @@
 {
   "name": "NavToolUpdater",
   "productName": "NavToolUpdater",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "NavTool Devices USB Updater",
   "main": "main.js",
   "scripts": {

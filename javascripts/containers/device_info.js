@@ -26,9 +26,9 @@ export default class DeviceInfo extends Component {
   renderDeviceStatus(){
       var deviceStatus = "Device Not Found";
       if(this.props.deviceStatus.app_status == DEVICE_APP_STATUS){
-        deviceStatus = "Application Mode";
+        deviceStatus = "Interface Ready";
       }else if (this.props.deviceStatus.app_status == DEVICE_SBL_STATUS) {
-        deviceStatus = "Bootloader Mode";
+        deviceStatus = "Recovery Mode";
       }
       return (
           <div className="row">
@@ -114,15 +114,15 @@ export default class DeviceInfo extends Component {
       return(
         <div className="thirteen wide column left aligned ">
             <div className="row">
-                <div className={`ui ${iconColor} horizontal label`}>Vihecle Make:</div>{this.props.deviceInfo.vehicle_make}
+                <div className={`ui ${iconColor} horizontal label`}>Vehicle Make:</div>{this.props.deviceInfo.vehicle_make}
             </div>
             <div>&nbsp;</div>
             <div className="row">
-                <div className={`ui ${iconColor} horizontal label`}>Vihecle Model:</div>{this.props.deviceInfo.vehicle_model}
+                <div className={`ui ${iconColor} horizontal label`}>Vehicle Model:</div>{this.props.deviceInfo.vehicle_model}
             </div>
             <div>&nbsp;</div>
             <div className="row">
-                <div className={`ui ${iconColor} horizontal label`}>Vihecle Years:</div>{this.props.deviceStatus.device_sw_years}
+                <div className={`ui ${iconColor} horizontal label`}>Vehicle Years:</div>{this.props.deviceStatus.device_sw_years}
             </div>
             <div>&nbsp;</div>
             <div className="row">

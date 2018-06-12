@@ -32,9 +32,12 @@ class SoftwareList extends Component {
     var table = $('#software-list').DataTable( {
         bDestroy: true,
         bFilter: false,
+        oLanguage: {
+          sEmptyTable: "Click Search Button or Contact Technical Support"
+        },
         data: [],
         columns: [
-            { title: "ID" },
+            { title: "FIRRMWARE ID" },
             { title: "SW ID" },
             { title: "SW BUILD" },
             { title: "MAKE" },
@@ -67,6 +70,9 @@ class SoftwareList extends Component {
     var table = $('#software-list').DataTable( {
         bDestroy: true,
         bFilter: false,
+        oLanguage: {
+          sEmptyTable: "Click Search Button or Contact Technical Support"
+        },
         data: dataSet
     } );
 
