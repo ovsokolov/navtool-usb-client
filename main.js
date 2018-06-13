@@ -8,6 +8,8 @@ const {ipcMain} = require('electron')
 const {ipcRenderer} = require('electron')
 const { autoUpdater } = require("electron-updater")
 const settings = require('electron-settings');
+const {download} = require("electron-dl");
+
 
 const app = electron.app
 // Module to control application life.
@@ -75,7 +77,15 @@ function createWindow () {
 
   
   mainWindow.setMenu(null)
-
+  mainWindow.webContents.once('dom-ready', () => {
+    log.info('###################################');
+    download(BrowserWindow.getFocusedWindow(), "https://drive.google.com/uc?export=download&id=10ZvLMpX4zUgKBqMwGKglatyuB1jxEvXl")
+    .then(dl => console.log(dl.getSavePath()))
+    .catch(console.error);
+    //  .then(dl => console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"))
+    //  .catch(console.error);
+    log.info('###################################');
+  })
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -127,6 +137,12 @@ app.on('ready', function()  {
   autoUpdater.logger = require("electron-log")
   autoUpdater.logger.transports.file.level = "info"
   autoUpdater.logger.transports.file.file = app.getPath('userData') + '/autoupdater_log.txt';
+
+
+
+
+
+
 }); 
 
 app.on('ready', createWindow)
