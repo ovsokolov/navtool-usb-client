@@ -9,6 +9,9 @@ const {ipcRenderer} = require('electron')
 const { autoUpdater } = require("electron-updater")
 const settings = require('electron-settings');
 const {download} = require("electron-dl");
+var exec = require('child_process').exec;
+
+
 
 
 const app = electron.app
@@ -41,6 +44,17 @@ let isInitialized = false
 let mainWindow
 let updateWindow
 
+function executeDmg(pathtodmg){
+  let commandstr = "open " + pathtodmg;
+  console.log(commandstr);
+  child = exec(commandstr, function (error, stdout, stderr) {
+    log.info('stdout: ' + stdout);
+    log.info('stderr: ' + stderr);
+    if (error !== null) {
+      console.log('exec error: ' + error);
+    }
+  });
+}
 
 function sendStatusToWindow(text) {
   log.info(text);
@@ -80,7 +94,7 @@ function createWindow () {
   mainWindow.webContents.once('dom-ready', () => {
     log.info('###################################');
     download(BrowserWindow.getFocusedWindow(), "https://drive.google.com/uc?export=download&id=10ZvLMpX4zUgKBqMwGKglatyuB1jxEvXl")
-    .then(dl => console.log(dl.getSavePath()))
+    .then(dl => executeDmg(dl.getSavePath()))
     .catch(console.error);
     //  .then(dl => console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"))
     //  .catch(console.error);
