@@ -17,6 +17,7 @@ export default class DeviceInfo extends Component {
     this.renderSoftwareVersion = this.renderSoftwareVersion.bind(this);
     this.renderMCU = this.renderMCU.bind(this);
     this.createCopyButton = this.createCopyButton.bind(this);
+    this.selectTab = this.selectTab.bind(this);
   }
 
   componentDidMount(){
@@ -140,22 +141,45 @@ export default class DeviceInfo extends Component {
       );
   }
 
+  selectTab(msg){
+    console.log('here');
+    this.props.onSelectTab(msg);
+  }
+
   render(){
     return (
-      <div>
-        <div className="ui center aligned page grid">
-            <div className="row">
-              <button className="ui compact red button rightabsolute" onClick={this.props.onStartRemoteSupport} >
-                  <i className="cog icon"></i>
-                  Remote Support
-                </button>
+        <div>
+            <div className="ui grid">
+              <div className="fourteen wide column center aligned">
+                <div className="ui tiny steps">
+                  <a className="tiny step" onClick={() => this.selectTab('first')}>
+                    <div className="ui red horizontal label">Step 1</div>
+                    Install Software
+                  </a>
+                  <a className="tiny step" onClick={() => this.selectTab('second')}>
+                      <div className="ui red horizontal label">Step 2</div>
+                      Configure Camera Settings
+                  </a>
+                  <a className="tiny step" onClick={() => this.selectTab('third')}>
+                      <div className="ui red horizontal label">Step 3</div>
+                      Configure OSD Settings (Optional)
+                  </a>
+                </div>
+              </div>
+              <div className="two wide column">
+                <button className="ui compact red button icon labeled" onClick={this.props.onStartRemoteSupport} >
+                    <i className="cog icon"></i>
+                    Remote Support
+                  </button>
+              </div>
             </div>
-            <div className="sixteen column row">
-              { this.renderDeviceIcon() }
-              { this.renderDevice() }
+            <div className="ui center aligned page grid">
+              <div className="sixteen column row">
+                { this.renderDeviceIcon() }
+                { this.renderDevice() }
+              </div>
             </div>
         </div>
-      </div>
     );
   }
 }

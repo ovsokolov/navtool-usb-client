@@ -30,7 +30,7 @@ export default function(state = "", action){
     case DISPLAY_UPDATE_ERROR:
       return action.payload;
     case DOWNLOAD_TEAM_VIEWER:
-      return "Please Wait. Downloading TeamViewer. This window will be closed automoatically"
+      return "Please Wait. Downloading TeamViewer. This window will be closed automatically"
     case HIDE_MODAL:
       //console.log("XXXXXXremoveMessageXXXXX");
       return "";

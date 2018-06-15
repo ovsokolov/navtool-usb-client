@@ -190,7 +190,7 @@ export default class DeviceSettings extends Component {
                          onChange={event => this.onIputChange(event.target.checked,'HDMIEnabled')}
                          />
                         <div className="ui left pointing label">
-                          Turn On HDMI Video Input
+                          Turn On HDMI / Wireless Mirroring / Carplay / Android Auto Video Input
                         </div>                          
                 </div>
             </div>

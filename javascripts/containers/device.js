@@ -73,6 +73,8 @@ class Device extends Component {
 
     this.startRemoteSupport = this.startRemoteSupport.bind(this);
 
+    this.selectTab = this.selectTab.bind(this);
+
   }
 
   renderDeviceSettings(){
@@ -282,6 +284,17 @@ class Device extends Component {
     this.props.saveDeviceOSDSettings(settings);
   }
 
+  selectTab(tabname){
+    $(".tabular.menu .item").removeClass("active");
+    $(".tab.segment").removeClass("active");
+    $(this).addClass("active");
+    var tab = $(this).attr("data-tab");
+    $(".tab.segment").removeClass("active");
+    //$(".tabular.menu[data-tab=\"" + tab + "\"]").addClass("active");
+    $(".tabular.menu .item[data-tab=\"" + tabname  + "\"]").addClass("active");
+    $(".tab.segment[data-tab=\"" + tabname  + "\"]").addClass("active");
+  }
+
   render(){
     const x = function(){};
 
@@ -293,11 +306,12 @@ class Device extends Component {
             deviceStatus = {this.props.device_status}
             onDeviceSearch={this.checkDevice}
             onStartRemoteSupport={this.startRemoteSupport}
+            onSelectTab={this.selectTab}
           />
         </div>
 
         <div className="ui top attached tabular menu">
-          <a className="active item" data-tab="first">Software Update</a>
+          <a className="active item" data-tab="first">Software Loader</a>
           <a className="item" data-tab="second">Camera Settings</a>
           <a className="item" data-tab="third">OSD Settings</a>
           <a className="item" data-tab="fourth">Features Activation</a>

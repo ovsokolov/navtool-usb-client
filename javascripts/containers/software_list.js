@@ -37,7 +37,7 @@ class SoftwareList extends Component {
         },
         data: [],
         columns: [
-            { title: "FIRRMWARE ID" },
+            { title: "FIRMWARE ID" },
             { title: "SW ID" },
             { title: "SW BUILD" },
             { title: "MAKE" },
