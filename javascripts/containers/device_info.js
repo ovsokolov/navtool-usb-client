@@ -144,7 +144,12 @@ export default class DeviceInfo extends Component {
     return (
       <div>
         <div className="ui center aligned page grid">
-            <div className="row"/>
+            <div className="row">
+              <button className="ui compact red button rightabsolute" onClick={this.props.onStartRemoteSupport} >
+                  <i className="cog icon"></i>
+                  Remote Support
+                </button>
+            </div>
             <div className="sixteen column row">
               { this.renderDeviceIcon() }
               { this.renderDevice() }

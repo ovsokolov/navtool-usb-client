@@ -1,5 +1,6 @@
 const electron = require('electron')
 var os = require('os');
+var fs = require('fs');
 var HID = require('node-hid')
 var log = require('electron-log');
 var usbDetect = require('node-usb-detection');
@@ -44,10 +45,11 @@ let isInitialized = false
 let mainWindow
 let updateWindow
 
-function executeDmg(pathtodmg){
-  let commandstr = "open " + pathtodmg;
+function executeQS(extension){
+  let commandstr = "open " + app.getPath('downloads') + '/TeamViewerQS.' + extension;
   console.log(commandstr);
   child = exec(commandstr, function (error, stdout, stderr) {
+    mainWindow.webContents.send('teamviewer-opened' , {msg:'teamviewer opened'});
     log.info('stdout: ' + stdout);
     log.info('stderr: ' + stderr);
     if (error !== null) {
@@ -91,15 +93,6 @@ function createWindow () {
 
   
   mainWindow.setMenu(null)
-  mainWindow.webContents.once('dom-ready', () => {
-    log.info('###################################');
-    download(BrowserWindow.getFocusedWindow(), "https://drive.google.com/uc?export=download&id=10ZvLMpX4zUgKBqMwGKglatyuB1jxEvXl")
-    .then(dl => executeDmg(dl.getSavePath()))
-    .catch(console.error);
-    //  .then(dl => console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"))
-    //  .catch(console.error);
-    log.info('###################################');
-  })
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -297,6 +290,23 @@ ipcMain.on('device-obd-status', (event, arg) => {
       mainWindow.webContents.send('device-obd-status' , {msg: data});
   })
   device.write([0x00, arg, 0x00, 0x00, 0x00, 0x00, 0x00]);
+});
+
+ipcMain.on('start-support', (event, arg) => {
+    if(os.platform() == 'darwin'){
+      console.log(app.getPath('downloads'))
+      if (fs.existsSync(app.getPath('downloads') + '/TeamViewerQS.dmg')) {
+        console.log('QS found');
+        executeQS('dmg');
+      }else{
+        console.log('QS not found');
+        download(BrowserWindow.getFocusedWindow(), "https://drive.google.com/uc?export=download&id=1o89HqDE_UWCGzTDmE8noyNY-_uFZQ25J")
+        .then(dl => executeQS('dmg'))
+        .catch(console.error);
+      }
+    }else{
+      //windows
+    }
 });
 
 

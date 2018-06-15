@@ -18,11 +18,10 @@ import { startOBDProgramming } from '../actions/hid_action';
 import { getOSDSettings } from '../actions/hid_action';
 import { getSerialNumber } from '../utils/device_utils';
 
-
 import { loadFTPFile } from '../actions/ftp_action';
 import { updateDeviceDBData, updateDeviceOBDData } from '../actions/get_device_data';
 
-import { hideModal } from '../actions/hide_modal';
+import { hideModal, showDownloadTeamViewer } from '../actions/hide_modal';
 
 import { DEVICE_APP_STATUS } from '../utils/device_utils';
 
@@ -71,6 +70,8 @@ class Device extends Component {
 
     this.closeModal = this.closeModal.bind(this);
     this.displayModal = this.displayModal.bind(this);
+
+    this.startRemoteSupport = this.startRemoteSupport.bind(this);
 
   }
 
@@ -160,6 +161,7 @@ class Device extends Component {
         </Modal>
       );
     }
+
     if(this.props.modal_state.show_message){
       //console.log("Inside modal function message");
       return (
@@ -265,6 +267,11 @@ class Device extends Component {
     ipcRenderer.send('check-device');
   }
 
+  startRemoteSupport(){
+   ipcRenderer.send('start-support');  
+   this.props.showDownloadTeamViewer();  
+  }
+
   saveDeviceSettings(settings){
     let device_data = this.props.device_data;
     this.props.saveDeviceSettings(device_data, settings);
@@ -285,6 +292,7 @@ class Device extends Component {
             deviceInfo = {this.props.device_db_data}
             deviceStatus = {this.props.device_status}
             onDeviceSearch={this.checkDevice}
+            onStartRemoteSupport={this.startRemoteSupport}
           />
         </div>
 
@@ -329,7 +337,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, updateDeviceOBDData, startOBDProgramming, hideModal, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError }, dispatch);
+  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, updateDeviceOBDData, startOBDProgramming, hideModal, showDownloadTeamViewer, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError }, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Device);

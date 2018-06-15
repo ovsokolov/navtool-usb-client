@@ -5,6 +5,7 @@ import { HIDE_MODAL } from '../actions/hide_modal';
 import { OBD_COMPLETED } from '../utils/device_utils';
 import { DEVICE_NOT_SUPPORTED } from '../utils/device_utils';
 import { DISPLAY_UPDATE_ERROR} from '../utils/device_utils';
+import { DOWNLOAD_TEAM_VIEWER } from '../utils/device_utils';
 
 export default function(state = "", action){
       //console.log("In message reducer");
@@ -28,6 +29,8 @@ export default function(state = "", action){
       return action.payload;
     case DISPLAY_UPDATE_ERROR:
       return action.payload;
+    case DOWNLOAD_TEAM_VIEWER:
+      return "Please Wait. Downloading TeamViewer. This window will be closed automoatically"
     case HIDE_MODAL:
       //console.log("XXXXXXremoveMessageXXXXX");
       return "";

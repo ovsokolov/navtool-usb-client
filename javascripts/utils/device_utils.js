@@ -26,6 +26,7 @@ export const TRANSFER_COMPLETED = 'TRANSFER_COMPLETED';
 export const DB_UPDATE_COMPLETED = 'TRANSFER_COMPLETED';
 export const UPDATE_ERROR = 'UPDATE_ERROR';
 export const DISPLAY_UPDATE_ERROR  = 'DISPLAY_UPDATE_ERROR';
+export const DOWNLOAD_TEAM_VIEWER  = 'DOWNLOAD_TEAM_VIEWER';
 
 export const OBD_NOT_STARTED = "OBD_NOT_STARTED";
 export const OBD_IN_PROGRESS = "OBD_IN_PROGRESS";
@@ -500,3 +501,4 @@ export function parseOBDStatus(msg){
   console.log(msg[2]);
   return { obdReadStatus, obdStatus};
 }
+
