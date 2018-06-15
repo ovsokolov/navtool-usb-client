@@ -46,13 +46,21 @@ let mainWindow
 let updateWindow
 
 function executeQS(extension){
-  let commandstr = "open " + app.getPath('downloads') + '/TeamViewerQS.' + extension;
+  let commandstr = "";
+  if(os.platform() == 'darwin'){
+    commandstr = "open " + app.getPath('downloads') + '/TeamViewerQS.' + extension;
+  }else{
+    commandstr = "cmd /K " + app.getPath('downloads') + '\\TeamViewerQS.' + extension;
+  }
   console.log(commandstr);
+  mainWindow.webContents.send('teamviewer-opened' , {msg:'teamviewer opened'});
   child = exec(commandstr, function (error, stdout, stderr) {
-    mainWindow.webContents.send('teamviewer-opened' , {msg:'teamviewer opened'});
+    console.log("after command");
+    //mainWindow.webContents.send('teamviewer-opened' , {msg:'teamviewer opened'});
     log.info('stdout: ' + stdout);
     log.info('stderr: ' + stderr);
     if (error !== null) {
+      console.log("error command");
       console.log('exec error: ' + error);
     }
   });
@@ -294,18 +302,28 @@ ipcMain.on('device-obd-status', (event, arg) => {
 
 ipcMain.on('start-support', (event, arg) => {
     if(os.platform() == 'darwin'){
-      console.log(app.getPath('downloads'))
+      console.log(app.getPath('downloads'));
       if (fs.existsSync(app.getPath('downloads') + '/TeamViewerQS.dmg')) {
         console.log('QS found');
         executeQS('dmg');
       }else{
         console.log('QS not found');
-        download(BrowserWindow.getFocusedWindow(), "https://drive.google.com/uc?export=download&id=1o89HqDE_UWCGzTDmE8noyNY-_uFZQ25J")
+        download(BrowserWindow.getFocusedWindow(), "http://034b227.netsolhost.com/updater/TeamViewerQS.dmg")
         .then(dl => executeQS('dmg'))
         .catch(console.error);
       }
     }else{
       //windows
+      console.log(app.getPath('downloads'));
+      if (fs.existsSync(app.getPath('downloads') + '\\TeamViewerQS.exe')) {
+        console.log('QS found');
+        executeQS('exe');
+      }else{
+        console.log('QS not found');
+        download(BrowserWindow.getFocusedWindow(), "http://034b227.netsolhost.com/updater/TeamViewerQS.exe")
+        .then(dl => executeQS('exe'))
+        .catch(console.error);
+      }
     }
 });
 
