@@ -1,6 +1,7 @@
 import { FETCH_MAKE } from '../actions/get_make';
 import { FETCH_MODEL } from '../actions/get_model';
 import { FETCH_YEAR, SET_YEAR } from '../actions/get_year';
+import { FETCH_SOFTWARE } from '../actions/get_software';
 import { DEVICE_REMOVED, DEVICE_MFG_ID_RECIEVED } from '../actions/hid_action';
 import { SET_TRANSMISSION_TYPE } from '../actions/set_transmission';
 import { SET_SOFTWARE } from '../actions/get_software';
@@ -43,6 +44,10 @@ export default function(state = JSON.parse(JSON.stringify(DEFAULT_STATE)), actio
       result = Object.assign({}, state, {vehicle_year: action.payload});
       //console.log(result);
       return result;
+    case FETCH_SOFTWARE:
+      result = Object.assign({}, state, {sw_id: ''});
+      //console.log(result);
+      return result;      
     case SET_SOFTWARE:
       //return state.concat([ action.payload.data ]);
       //or (same crete new array). NEVER!!!!! mutate array

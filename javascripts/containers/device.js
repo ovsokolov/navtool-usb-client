@@ -258,7 +258,13 @@ class Device extends Component {
 
   installSoftware(){
     var sw_id = this.props.software_search.sw_id;
-    this.props.loadFTPFile(sw_id, this.props.device_status.app_status);
+    console.log(this.props.software_search.sw_id.length);
+    console.log(this.props.software_search.sw_id);
+    if(this.props.software_search.sw_id.length == 0) {
+      alert("Please select software from the list");
+    }else{
+      this.props.loadFTPFile(sw_id, this.props.device_status.app_status);     
+    }
   }
 
   readDeviceSettings(){
