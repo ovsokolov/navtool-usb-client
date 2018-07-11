@@ -199,7 +199,7 @@ usbDetect.remove(function(device) {
 
 
 ipcMain.on('device-sbl-status', (event, arg) => {
-  ////log.info('Checking Device SBL status....')
+    log.info('Checking Device SBL status....')
 		try{
 			//wait for 1sec for device to arrive
 		  	var devicesList = HID.devices();
@@ -207,7 +207,8 @@ ipcMain.on('device-sbl-status', (event, arg) => {
 		    	return d.vendorId===49745 && d.productId===278;
 			});
 
-			//log.info(deviceInfo);
+			log.info(deviceInfo);
+      log.info(deviceInfo.serialNumber);
 			mainWindow.webContents.send('device-mfg-id', { mfgid: deviceInfo.serialNumber} );
 			device = new HID.HID( deviceInfo.path );
 
