@@ -426,6 +426,7 @@ export function sendSoftwareUpdateData(action, update_status){
 }
 
 export function requestSBL(){
+  console.log("HID request SBL");
   let arg = [0x00, 0x80, 0x00, 0x00, 0x00];
   notifyRemoved = false;
   ipcRenderer.send('device-sbl', arg);
@@ -445,6 +446,7 @@ export function rebootAfterUpdate(){
 
 
 export function clearSBL(){
+  console.log("HID clear SBL");
   let arg = [];
   arg[0] = 0x00;
   arg[1] = 0x08;

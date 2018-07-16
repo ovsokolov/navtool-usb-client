@@ -44,7 +44,8 @@ class SoftwareList extends Component {
             { title: "MODEL" },
             { title: "YEAR" },
             { title: "DESCRIPTION" }
-        ]
+        ],
+        order: [[ 3, "asc" ],[ 4, "asc" ]]
     } );
 
     $('#software-list tbody').off('click');
@@ -66,14 +67,16 @@ class SoftwareList extends Component {
       var row = [software.id, software.sw_id,software.sw_build,software.vehicle_make,software.vehicle_model, "".concat(software.vehicle_year_from, "-", software.vehicle_year_to), software.sw_description];
       dataSet.push(row);
      });
-    //console.log(dataSet);
+    console.log("dataset");
+    console.log(dataSet);
     var table = $('#software-list').DataTable( {
         bDestroy: true,
         bFilter: false,
         oLanguage: {
           sEmptyTable: "Click Search Button or Contact Technical Support"
         },
-        data: dataSet
+        data: dataSet,
+        order: [[ 3, "asc" ],[ 4, "asc" ]]
     } );
 
     $('#software-list tbody').off('click');

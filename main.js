@@ -202,14 +202,31 @@ ipcMain.on('device-sbl-status', (event, arg) => {
     log.info('Checking Device SBL status....')
 		try{
 			//wait for 1sec for device to arrive
-		  	var devicesList = HID.devices();
+		  var devicesList = HID.devices();
 			var deviceInfo = devicesList.find( function(d) {
 		    	return d.vendorId===49745 && d.productId===278;
 			});
 
-			log.info(deviceInfo);
-      log.info(deviceInfo.serialNumber);
-			mainWindow.webContents.send('device-mfg-id', { mfgid: deviceInfo.serialNumber} );
+			//log.info(deviceInfo);
+      //log.info(deviceInfo.serialNumber);
+      //log.info(deviceInfo.serialNumber.length);
+      var serialNumber = "";
+      if(deviceInfo.serialNumber.startsWith('UM')){
+        //console.log("Length: " + deviceInfo.serialNumber.trim().length);
+        //console.log("CHAR: " + String.fromCharCode(deviceInfo.serialNumber[6].charCodeAt(0)));
+        //console.log("CHAR Length: " + String.fromCharCode(deviceInfo.serialNumber[6].charCodeAt(0)).length);
+        if( String.fromCharCode(deviceInfo.serialNumber[6].charCodeAt(0)) == 'U'){
+          serialNumber = deviceInfo.serialNumber;
+        }else{
+          //console.log("in else");
+          serialNumber = deviceInfo.serialNumber.trim() + parseInt(deviceInfo.serialNumber[6].charCodeAt(0).toString(16));          
+        }        
+      }else{
+        serialNumber = deviceInfo.serialNumber;
+      }
+      //log.info(serialNumber);
+      
+			mainWindow.webContents.send('device-mfg-id', { mfgid: serialNumber} );
 			device = new HID.HID( deviceInfo.path );
 
 
@@ -270,9 +287,9 @@ ipcMain.on('check-device', (event, arg) => {
 
 ipcMain.on('device-read-settings', (event, arg) => {
 
-  log.info('before device-read-settings')
+  //log.info('before device-read-settings')
   device.read(function(err,data) {
-      log.info('data recieved device-read-settings', data);
+      //log.info('data recieved device-read-settings', data);
       mainWindow.webContents.send('device-data-result' , {msg: data});
   })
   device.write([0x00, arg, 0x00, 0x00, 0x00, 0x00, 0x00])

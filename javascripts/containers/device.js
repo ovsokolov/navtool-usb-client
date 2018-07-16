@@ -13,7 +13,7 @@ import { connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { saveDeviceSettings, updateDeviceVichecleInfo, sendSoftwareUpdateData, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError } from'../actions/hid_action';
-import { hidAction } from '../actions/hid_action';
+import { hidAction, requestSBL, clearSBL } from '../actions/hid_action';
 import { startOBDProgramming } from '../actions/hid_action';
 import { getOSDSettings } from '../actions/hid_action';
 import { getSerialNumber } from '../utils/device_utils';
@@ -61,8 +61,8 @@ class Device extends Component {
     this.saveDeviceOSDSettings = this.saveDeviceOSDSettings.bind(this);
     this.renderOSDSettings = this.renderOSDSettings.bind(this);
 
-    //this.requestSBL = this.requestSBL.bind(this);
-    //this.clearSBL = this.clearSBL.bind(this);
+    this.requestSBL = this.requestSBL.bind(this);
+    this.clearSBL = this.clearSBL.bind(this);
     //this.onHidePane = this.onHidePane.bind(this);
 
     this.renderOBDFeatures = this.renderOBDFeatures.bind(this);
@@ -77,7 +77,11 @@ class Device extends Component {
 
   }
 
+
+
   renderDeviceSettings(){
+    console.log("Device Settings");
+    console.log(this.props.device_status);
     if(this.props.device_status.device_settings_type){
       return(
             <DeviceSettings
@@ -301,6 +305,21 @@ class Device extends Component {
     $(".tab.segment[data-tab=\"" + tabname  + "\"]").addClass("active");
   }
 
+  requestSBL(){
+    this.props.requestSBL();
+  }
+
+  clearSBL(){
+    this.props.clearSBL();
+  }
+  /*
+  <button className="ui compact red labeled icon button" onClick={this.props.requestSBL} >
+    Request SBL
+  </button>
+  <button className="ui compact red labeled icon button" onClick={this.props.clearSBL} >
+    Clear SBL
+  </button>
+  */
   render(){
     const x = function(){};
 
@@ -357,7 +376,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, updateDeviceOBDData, startOBDProgramming, hideModal, showDownloadTeamViewer, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError }, dispatch);
+  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, updateDeviceOBDData, startOBDProgramming, hideModal, showDownloadTeamViewer, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError, requestSBL, clearSBL }, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Device);

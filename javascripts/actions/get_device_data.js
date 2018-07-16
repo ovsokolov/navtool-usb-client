@@ -12,15 +12,17 @@ import { DEVICE_SUPPORTED, DEVICE_NOT_SUPPORTED } from '../utils/device_utils';
 //const ROOT_URL = "https://tranquil-mesa-29755.herokuapp.com/";
 const ROOT_URL = WEB_SERVICES_URL + "/v1/navtooldevices/";
 export const FETCH_DEVICE_DB_DATA = 'FETCH_DEVICE_DB_DATA';
+export const FETCH_DEVICE_MCU = 'FETCH_DEVICE_MCU';
 
 
 export function fetchDeviceDBData(serial_number, software){
-  const url = ROOT_URL + serial_number;
-  const request = axios.get(url);
 
   //console.log('URL', url);
 
   return (dispatch) => {
+    dispatch( { type: FETCH_DEVICE_MCU, payload: serial_number } )
+    const url = ROOT_URL + serial_number;
+    const request = axios.get(url);
     request.then( ({data}) =>{
       //console.log(data);
       //console.log(data["mfg_id"])
@@ -86,11 +88,11 @@ export function checkDeviceSupport(mfg_id){
 
     return (dispatch) => {
       request.then( ({data}) =>{
-        //console.log("checkDeviceSupport");
-        //console.log(data[0]["hw_hid"]);
-        if(data[0]["hw_hid"] == 1){
+        console.log("checkDeviceSupport");
+        console.log(data[0]["hw_hid"]);
+        if(data[0]["hw_hid"] == 1 || data[0]["hw_hid"] == 2){
           //console.log("Supported");
-          dispatch( { type: DEVICE_SUPPORTED, payload: '' } )
+          dispatch( { type: DEVICE_SUPPORTED, payload: data[0] } )
         }else{
           //console.log("Not Supported");
           dispatch( { type: DEVICE_NOT_SUPPORTED, payload: '' } )

@@ -16,7 +16,9 @@ import { UPDATE_NOT_STARTED,
          TRANSFER_COMPLETED,
          DB_UPDATE_COMPLETED,
          UPDATE_ERROR,
-         DISPLAY_UPDATE_ERROR } from '../utils/device_utils'
+         DISPLAY_UPDATE_ERROR,
+         DEVICE_SUPPORTED } from '../utils/device_utils'
+
 
 const PACKET_SIZE = 16;
 const BLOCK_SIZE = 256;
@@ -52,6 +54,14 @@ export default function(state = DEFAULT_UPDATE_STATE, action){
   let new_state = {};
   let payload_data = {};
   switch (action.type){
+    case DEVICE_SUPPORTED:
+      console.log(action.payload);
+      new_state = JSON.parse(JSON.stringify(state));
+      console.log("software update: DEVICE_SUPPORTED");
+      console.log(action.payload.start_sector);
+      new_state.start_sector = action.payload.start_sector;
+      console.log(new_state);
+      return new_state;
     case FTP_LOAD_SUCCESS:
       ////console.log(action.payload);
       new_state = JSON.parse(JSON.stringify(state));

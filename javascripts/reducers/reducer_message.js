@@ -24,7 +24,7 @@ export default function(state = "", action){
     case DEVICE_OBD_FAILED:
       return "Activation Failed";
     case DEVICE_NOT_SUPPORTED:
-      return "Device Not Supported with this software version. Please use Windows Updater"
+      return "Device Not Supported with this software version. Please contact our Support"
     case OBD_COMPLETED:
       return action.payload;
     case DISPLAY_UPDATE_ERROR:

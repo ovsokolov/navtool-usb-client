@@ -85,6 +85,8 @@ export default class DeviceInfo extends Component {
 
   renderMCU(){
       if(this.props.deviceStatus.app_status == DEVICE_APP_STATUS){
+        console.log("RENDER_MCU")
+        console.log(this.props.deviceInfo)
         return (
           <span>
             &nbsp;&nbsp;MCU: {this.props.deviceInfo.mcu_serial}

@@ -25,6 +25,10 @@ class SoftwareSearch extends Component {
   }
 
   searchSoftware(){
+    if(this.props.software_search.mfg_id.length == 0){
+      alert("Please connect device first");
+      return;
+    }
     this.props.fetchSoftware(
       this.props.software_search.mfg_id,
       this.props.software_search.vehicle_make,
