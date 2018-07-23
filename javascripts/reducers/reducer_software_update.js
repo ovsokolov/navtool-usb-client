@@ -57,10 +57,10 @@ export default function(state = DEFAULT_UPDATE_STATE, action){
     case DEVICE_SUPPORTED:
       console.log(action.payload);
       new_state = JSON.parse(JSON.stringify(state));
-      console.log("software update: DEVICE_SUPPORTED");
-      console.log(action.payload.start_sector);
+      //console.log("software update: DEVICE_SUPPORTED");
+      //console.log(action.payload.start_sector);
       new_state.start_sector = action.payload.start_sector;
-      console.log(new_state);
+      //console.log(new_state);
       return new_state;
     case FTP_LOAD_SUCCESS:
       ////console.log(action.payload);

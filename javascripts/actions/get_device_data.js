@@ -88,8 +88,8 @@ export function checkDeviceSupport(mfg_id){
 
     return (dispatch) => {
       request.then( ({data}) =>{
-        console.log("checkDeviceSupport");
-        console.log(data[0]["hw_hid"]);
+        //console.log("checkDeviceSupport");
+        //console.log(data[0]["hw_hid"]);
         if(data[0]["hw_hid"] == 1 || data[0]["hw_hid"] == 2){
           //console.log("Supported");
           dispatch( { type: DEVICE_SUPPORTED, payload: data[0] } )

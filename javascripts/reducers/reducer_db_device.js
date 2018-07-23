@@ -8,12 +8,12 @@ export default function(state = {}, action){
     case FETCH_DEVICE_DB_DATA:
       //return state.concat([ action.payload.data ]);
       //or (same crete new array). NEVER!!!!! mutate array
-      console.log('Action recieved', FETCH_DEVICE_DB_DATA);
-      console.log(action.payload);
+      //console.log('Action recieved', FETCH_DEVICE_DB_DATA);
+      //console.log(action.payload);
       return action.payload;
     case FETCH_DEVICE_MCU:
-      console.log('Action recieved', FETCH_DEVICE_MCU);
-      console.log(action.payload);
+      //console.log('Action recieved', FETCH_DEVICE_MCU);
+      //console.log(action.payload);
       result = Object.assign({}, state, {mcu_serial: action.payload});
       return result
     case DEVICE_REMOVED:
