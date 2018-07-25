@@ -180,6 +180,9 @@ app.on('activate', function () {
 })
 
 usbDetect.add(function(device) {
+    console.log("in add");
+    console.log(device);
+    console.log("after in add");
     ////log.info("added device:\n", device.deviceDescriptor);
     //log.info(HID.devices());
     if(device.deviceDescriptor.idVendor == 49745){
@@ -207,19 +210,24 @@ ipcMain.on('device-sbl-status', (event, arg) => {
 		    	return d.vendorId===49745 && d.productId===278;
 			});
 
-			//log.info(deviceInfo);
-      //log.info(deviceInfo.serialNumber);
-      //log.info(deviceInfo.serialNumber.length);
+			log.info(deviceInfo);
+      log.info(deviceInfo.serialNumber);
+      log.info(deviceInfo.serialNumber.length);
       var serialNumber = "";
       if(deviceInfo.serialNumber.startsWith('UM')){
         //console.log("Length: " + deviceInfo.serialNumber.trim().length);
+        //console.log(deviceInfo.serialNumber[6].charCodeAt(0));
+        //console.log(deviceInfo.serialNumber.substring(0,6));
+        //console.log(deviceInfo.serialNumber.substring(0,6) + deviceInfo.serialNumber[6].charCodeAt(0));
         //console.log("CHAR: " + String.fromCharCode(deviceInfo.serialNumber[6].charCodeAt(0)));
         //console.log("CHAR Length: " + String.fromCharCode(deviceInfo.serialNumber[6].charCodeAt(0)).length);
+        //console.log(parseInt(deviceInfo.serialNumber[6].charCodeAt(0).toString(16)));
+        //console.log(parseInt(deviceInfo.serialNumber[7].charCodeAt(0).toString(16)));
         if( String.fromCharCode(deviceInfo.serialNumber[6].charCodeAt(0)) == 'U'){
           serialNumber = deviceInfo.serialNumber;
         }else{
           //console.log("in else");
-          serialNumber = deviceInfo.serialNumber.trim() + parseInt(deviceInfo.serialNumber[6].charCodeAt(0).toString(16));          
+          serialNumber = deviceInfo.serialNumber.substring(0,6) + deviceInfo.serialNumber[6].charCodeAt(0);
         }        
       }else{
         serialNumber = deviceInfo.serialNumber;
