@@ -13,7 +13,7 @@ const {download} = require("electron-dl");
 var exec = require('child_process').exec;
 
 
-
+var eventname='';
 
 const app = electron.app
 // Module to control application life.
@@ -236,7 +236,35 @@ ipcMain.on('device-sbl-status', (event, arg) => {
       
 			mainWindow.webContents.send('device-mfg-id', { mfgid: serialNumber} );
 			device = new HID.HID( deviceInfo.path );
-
+      try {
+        device.on('data', function(data) {
+          //log.info("start data event");
+          if(eventname == 'device-sbl-status'){
+            log.info('#####event data recieved for sbl status')
+            //log.info(data)
+            mainWindow.webContents.send('device-sbl-status', { msg: data} );          
+          }
+          if(eventname == 'device-data-result'){
+            log.info('######event data recieved device-data-result', data);
+            mainWindow.webContents.send('device-data-result' , {msg: data});       
+          }
+          if(eventname == 'device-setting-result'){
+            log.info('######event data recieved device-read-settings', data);
+            mainWindow.webContents.send('device-data-result' , {msg: data});       
+          }
+          if(eventname == 'device-obd-status'){
+            log.info('##### data recieved device-obd-status')
+            log.info(data)
+            mainWindow.webContents.send('device-obd-status' , {msg: data});  
+          }
+        } );
+      } catch (err) {
+        log.info(err);
+      }
+      device.removeAllListeners("error")
+      device.on('error', function(error) {
+        log.info("event error");
+      } );
 
 			//log.info("UsagePage: " + deviceInfo.usagePage);
 			//log.info("Usage: " + deviceInfo.usage);
@@ -251,13 +279,15 @@ ipcMain.on('device-sbl-status', (event, arg) => {
 
     	//log.info(device);
 		////log.info('before sbl check')
+    /* remove read
 		device.read(function(err,data) {
 		//log.info('data recieved for sbl status')
         //log.info(data)
 				mainWindow.webContents.send('device-sbl-status', { msg: data} );
 		})
-    	//log.info('checking SBL status')
-
+    */
+    //log.info('checking SBL status')
+    eventname = 'device-sbl-status';
 		device.write([0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00]);
 
 });
@@ -266,7 +296,7 @@ ipcMain.on('device-sbl', (event, arg) => {
 	//log.info('request SBL')  // prints "ping"
 	//device.pause()
 	device.removeAllListeners("data")
-	device.removeAllListeners("error")
+	//device.removeAllListeners("error")
 	try {
   		device.write(arg)
 	}
@@ -296,10 +326,13 @@ ipcMain.on('check-device', (event, arg) => {
 ipcMain.on('device-read-settings', (event, arg) => {
 
   //log.info('before device-read-settings')
+  /* remove read
   device.read(function(err,data) {
       //log.info('data recieved device-read-settings', data);
       mainWindow.webContents.send('device-data-result' , {msg: data});
   })
+  */
+  eventname = 'device-setting-result';
   device.write([0x00, arg, 0x00, 0x00, 0x00, 0x00, 0x00])
 });
 
@@ -308,21 +341,27 @@ ipcMain.on('device-write_data', (event, arg) => {
   log.info('before device-write_data')
   log.info(arg)
   log.info(arg.length)
+  /* remove read
   device.read(function(err,data) {
       log.info('data recieved device-write_data')
       log.info(data)
       mainWindow.webContents.send('device-data-result' , {msg: data});
   })
+  */
+  eventname = 'device-data-result';
   device.write(arg)
 });
 
 ipcMain.on('device-obd-status', (event, arg) => {
   log.info('device-obd-status')
+  /* remove read
   device.read(function(err,data) {
       log.info('data recieved device-obd-status')
       log.info(data)
       mainWindow.webContents.send('device-obd-status' , {msg: data});
   })
+  */
+  eventname = 'device-obd-status';
   device.write([0x00, arg, 0x00, 0x00, 0x00, 0x00, 0x00]);
 });
 

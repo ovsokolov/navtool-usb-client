@@ -70,7 +70,10 @@ import { SET_UP_TRANSFER,
          BLOCK_VALIDATE,
          SECTOR_WRITE,
          UPDATE_ERROR ,
-         DISPLAY_UPDATE_ERROR} from '../utils/device_utils'
+         DISPLAY_UPDATE_ERROR,
+         DISPLAY_UPDATE_SETUP_ERROR} from '../utils/device_utils'
+
+import { HIDE_MODAL } from '../actions/hide_modal';
 
 var notifyRemoved = true;
 var g_MFG_ID =""
@@ -382,13 +385,22 @@ export function sendSoftwareUpdateData(action, update_status){
     switch(action){
       case SET_UP_TRANSFER:
         ////console.log("inside software update action", SET_UP_TRANSFER);
-        data = setUpTransferData(update_status);
-        ////console.log(data);
-        ipcRenderer.send('device-write_data', data);
-        return {
-          type: REQUEST_DATA_SETUP,
-          payload: ""
-        };
+        if(update_status.start_sector == -1){
+          return dispatch => {
+            dispatch({
+              type: DISPLAY_UPDATE_SETUP_ERROR,
+              payload: "Error During Software Update Setup"
+            });
+          };
+        } else {
+          data = setUpTransferData(update_status);
+          ////console.log(data);
+          ipcRenderer.send('device-write_data', data);
+          return {
+            type: REQUEST_DATA_SETUP,
+            payload: ""
+          };
+        }
       case START_TRANSFER:
         ////console.log("inside software update action", START_TRANSFER);
         data = setUpTransferStart()

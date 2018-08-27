@@ -17,13 +17,14 @@ import { UPDATE_NOT_STARTED,
          DB_UPDATE_COMPLETED,
          UPDATE_ERROR,
          DISPLAY_UPDATE_ERROR,
+         DISPLAY_UPDATE_SETUP_ERROR,
          DEVICE_SUPPORTED } from '../utils/device_utils'
 
 
 const PACKET_SIZE = 16;
 const BLOCK_SIZE = 256;
 const SECTOR_SIZE = 4096;
-const START_SECTOR = 2;
+const START_SECTOR = -1;
 
 const SECTOR_WRITE_SUCCESS = 2;
 
@@ -64,6 +65,7 @@ export default function(state = DEFAULT_UPDATE_STATE, action){
       return new_state;
     case FTP_LOAD_SUCCESS:
       ////console.log(action.payload);
+      console.log("********* Some How here **********");
       new_state = JSON.parse(JSON.stringify(state));
       new_state.total_secotrs = Math.ceil(action.payload.size / SECTOR_SIZE);
       new_state.blocks_count = Math.ceil( SECTOR_SIZE /  BLOCK_SIZE );
@@ -185,8 +187,14 @@ export default function(state = DEFAULT_UPDATE_STATE, action){
       new_state.update_progress_status = DISPLAY_UPDATE_ERROR;
       return new_state;
     case DISPLAY_UPDATE_ERROR:
+      console.log('########## reset status UPDATE_NOT_STARTED #####');
       new_state = JSON.parse(JSON.stringify(state));
       new_state.update_progress_status = UPDATE_NOT_STARTED;
+      return new_state;
+    case DISPLAY_UPDATE_SETUP_ERROR:
+      console.log('########## reset status DISPLAY_UPDATE_SETUP_ERROR #####');
+      new_state = JSON.parse(JSON.stringify(state));
+      new_state.update_progress_status = UPDATE_ERROR;
       return new_state;
   }
   return state;

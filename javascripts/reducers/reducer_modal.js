@@ -3,7 +3,7 @@ import { FTP_LOAD_SUCCESS } from '../actions/ftp_action';
 import { DEVICE_REMOVED, START_OBD_PROGRAMMING, SUCCESS_SETTINGS_UPDATE, DEVICE_OBD_SUCCESS, DEVICE_OBD_FAILED } from '../actions/hid_action';
 import { OBD_COMPLETED } from '../utils/device_utils';
 import { DEVICE_NOT_SUPPORTED } from '../utils/device_utils';
-import { UPDATE_ERROR, DISPLAY_UPDATE_ERROR } from '../utils/device_utils';
+import { UPDATE_ERROR, DISPLAY_UPDATE_ERROR, DISPLAY_UPDATE_SETUP_ERROR } from '../utils/device_utils';
 import { DOWNLOAD_TEAM_VIEWER } from '../utils/device_utils';
 
 export default function(state = {hide: false, show_message: false}, action){
@@ -32,6 +32,9 @@ export default function(state = {hide: false, show_message: false}, action){
       return {hide: true, show_message: false};
     case DISPLAY_UPDATE_ERROR:
       return {show_message: true};
+    case DISPLAY_UPDATE_SETUP_ERROR:
+       console.log("Setup error DISPLAY_UPDATE_SETUP_ERROR");
+       return {hide: false, show_message: true}; 
     case DOWNLOAD_TEAM_VIEWER:
       return {show_message: true};
   }

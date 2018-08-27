@@ -33,7 +33,7 @@ export function fetchDeviceDBData(serial_number, software){
         //console.log("%%%%%%%%Software parameter exists")
         dispatch(fetchSoftwareConfig(data["mfg_id"],software.softwareId,software.softwareBuild))
         //dispatch(fetchOBDConfig(data["mfg_id"], obd.softwareId));
-        dispatch( fetchMake(data["mfg_id"]) )
+        //dispatch( fetchMake(data["mfg_id"]) )
       }
     });
   };

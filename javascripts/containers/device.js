@@ -138,9 +138,9 @@ class Device extends Component {
   }
 
   displayModal(device_status, obd_status, update_status, message){
-    console.log("displayModal", this.props.modal_state);
+    console.log("displayModal", this.props.modal_state, update_status);
     if(update_status.update_progress_status != UPDATE_NOT_STARTED && !this.props.modal_state.hide){
-      //console.log("Inside modal function", update_status.update_progress_status);
+      console.log("@@@@@@@Inside modal function", update_status.update_progress_status);
       return (
         <Modal
           showCloseButton={false}
@@ -169,7 +169,7 @@ class Device extends Component {
     }
 
     if(this.props.modal_state.show_message){
-      //console.log("Inside modal function message");
+      console.log("ZzzzzzzzInside modal function message");
       return (
         <Modal
           showCloseButton={true}

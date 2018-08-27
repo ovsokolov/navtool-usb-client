@@ -6,6 +6,7 @@ const ROOT_URL = WEB_SERVICES_URL + "/v1/navtoolsws/make";
 export const FETCH_MAKE = 'FETCH_MAKE';
 
 export function fetchMake(mfg_id){
+  console.log("In fetchMake ", mfg_id);
   const url = ROOT_URL + "?mfg_id=" + mfg_id;
   const request = axios.get(url);
 
