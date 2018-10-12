@@ -7,7 +7,7 @@ import { fetchSoftwareConfig } from './get_software'
 import { WEB_SERVICES_URL } from '../utils/constants';
 import { OBD_COMPLETED } from '../utils/device_utils';
 import { DEVICE_OBD_SUCCESS, DEVICE_OBD_FAILED } from './hid_action';
-import { DEVICE_SUPPORTED, DEVICE_NOT_SUPPORTED } from '../utils/device_utils';
+import { DEVICE_SUPPORTED, DEVICE_NOT_SUPPORTED, DEVICE_START_SECTOR } from '../utils/device_utils';
 
 //const ROOT_URL = "https://tranquil-mesa-29755.herokuapp.com/";
 const ROOT_URL = WEB_SERVICES_URL + "/v1/navtooldevices/";
@@ -97,6 +97,20 @@ export function checkDeviceSupport(mfg_id){
           //console.log("Not Supported");
           dispatch( { type: DEVICE_NOT_SUPPORTED, payload: '' } )
         }
+      });
+    };
+
+}
+
+export function checkDeviceStartSector(mfg_id){
+    const url = WEB_SERVICES_URL + '/v1/navtoolhws/' + "?mfg_id=" + mfg_id;
+    const request = axios.get(url);
+
+    return (dispatch) => {
+      request.then( ({data}) =>{
+        //console.log("checkDeviceStartSector");
+        //console.log("Supported");
+        dispatch( { type: DEVICE_START_SECTOR, payload: data[0] } )
       });
     };
 

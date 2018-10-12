@@ -4,7 +4,7 @@ import { DEVICE_REMOVED } from '../actions/hid_action';
 import { DEVICE_NOT_SUPPORTED } from '../utils/device_utils';
 
 const DEFAULT_DROPDOWN_VALUE = {id: 0, vehicle_year:"Select Year..."};
-const YEAR_LIST = _.range(1980,2020).map((i) => {
+const YEAR_LIST = _.range(1996,2020).map((i) => {
       return {id: i, vehicle_year:i};
     });
 

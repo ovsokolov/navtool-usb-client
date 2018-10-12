@@ -19,7 +19,7 @@ import { getOSDSettings } from '../actions/hid_action';
 import { getSerialNumber } from '../utils/device_utils';
 
 import { loadFTPFile } from '../actions/ftp_action';
-import { updateDeviceDBData, updateDeviceOBDData } from '../actions/get_device_data';
+import { updateDeviceDBData, updateDeviceOBDData, checkDeviceStartSector } from '../actions/get_device_data';
 
 import { hideModal, showDownloadTeamViewer } from '../actions/hide_modal';
 
@@ -30,6 +30,7 @@ import { SYSTEM_SETTINGS } from '../utils/structures';
 import { INIT_IPC } from '../actions/hid_action';
 import { UPDATE_READY, UPDATE_IN_PROGRESS, AFTER_UPDATE_ACTION, UPDATE_COMPLETED } from '../utils/device_utils'
 import { UPDATE_NOT_STARTED,
+         WAITING_START_SECTOR,
          SET_UP_TRANSFER,
          START_TRANSFER,
          PACKET_SEND,
@@ -80,8 +81,8 @@ class Device extends Component {
 
 
   renderDeviceSettings(){
-    console.log("Device Settings");
-    console.log(this.props.device_status);
+    //console.log("Device Settings");
+    //console.log(this.props.device_status);
     if(this.props.device_status.device_settings_type){
       return(
             <DeviceSettings
@@ -138,9 +139,9 @@ class Device extends Component {
   }
 
   displayModal(device_status, obd_status, update_status, message){
-    console.log("displayModal", this.props.modal_state, update_status);
+    //console.log("displayModal", this.props.modal_state, update_status);
     if(update_status.update_progress_status != UPDATE_NOT_STARTED && !this.props.modal_state.hide){
-      console.log("@@@@@@@Inside modal function", update_status.update_progress_status);
+      //console.log("@@@@@@@Inside modal function", update_status.update_progress_status);
       return (
         <Modal
           showCloseButton={false}
@@ -207,8 +208,13 @@ class Device extends Component {
       this.props.softwareUpdateError(UPDATE_ERROR);
     }
     if(nextProps.software_update.update_progress_status == DISPLAY_UPDATE_ERROR) {
-      console.log('$$$$$$$$$$DISPLAY ERRRROR$$$$$$$$$$$$$$$$$');
+      //console.log('$$$$$$$$$$DISPLAY ERRRROR$$$$$$$$$$$$$$$$$');
       this.props.softwareUpdateError(DISPLAY_UPDATE_ERROR);
+    }
+    if(nextProps.device_status.update_status == WAITING_START_SECTOR && this.state.device_update_status != WAITING_START_SECTOR){
+      //console.log('$$$$$$$$$$ WAITING_START_SECTOR $$$$$$$$$$$$$$$$$');
+      this.setState({device_update_status: WAITING_START_SECTOR});
+      this.props.checkDeviceStartSector(this.props.device_status.device_mfg_id);
     }
     if(nextProps.device_status.update_status == UPDATE_READY && this.state.device_update_status != UPDATE_READY){
       this.setState({device_update_status: UPDATE_READY});
@@ -249,6 +255,7 @@ class Device extends Component {
 
   componentDidUpdate(){
     if(this.state.device_update_status == UPDATE_READY && this.props.software_update.update_progress_status == SET_UP_TRANSFER){
+      //console.log("+++++++  SET_UP_TRANSFER  ++++++");
       this.setState({device_update_status: UPDATE_IN_PROGRESS});
       this.props.sendSoftwareUpdateData(SET_UP_TRANSFER,this.props.software_update);
     }
@@ -262,8 +269,8 @@ class Device extends Component {
 
   installSoftware(){
     var sw_id = this.props.software_search.sw_id;
-    console.log(this.props.software_search.sw_id.length);
-    console.log(this.props.software_search.sw_id);
+    //console.log(this.props.software_search.sw_id.length);
+    //console.log(this.props.software_search.sw_id);
     if(this.props.software_search.sw_id.length == 0) {
       alert("Please select software from the list");
     }else{
@@ -334,7 +341,6 @@ class Device extends Component {
             onSelectTab={this.selectTab}
           />
         </div>
-
         <div className="ui top attached tabular menu">
           <a className="active item" data-tab="first">Software Loader</a>
           <a className="item" data-tab="second">Camera Settings</a>
@@ -376,7 +382,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, updateDeviceOBDData, startOBDProgramming, hideModal, showDownloadTeamViewer, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError, requestSBL, clearSBL }, dispatch);
+  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, updateDeviceOBDData, startOBDProgramming, hideModal, showDownloadTeamViewer, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError, checkDeviceStartSector, requestSBL, clearSBL }, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Device);

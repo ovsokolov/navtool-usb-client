@@ -4,6 +4,8 @@ import { START_OBD_PROGRAMMING, COMPLETE_OBD_PROGRAMMING, REQUEST_REBOOT_AFTER_U
 import { DEVICE_OBD_SUCCESS,DEVICE_OBD_FAILED } from '../actions/hid_action';
 import { NO_DEVICE_STATUS, DEVICE_APP_STATUS, DEVICE_SBL_STATUS} from '../utils/device_utils';
 import { WAITING_FOR_SBL, 
+         WAITING_START_SECTOR,
+         DEVICE_START_SECTOR,
          WAITING_FOR_APP_UPDATE, 
          UPDATE_NOT_STARTED, 
          UPDATE_READY, 
@@ -25,11 +27,15 @@ export default function(state = {app_status: NO_DEVICE_STATUS, update_status: UP
     case DEVICE_SBL_ARRIVED:
       result = Object.assign({}, state, {app_status: DEVICE_SBL_STATUS});
       if(result.update_status == WAITING_FOR_SBL){
-        result.update_status = UPDATE_READY;
+        result.update_status = WAITING_START_SECTOR;
       }
       //test for now to force update
       //result.update_status = UPDATE_READY;
       //*******
+      return result;
+    case DEVICE_START_SECTOR:
+      console.log("GOT DEVICE_START_SECTOR");
+      result = Object.assign({}, state, {update_status: UPDATE_READY});
       return result;
     case DEVICE_MFG_ID_RECIEVED:
       result = Object.assign({}, state, {device_mfg_id: action.payload.mfg_id.trim()});

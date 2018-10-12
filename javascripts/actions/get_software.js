@@ -28,7 +28,7 @@ export function fetchSoftware(mfg_id, vehicle_make, vehicle_model, vehicle_year,
   const url = ROOT_URL + param_url;
   const request = axios.get(url);
 
-  console.log('URL', url);
+  //console.log('URL', url);
 
   return (dispatch) => {
     request.then( ({data}) =>{
@@ -44,7 +44,7 @@ export function fetchSoftwareConfig(mfg_id,sw_id, sw_build){
   const url = ROOT_URL + param_url;
   const request = axios.get(url);
 
-  console.log('fetchSoftwareConfig URL', url);
+  //console.log('fetchSoftwareConfig URL', url);
 
   return (dispatch) => {
     request.then( ({data}) =>{

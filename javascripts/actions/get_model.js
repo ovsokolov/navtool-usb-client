@@ -15,6 +15,7 @@ export function fetchModel(mfg_id, vehicle_make){
   return (dispatch) => {
     request.then( ({data}) =>{
       //console.log(data);
+      data.sort((a, b) => a.model_id.localeCompare(b.model_id));
       let payload_data = {mfg_id, vehicle_make, data};
       dispatch( { type: FETCH_MODEL, payload: payload_data } );
     });

@@ -386,6 +386,7 @@ export function sendSoftwareUpdateData(action, update_status){
       case SET_UP_TRANSFER:
         ////console.log("inside software update action", SET_UP_TRANSFER);
         if(update_status.start_sector == -1){
+          console.log("ERROR SeCTOR");
           return dispatch => {
             dispatch({
               type: DISPLAY_UPDATE_SETUP_ERROR,

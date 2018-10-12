@@ -113,16 +113,28 @@ function createWindow () {
 
 }
 
+function getDevice () {
+      var devicesList = HID.devices();
+      console.log("in status");
+      console.log(devicesList);
+      log.info(devicesList);
+      console.log("in status end");
+      var deviceInfo = devicesList.find( function(d) {
+          return d.vendorId===49745 && d.productId===278;
+      });
+      return deviceInfo;
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', function()  {
   log.info('load settings');
   if(settings.has('environment')) {
-    //log.info("has settings  #######");
+    log.info("has settings  #######");
     environment = settings.get('environment');
   }else{
-    //log.info("rewrite settings");
+    log.info("rewrite settings");
     settings.set('environment', 'PROD' );
   }
 
@@ -146,6 +158,8 @@ app.on('ready', function()  {
 
 
   log.transports.file.file = app.getPath('userData') + '/app_log.txt';
+  console.log("user data");
+  console.log(app.getPath('userData'));
   log.transports.file.level = log_level;
   log.info(settings.getAll());
 
@@ -181,7 +195,7 @@ app.on('activate', function () {
 
 usbDetect.add(function(device) {
     console.log("in add");
-    console.log(device);
+    //console.log(device);
     console.log("after in add");
     ////log.info("added device:\n", device.deviceDescriptor);
     //log.info(HID.devices());
@@ -205,14 +219,28 @@ ipcMain.on('device-sbl-status', (event, arg) => {
     log.info('Checking Device SBL status....')
 		try{
 			//wait for 1sec for device to arrive
+      var deviceInfo = undefined;
+      while(deviceInfo == undefined){
+        console.log("undefined");
+        log.info("undefined");
+        deviceInfo = getDevice();
+      }
+      log.info("after undefined");
+      console.log("after undefined");
+      /*
 		  var devicesList = HID.devices();
+      console.log("in status");
+      console.log(devicesList);
+      log.info(devicesList);
+      console.log("in status end");
 			var deviceInfo = devicesList.find( function(d) {
 		    	return d.vendorId===49745 && d.productId===278;
 			});
-
+      */
 			log.info(deviceInfo);
       log.info(deviceInfo.serialNumber);
       log.info(deviceInfo.serialNumber.length);
+
       var serialNumber = "";
       if(deviceInfo.serialNumber.startsWith('UM')){
         //console.log("Length: " + deviceInfo.serialNumber.trim().length);

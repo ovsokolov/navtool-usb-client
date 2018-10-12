@@ -8,6 +8,7 @@ import { REQUEST_DATA_SETUP_RESPONSE,
          REQUEST_REBOOT_AFTER_UPDATE } from '../actions/hid_action';
 
 import { UPDATE_NOT_STARTED,
+         GET_START_SECTOR,
          SET_UP_TRANSFER,
          START_TRANSFER,
          PACKET_SEND,
@@ -18,6 +19,7 @@ import { UPDATE_NOT_STARTED,
          UPDATE_ERROR,
          DISPLAY_UPDATE_ERROR,
          DISPLAY_UPDATE_SETUP_ERROR,
+         DEVICE_START_SECTOR,
          DEVICE_SUPPORTED } from '../utils/device_utils'
 
 
@@ -63,6 +65,14 @@ export default function(state = DEFAULT_UPDATE_STATE, action){
       new_state.start_sector = action.payload.start_sector;
       //console.log(new_state);
       return new_state;
+    case DEVICE_START_SECTOR:
+      console.log(action.payload);
+      new_state = JSON.parse(JSON.stringify(state));
+      //console.log("software update: DEVICE_SUPPORTED");
+      //console.log(action.payload.start_sector);
+      new_state.start_sector = action.payload.start_sector;
+      //console.log(new_state);
+      return new_state;
     case FTP_LOAD_SUCCESS:
       ////console.log(action.payload);
       console.log("********* Some How here **********");
@@ -82,6 +92,7 @@ export default function(state = DEFAULT_UPDATE_STATE, action){
       }
       new_state.file_check_sum = currentSum;
       new_state.update_progress_status = SET_UP_TRANSFER;
+      //new_state.update_progress_status = GET_START_SECTOR;
       ////console.log(new_state);
       return new_state
     case REQUEST_DATA_SETUP_RESPONSE:
