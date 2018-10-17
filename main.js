@@ -115,10 +115,10 @@ function createWindow () {
 
 function getDevice () {
       var devicesList = HID.devices();
-      console.log("in status");
-      console.log(devicesList);
-      log.info(devicesList);
-      console.log("in status end");
+      //console.log("in status");
+      //console.log(devicesList);
+      //log.info(devicesList);
+      //console.log("in status end");
       var deviceInfo = devicesList.find( function(d) {
           return d.vendorId===49745 && d.productId===278;
       });
@@ -158,8 +158,8 @@ app.on('ready', function()  {
 
 
   log.transports.file.file = app.getPath('userData') + '/app_log.txt';
-  console.log("user data");
-  console.log(app.getPath('userData'));
+  //console.log("user data");
+  //console.log(app.getPath('userData'));
   log.transports.file.level = log_level;
   log.info(settings.getAll());
 
@@ -194,9 +194,9 @@ app.on('activate', function () {
 })
 
 usbDetect.add(function(device) {
-    console.log("in add");
+    //console.log("in add");
     //console.log(device);
-    console.log("after in add");
+    //console.log("after in add");
     ////log.info("added device:\n", device.deviceDescriptor);
     //log.info(HID.devices());
     if(device.deviceDescriptor.idVendor == 49745){
@@ -221,12 +221,12 @@ ipcMain.on('device-sbl-status', (event, arg) => {
 			//wait for 1sec for device to arrive
       var deviceInfo = undefined;
       while(deviceInfo == undefined){
-        console.log("undefined");
+        //console.log("undefined");
         log.info("undefined");
         deviceInfo = getDevice();
       }
       log.info("after undefined");
-      console.log("after undefined");
+      //console.log("after undefined");
       /*
 		  var devicesList = HID.devices();
       console.log("in status");
@@ -418,6 +418,25 @@ ipcMain.on('start-support', (event, arg) => {
         .catch(console.error);
       }
     }
+});
+
+ipcMain.on('install-bootloader', (event, arg) => {
+  console.log("main install-bootloader");
+  console.log(arg);
+  let commandstr = "";
+  //commandstr = 'open -a Terminal' + '\\ ' + '\"' + arg.path + '\"' ;
+  commandstr = 'cmd /K' + '\ ' + '-f' + '\ ' + '\"' + arg.path + '\"' + '\ ' + '-t' + '\"' + arg.target + '\"';
+  console.log(commandstr);
+  child = exec(commandstr, function (error, stdout, stderr) {
+    console.log("after command");
+    //mainWindow.webContents.send('teamviewer-opened' , {msg:'teamviewer opened'});
+    log.info('stdout: ' + stdout);
+    log.info('stderr: ' + stderr);
+    if (error !== null) {
+      console.log("error command");
+      console.log('exec error: ' + error);
+    }
+  });
 });
 
 

@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import SoftwareSearch from '../containers/software_search'
+import BootloaderSearch from '../containers/bootloader_search'
 import DeviceSettings from '../containers/device_settings'
 import DeviceInfo from  '../containers/device_info'
 import OBDFeatures from '../containers/obd_features'
@@ -17,6 +18,7 @@ import { hidAction, requestSBL, clearSBL } from '../actions/hid_action';
 import { startOBDProgramming } from '../actions/hid_action';
 import { getOSDSettings } from '../actions/hid_action';
 import { getSerialNumber } from '../utils/device_utils';
+import { runBootloader } from '../actions/get_bootloader';
 
 import { loadFTPFile } from '../actions/ftp_action';
 import { updateDeviceDBData, updateDeviceOBDData, checkDeviceStartSector } from '../actions/get_device_data';
@@ -59,6 +61,7 @@ class Device extends Component {
     this.checkDevice = this.checkDevice.bind(this);
     this.saveDeviceSettings = this.saveDeviceSettings.bind(this);
     this.installSoftware = this.installSoftware.bind(this);
+    this.installBootloader = this.installBootloader.bind(this);
     this.saveDeviceOSDSettings = this.saveDeviceOSDSettings.bind(this);
     this.renderOSDSettings = this.renderOSDSettings.bind(this);
 
@@ -278,6 +281,18 @@ class Device extends Component {
     }
   }
 
+  installBootloader(){
+    var btl_id = this.props.bootloader_search.id;
+    console.log("installBootloader ", this.props.bootloader_search.id);
+    console.log("installBootloader ", this.props.bootloader_search.path);
+    console.log("installBootloader ", this.props.bootloader_search.target);
+    if(this.props.bootloader_search.id.length == 0) {
+      alert("Please select bootloader from the list");
+    }else{
+      this.props.runBootloader(this.props.bootloader_search);     
+    }   
+  }
+
   readDeviceSettings(){
     ipcRenderer.send('device-read-settings', 0x1A);
   }
@@ -346,6 +361,7 @@ class Device extends Component {
           <a className="item" data-tab="second">Camera Settings</a>
           <a className="item" data-tab="third">OSD Settings</a>
           <a className="item" data-tab="fourth">Features Activation</a>
+          <a className="item" data-tab="fifth">Keil Flash</a>
         </div>
         <div className="ui bottom attached active tab segment" data-tab="first">
           <SoftwareSearch
@@ -361,6 +377,11 @@ class Device extends Component {
         <div className="ui bottom attached tab segment" data-tab="fourth">
             { this.renderOBDFeatures() }
         </div>
+        <div className="ui bottom attached tab segment" data-tab="fifth">
+          <BootloaderSearch
+            onInstallClick={this.installBootloader}
+          />
+        </div>
         {this.displayModal(this.props.device_status.app_status, this.props.device_status.obd_status, this.props.software_update, this.props.message)}
       </div>
     );
@@ -374,6 +395,7 @@ function mapStateToProps(state){
            system_settings: state.system_settings,
            software_update: state.software_update,
            software_search: state.software_search,
+           bootloader_search: state.bootloader_search,
            obd_features: state.obd_features,
            osd_settings: state.osd_settings,
            modal_state: state.modal_state,
@@ -382,7 +404,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, updateDeviceOBDData, startOBDProgramming, hideModal, showDownloadTeamViewer, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError, checkDeviceStartSector, requestSBL, clearSBL }, dispatch);
+  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, updateDeviceOBDData, startOBDProgramming, hideModal, showDownloadTeamViewer, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError, checkDeviceStartSector, requestSBL, clearSBL, runBootloader }, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Device);

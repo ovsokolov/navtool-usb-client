@@ -8,6 +8,8 @@ import DeviceStatusReducer from './reducer_device_status'
 import DeviceSettingsReducer from './reducer_device_settings'
 import SoftwareSearchReducer from './reducer_software_search'
 import SoftwareListReducer from './reducer_software_list'
+import BootoaderListReducer from './reducer_bootloader_list'
+import BootoaderSearchReducer from './reducer_bootloader_search'
 import SoftwareUpdateReducer from './reducer_software_update'
 import OBDFeaturesReducer from './reducer_obd_features'
 import OSDSettingsReducer from './reducer_osd_settings'
@@ -24,6 +26,8 @@ const rootReducer = combineReducers({
   car_year: CarYearReducer,
   software_search: SoftwareSearchReducer,
   software_list: SoftwareListReducer,
+  bootloader_list: BootoaderListReducer,
+  bootloader_search: BootoaderSearchReducer,
   device_status: DeviceStatusReducer,
   software_update: SoftwareUpdateReducer,
   obd_features: OBDFeaturesReducer,
