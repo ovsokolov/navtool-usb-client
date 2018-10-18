@@ -62,6 +62,7 @@ class Device extends Component {
     this.saveDeviceSettings = this.saveDeviceSettings.bind(this);
     this.installSoftware = this.installSoftware.bind(this);
     this.installBootloader = this.installBootloader.bind(this);
+    this.installApplication = this.installApplication.bind(this);
     this.saveDeviceOSDSettings = this.saveDeviceOSDSettings.bind(this);
     this.renderOSDSettings = this.renderOSDSettings.bind(this);
 
@@ -293,6 +294,18 @@ class Device extends Component {
     }   
   }
 
+  installApplication(){
+    var app_id = this.props.application_software.id;
+    console.log("installApplication ", this.props.application_software.id);
+    console.log("installApplication ", this.props.application_software.path);
+    console.log("installApplication ", this.props.application_software.target);
+    if(this.props.application_software.id.length == 0) {
+      alert("Device Not Conneted");
+    }else{
+      this.props.runBootloader(this.props.application_software);     
+    } 
+  }
+
   readDeviceSettings(){
     ipcRenderer.send('device-read-settings', 0x1A);
   }
@@ -380,6 +393,7 @@ class Device extends Component {
         <div className="ui bottom attached tab segment" data-tab="fifth">
           <BootloaderSearch
             onInstallClick={this.installBootloader}
+            onApplicationInstallClick={this.installApplication}
           />
         </div>
         {this.displayModal(this.props.device_status.app_status, this.props.device_status.obd_status, this.props.software_update, this.props.message)}
@@ -396,6 +410,7 @@ function mapStateToProps(state){
            software_update: state.software_update,
            software_search: state.software_search,
            bootloader_search: state.bootloader_search,
+           application_software: state.application_software,
            obd_features: state.obd_features,
            osd_settings: state.osd_settings,
            modal_state: state.modal_state,

@@ -425,7 +425,7 @@ ipcMain.on('install-bootloader', (event, arg) => {
   console.log(arg);
   let commandstr = "";
   //commandstr = 'open -a Terminal' + '\\ ' + '\"' + arg.path + '\"' ;
-  commandstr = 'cmd /K' + '\ ' + '-f' + '\ ' + '\"' + arg.path + '\"' + '\ ' + '-t' + '\"' + arg.target + '\"';
+  commandstr = 'cmd /K UV4' + '\ ' + '-f' + '\ ' + '\"' + arg.path + '\"' + '\ ' + '-t' + '\"' + arg.target + '\"';
   console.log(commandstr);
   child = exec(commandstr, function (error, stdout, stderr) {
     console.log("after command");
@@ -438,7 +438,6 @@ ipcMain.on('install-bootloader', (event, arg) => {
     }
   });
 });
-
 
 app.on('ready', function()  {
   log.info('checkForUpdates');

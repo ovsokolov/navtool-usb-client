@@ -45,7 +45,7 @@ class BootloaderSearch extends Component {
                 </button>
           </div>
           <div className="column">
-                <button className="ui compact red labeled icon button" onClick={this.props.onInstallClick} >
+                <button className="ui compact red labeled icon button" onClick={this.props.onApplicationInstallClick} >
                   <i className="download icon"></i>
                   Install Application
                 </button>

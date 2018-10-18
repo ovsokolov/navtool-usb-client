@@ -50,7 +50,8 @@ export default function(state = JSON.parse(JSON.stringify(OSD_SETTINGS)), action
 
       //byte_4;
       osd_settings["Reserved3"] = byte_4;
-      //console.log(osd_settings);
+      console.log("OSD SETTINGS");
+      console.log(osd_settings);
       return osd_settings;
     case DEVICE_REMOVED:
       return JSON.parse(JSON.stringify(OSD_SETTINGS));
