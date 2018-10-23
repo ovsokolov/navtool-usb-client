@@ -128,9 +128,110 @@ export function setDeviceSettings(data, settings){
   for(var i = 0; i < 43; i++){
     result[2 + i] =   device_data[21 + i];
   }
-  //console.log(result);
-  //console.log(result.length);
+  console.log(result);
+  console.log(result.length);
   return result;
+}
+
+export function initDeviceSettingsData(settings){
+  console.log("inside function initDeviceSetting");
+  let system_settings = settings;
+
+  system_settings["SoundSupported"] = "1";
+  system_settings["ObdSupported"] = "0";
+  system_settings["ConfigSupported"] = "1";
+  system_settings["RearCameraSupported"] = "1";
+  system_settings["FrontCameraSupported"] = "1";
+  system_settings["LeftCameraSupported"] = "1";
+  system_settings["RightCameraSupported"] = "1";
+  system_settings["ReservedSupported"] = "1";
+  //byte_2
+  system_settings["SoundEnabled"] = "1";
+  system_settings["RearCameraEnabled"] = "1";
+  system_settings["FrontCameraEnabled"] = "0";
+  system_settings["LeftCameraEnabled"] = "0";
+  system_settings["RightCameraEnabled"] = "0";
+  system_settings["FactoryRearCamera"] = "0";
+  system_settings["FactoryFrontCamera"] = "0";
+  system_settings["FactoryLeftCamera"] = "0";
+  //byte_3;
+  system_settings["HDMIEnabled"] = "1";
+  system_settings["RGBEnabled"] = "0";
+  system_settings["Input1Enabled"] = "1";
+  system_settings["Input2Enabled"] = "0";
+  system_settings["Input3Enabled"] = "0";
+  system_settings["Input4Enabled"] = "0";
+  system_settings["NotUsed"] = "00";
+  //byte_4;
+  system_settings["FactoryRightCamera"] = "0";
+  system_settings["FrontCameraMode"] = "11";
+  system_settings["SideCameraMode"] = "011";
+  system_settings["ResrvedBits"] = "11";
+  //byte 5
+  system_settings["IsDefaultSettings"] = "1";
+  system_settings["VideoInputs"] = "101";
+  system_settings["VIMCapacity"] = "0";
+  system_settings["RGBCapacity"] = "0";
+  system_settings["HDMICapacity"] = "1";
+  system_settings["ParkingLinesDisabled"] = "1";
+  //byte 6
+  system_settings["ScreenSize"] = "1111";
+  system_settings["CSyncPolarity"] = "00";
+  system_settings["SOGEnabled"] = "0";
+  system_settings["VIMEnabled"] = "0";
+  //byte 7
+  system_settings["VideoSize1"] = "00";
+  system_settings["VideoSize2"] = "00";
+  system_settings["VideoSize3"] = "00";
+  system_settings["VideoSize4"] = "00";
+  //byte 8
+  system_settings["VideoFunction1"] = "10";
+  system_settings["VideoFunction2"] = "11";
+  system_settings["VideoFunction3"] = "00";
+  system_settings["VideoFunction4"] = "01";
+
+  return system_settings;
+}
+
+export function initVehicleInfo(settings, info){
+  var vehicle_make = info.vehicle_make;
+  var vehicle_model = info.vehicle_model;
+  console.log("initVehicleInfo");
+  console.log(vehicle_make);
+  console.log(vehicle_model);
+  settings[38] = vehicle_make.length; //store vehicle make length
+  settings[39] = vehicle_model.length; // store vehicle model length
+  for (var i = 0; i < vehicle_make.length; i++) {
+    settings[10 + i] = vehicle_make.charCodeAt(i);
+  }
+  settings[10 + i] = 0; //terminate vehicle name
+
+  for (var i = 0; i < vehicle_model.length; i++) {
+    settings[24 + i] = vehicle_model.charCodeAt(i);
+  }
+  settings[24 + i] = 0; //terminate vehicle model
+
+  var vihicleMake = "";
+  var vihicleModel = "";
+  for (var i = 0; i < settings[38]; i++) {
+    vihicleMake += String.fromCharCode(settings[10+i]);
+  }
+  for (var i = 0; i < settings[39]; i++) {
+    vihicleModel += String.fromCharCode(settings[24+i]);
+  }
+  console.log(vihicleMake);
+  console.log(vihicleModel);
+  //console.log(result);
+  return settings; 
+}
+
+export function initDeviceOSDSettings(settings){
+  settings["OsdCVBS1"] = "01";
+  settings["OsdCVBS2"] = "01";
+  settings["OsdCVBS3"] = "01";
+  settings["OsdCVBS4"] = "01";
+
+  return settings
 }
 
 export function setDeviceOSDSettings(settings){
@@ -272,6 +373,9 @@ export function checkOBDSupport(msg){
 export function setVehicleInfo(settings, info){
   var vehicle_make = info.vehicle_make;
   var vehicle_model = info.vehicle_model;
+  console.log("setVehicleInfo");
+  console.log(vehicle_make);
+  console.log(vehicle_model);
   settings[57] = vehicle_make.length; //store vehicle make length
   settings[58] = vehicle_model.length; // store vehicle model length
   for (var i = 0; i < vehicle_make.length; i++) {

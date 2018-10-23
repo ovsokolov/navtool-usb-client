@@ -64,6 +64,7 @@ export function fetchSoftwareConfig(mfg_id,sw_id, sw_build){
   };
 }
 
+
 export function setSoftware(software_id){
   return {
     type: SET_SOFTWARE,

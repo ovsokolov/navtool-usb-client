@@ -44,16 +44,20 @@ export const OBD_RUNNING = 1;
 export const OBD_SUCCESS = 2;
 export const OBD_FAILED = 3;
 
-
+import axios from 'axios';
 import { fetchDeviceDBData, checkDeviceSupport } from './get_device_data';
 import { fetchMake } from './get_make';
 import { getSerialNumber,
          checkOBDSupport,
          getSoftwareId,
          setDeviceSettings,
+         initDeviceSetting,
          setDeviceOSDSettings,
+         initDeviceOSDSettings,
          setDeviceOBDSettings,
          setVehicleInfo,
+         initVehicleInfo,
+         initDeviceSettingsData,
          setUpTransferData,
          parseTransferDataResponse,
          setUpTransferStart,
@@ -74,6 +78,7 @@ import { SET_UP_TRANSFER,
          DISPLAY_UPDATE_SETUP_ERROR} from '../utils/device_utils'
 
 import { HIDE_MODAL } from '../actions/hide_modal';
+import { WEB_SERVICES_URL } from '../utils/constants';
 
 var notifyRemoved = true;
 var g_MFG_ID =""
@@ -86,6 +91,7 @@ export function hidAction(hid_action){
     dispatch(handleDeviceRemoved());
     dispatch(handleDeviceMfgId());
     dispatch(handleOBDUpdateStatus());
+    dispatch(handleInitSettings());
     dispatch({
       type: INIT_IPC,
       payload: ''
@@ -145,6 +151,7 @@ export function handleDeviceArrived(){
         });
     };
 }
+
 
 export function handleDeviceRemoved(){
     return dispatch => {
@@ -217,7 +224,7 @@ function handleDeviceMfgId(){
 }
 
 export function getOSDSettings(){
-  //console.log('Reading OSD settings');
+  console.log('Reading OSD settings');
   ipcRenderer.send('device-read-settings', 0x65);
   return {
     type: READ_OSD_SETTINGS,
@@ -275,8 +282,8 @@ export function handleDeviceDataResult(){
           getOSDSettings();
           break;
         case 0x65: //read osd settings response
-          //console.log("+++++++++ OSD RESULT +++++++++++++");
-          //console.log(msg);
+          console.log("+++++++++ OSD RESULT +++++++++++++");
+          console.log(msg);
           dispatch({
             type: DEVICE_OSD_SETTINGS,
             payload: msg
@@ -351,6 +358,63 @@ export function saveDeviceSettings(data, settings){
       payload: ""
     };
 }
+
+export function initDeviceSettings(mfg_id,sw_id,sw_build,mcu_serial, device_data, settings, osd_setting){
+  let param_url = "/sw?mfg_id=" + mfg_id + "&sw_id=" + sw_id + "&sw_build=" + sw_build; 
+  const ROOT_URL = WEB_SERVICES_URL + "/v1/navtoolsws";
+  const url = ROOT_URL + param_url;
+  const request = axios.get(url);
+  console.log("OSD initDeviceSettings");
+  console.log(osd_setting);
+  console.log('initDeviceSettings URL', url);
+
+  return dispatch => {
+    request.then( ({data}) =>{
+        //console.log("fetchSoftwareConfig data");
+        //console.log(data);
+        //console.log("fetchSoftwareConfig data");
+        let sw_data = data[0];
+        console.log(sw_data);
+        let update_param_url = "?mcu_id=" + mcu_serial + "&mfg_id=" + mfg_id + "&sw_id=" + sw_id + "&sw_build=" + sw_build + "&vehicle_make=" + sw_data.vehicle_make + "&vehicle_model=" + sw_data.vehicle_model; 
+        const UPDATE_ROOT_URL = WEB_SERVICES_URL + "/v1/registerdevice";
+        const update_url = UPDATE_ROOT_URL + update_param_url;
+        const update_request = axios.get(update_url);
+        update_request.then( ({data}) =>{
+          let init_settings = initDeviceSettingsData(settings);
+          console.log("initDeviceSettings");
+          console.log(init_settings);
+          console.log(device_data);
+          let init_data = setDeviceSettings(device_data,init_settings)
+          console.log(init_data);
+          let settings_result = initVehicleInfo(init_data, {vehicle_make: sw_data.vehicle_make, vehicle_model: sw_data.vehicle_model});
+          console.log(settings_result);
+          ipcRenderer.send('device-write_data', settings_result);
+          let init_osd_settings = initDeviceOSDSettings(osd_setting);
+          let init_osd_data = setDeviceOSDSettings(init_osd_settings);
+          ipcRenderer.send('device-write_data', init_osd_data);
+          return {
+            type: SAVE_DEVICE_SETTINGS,
+            payload: ""
+          };
+        });
+    });
+  }
+}
+
+export function handleInitSettings(){
+  return dispatch => {
+      ipcRenderer.on('device-init-settings',(event, data) => {
+          console.log('Device Arrived handleInitSettings', data);
+          let result = setDeviceOSDSettings(settings);
+          ipcRenderer.send('device-write_data', result);
+          return {
+            type: SAVE_DEVICE_OSD_SETTINGS,
+            payload: ""
+          };
+      });
+  };  
+}
+
 
 export function saveDeviceOSDSettings(settings){
     let result = setDeviceOSDSettings(settings);

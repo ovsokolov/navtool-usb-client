@@ -28,6 +28,7 @@ class BootloaderSearch extends Component {
     this.props.setBootloader(id, path, target);
   }
 
+
   render(){
     return (
       <div>
@@ -51,7 +52,7 @@ class BootloaderSearch extends Component {
                 </button>
           </div>
           <div className="column">
-            <button className="ui compact blue labeled icon button" onClick={this.searchSoftware} >
+            <button className="ui compact blue labeled icon button" onClick={this.props.onRegisterDevice} >
               <i className="search icon"></i>
               Register Device
             </button>

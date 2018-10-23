@@ -13,7 +13,7 @@ import ModalMessage from '../containers/modal_messages'
 import { connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { saveDeviceSettings, updateDeviceVichecleInfo, sendSoftwareUpdateData, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError } from'../actions/hid_action';
+import { saveDeviceSettings, updateDeviceVichecleInfo, sendSoftwareUpdateData, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError, initDeviceSettings } from'../actions/hid_action';
 import { hidAction, requestSBL, clearSBL } from '../actions/hid_action';
 import { startOBDProgramming } from '../actions/hid_action';
 import { getOSDSettings } from '../actions/hid_action';
@@ -63,6 +63,7 @@ class Device extends Component {
     this.installSoftware = this.installSoftware.bind(this);
     this.installBootloader = this.installBootloader.bind(this);
     this.installApplication = this.installApplication.bind(this);
+    this.registerDevice = this.registerDevice.bind(this);
     this.saveDeviceOSDSettings = this.saveDeviceOSDSettings.bind(this);
     this.renderOSDSettings = this.renderOSDSettings.bind(this);
 
@@ -306,6 +307,22 @@ class Device extends Component {
     } 
   }
 
+  registerDevice(){ 
+    console.log("IN registerDevice");
+    console.log(this.props.device_status);
+    console.log(this.props.device_db_data);
+    console.log(device_data);
+    console.log(this.props.system_settings);
+    let device_data = this.props.device_data;
+    let system_settings = this.props.system_settings;
+    let osd_setting = this.props.osd_settings;
+    let mfg_id = this.props.device_status.device_mfg_id;
+    let sw_id = this.props.device_status.device_sw_id;
+    let sw_build = this.props.device_status.device_sw_build;
+    let mcu_serial = this.props.device_db_data.mcu_serial;
+    this.props.initDeviceSettings(mfg_id, sw_id, sw_build, mcu_serial, device_data, system_settings, osd_setting);
+  }
+
   readDeviceSettings(){
     ipcRenderer.send('device-read-settings', 0x1A);
   }
@@ -394,6 +411,7 @@ class Device extends Component {
           <BootloaderSearch
             onInstallClick={this.installBootloader}
             onApplicationInstallClick={this.installApplication}
+            onRegisterDevice={this.registerDevice}
           />
         </div>
         {this.displayModal(this.props.device_status.app_status, this.props.device_status.obd_status, this.props.software_update, this.props.message)}
@@ -419,7 +437,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, updateDeviceOBDData, startOBDProgramming, hideModal, showDownloadTeamViewer, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError, checkDeviceStartSector, requestSBL, clearSBL, runBootloader }, dispatch);
+  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, updateDeviceOBDData, startOBDProgramming, hideModal, showDownloadTeamViewer, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError, checkDeviceStartSector, requestSBL, clearSBL, runBootloader, initDeviceSettings }, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Device);
