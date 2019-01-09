@@ -23,6 +23,8 @@ import { updateDeviceDBData, updateDeviceOBDData, checkDeviceStartSector } from 
 
 import { hideModal, showDownloadTeamViewer } from '../actions/hide_modal';
 
+import { getOrders } from '../actions/ecommerce';
+
 import { DEVICE_APP_STATUS } from '../utils/device_utils';
 
 import { SYSTEM_SETTINGS } from '../utils/structures';
@@ -71,6 +73,8 @@ class Device extends Component {
 
     this.closeModal = this.closeModal.bind(this);
     this.displayModal = this.displayModal.bind(this);
+
+    this.getOrders = this.getOrders.bind(this);
 
     this.startRemoteSupport = this.startRemoteSupport.bind(this);
 
@@ -319,6 +323,10 @@ class Device extends Component {
   clearSBL(){
     this.props.clearSBL();
   }
+
+  getOrders(){
+    this.props.getOrders();
+  }
   /*
   <button className="ui compact red labeled icon button" onClick={this.props.requestSBL} >
     Request SBL
@@ -341,6 +349,9 @@ class Device extends Component {
             onSelectTab={this.selectTab}
           />
         </div>
+        <button className="ui compact red labeled icon button" onClick={this.props.getOrders} >
+          Get Orders
+        </button>
         <div className="ui top attached tabular menu">
           <a className="active item" data-tab="first">Software Loader</a>
           <a className="item" data-tab="second">Camera Settings</a>
@@ -382,7 +393,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, updateDeviceOBDData, startOBDProgramming, hideModal, showDownloadTeamViewer, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError, checkDeviceStartSector, requestSBL, clearSBL }, dispatch);
+  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, updateDeviceOBDData, startOBDProgramming, hideModal, showDownloadTeamViewer, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError, checkDeviceStartSector, requestSBL, clearSBL, getOrders }, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Device);
