@@ -24,14 +24,15 @@ export function fetchDeviceDBData(serial_number, software){
     const url = ROOT_URL + serial_number;
     const request = axios.get(url);
     request.then( ({data}) =>{
-      //console.log(data);
+      console.log("xxxxxxxxxxxxx")
+      console.log(data);
       //console.log(data["mfg_id"])
-      //console.log("xxxxxxxxxxxxx")
+      console.log("xxxxxxxxxxxxx")
       //console.log(serial_number);
       dispatch( { type: FETCH_DEVICE_DB_DATA, payload: data } )
       if (software !== undefined){
         //console.log("%%%%%%%%Software parameter exists")
-        dispatch(fetchSoftwareConfig(data["mfg_id"],software.softwareId,software.softwareBuild))
+        dispatch(fetchSoftwareConfig(data["mfg_id"],software.softwareId,software.softwareBuild,data.vehicle_make,data.vehicle_model))
         //dispatch(fetchOBDConfig(data["mfg_id"], obd.softwareId));
         //dispatch( fetchMake(data["mfg_id"]) )
       }
