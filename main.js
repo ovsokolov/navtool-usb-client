@@ -341,12 +341,11 @@ ipcMain.on('device-sbl', (event, arg) => {
 
 ipcMain.on('check-device', (event, arg) => {
   devices = HID.devices();
-  //log.info(devices);
+  log.info(devices);
 	for (var i = 0; i < devices.length; i++){
-		//log.info("@@@@@@@@@@    device found " + devices[i].vendorId)
-		if(devices[i].vendorId == 49745){
-			mainWindow.webContents.send('device-arrived' , {msg:'device arrived'});
-			//log.info("xxxxxxxxxxx    after found")
+		log.info("@@@@@@@@@@    device found " + devices[i].vendorId)
+		if(devices[i].vendorId == 273){
+			//mainWindow.webContents.send('device-arrived' , {msg:'device arrived'});
 		}
 	}
 });

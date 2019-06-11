@@ -13,6 +13,9 @@ import OBDFeaturesReducer from './reducer_obd_features'
 import OSDSettingsReducer from './reducer_osd_settings'
 import Message from './reducer_message'
 import ModalState from './reducer_modal'
+import OrderStatusList from './reducer_order_status_list'
+import OrderList from './reducer_order_list'
+import OrderItems from './reducer_order'
 
 const rootReducer = combineReducers({
   //state: (state = {}) => state
@@ -29,7 +32,10 @@ const rootReducer = combineReducers({
   obd_features: OBDFeaturesReducer,
   osd_settings: OSDSettingsReducer,
   message: Message, 
-  modal_state: ModalState
+  modal_state: ModalState,
+  status_list: OrderStatusList,
+  order_list: OrderList,
+  order_items: OrderItems
 });
 
 export default rootReducer;

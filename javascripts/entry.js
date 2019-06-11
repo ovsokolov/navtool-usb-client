@@ -10,7 +10,9 @@ import ReduxPromise from 'redux-promise'
 import ReduxThunk from 'redux-thunk';
 
 
-import App from './components/app';
+import App from './components/app_warehouse';
+//import App from './components/app';
+
 //import reducers from './reducers';
 
 ////const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);

@@ -198,6 +198,18 @@ class Device extends Component {
   }
 
   componentDidMount(){
+    let buffer = ''; // buffer for constructing the barcode from key presses
+    console.log('addinf listener');
+    document.addEventListener('keypress', event => {
+      let data = buffer || '';
+      if (event.key !== 'Enter') { // barcode ends with enter -key
+        data += event.key;
+        buffer = data;
+      } else {
+        buffer = '';
+        console.log(data); // ready barcode ready for a use
+      }
+    });
     $('.menu .item')
       .tab();
   }
