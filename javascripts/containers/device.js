@@ -1,5 +1,6 @@
 import React, { Component} from 'react';
 import SoftwareSearch from '../containers/software_search'
+import Diagnostic from '../containers/diagnostic'
 import DeviceSettings from '../containers/device_settings'
 import DeviceInfo from  '../containers/device_info'
 import OBDFeatures from '../containers/obd_features'
@@ -363,7 +364,7 @@ class Device extends Component {
             { this.renderOBDFeatures() }
         </div>
         <div className="ui bottom attached tab segment" data-tab="fifth">
-            <p>Diagnostic</p>
+            <Diagnostic/>
         </div>
         {this.displayModal(this.props.device_status.app_status, this.props.device_status.obd_status, this.props.software_update, this.props.message)}
       </div>
