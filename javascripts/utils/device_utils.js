@@ -269,6 +269,28 @@ export function checkOBDSupport(msg){
       return result;
 }
 
+export function setCanFilterMessage(msg){
+  console.log("inside setFilter", msg);
+  const SET_CAN_DATA_ID = 0x90;
+  let hexStringFrmt = "00000000"
+  let arrayMsg = [];
+
+  let result = hexStringFrmt.substring((msg).length, 8) + msg;
+  console.log(result);
+  console.log(result.match(/.{1,2}/g));
+  console.log(result.match(/.{1,2}/g).map((num)=>{return parseInt(num,16);}));
+  arrayMsg = arrayMsg.concat(
+    result.match(/.{1,2}/g).map((num)=>{return parseInt(num,16);})
+  );
+  //console.log(arrayMsg.reverse());
+  let reverseArray = arrayMsg.reverse();
+  console.log(reverseArray);
+  console.log(arrayMsg);
+  reverseArray.unshift(0x00, SET_CAN_DATA_ID);
+  console.log(reverseArray);
+  return reverseArray;
+}
+
 export function setVehicleInfo(settings, info){
   var vehicle_make = info.vehicle_make;
   var vehicle_model = info.vehicle_model;

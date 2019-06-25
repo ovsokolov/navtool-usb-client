@@ -13,7 +13,7 @@ import ModalMessage from '../containers/modal_messages'
 import { connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { saveDeviceSettings, updateDeviceVichecleInfo, sendSoftwareUpdateData, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError } from'../actions/hid_action';
+import { saveDeviceSettings, updateDeviceVichecleInfo, sendSoftwareUpdateData, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError, setCanFilter, clearCanFilter, getCanFilterData, clearCanFilterResult} from'../actions/hid_action';
 import { hidAction, requestSBL, clearSBL } from '../actions/hid_action';
 import { startOBDProgramming } from '../actions/hid_action';
 import { getOSDSettings } from '../actions/hid_action';
@@ -74,6 +74,11 @@ class Device extends Component {
     this.displayModal = this.displayModal.bind(this);
 
     this.startRemoteSupport = this.startRemoteSupport.bind(this);
+
+    this.setFilter = this.setFilter.bind(this);
+    this.clearFilter = this.clearFilter.bind(this);
+    this.getFilterData = this.getFilterData.bind(this);
+    this.clearFilterResult = this.clearFilterResult.bind(this);
 
     this.selectTab = this.selectTab.bind(this);
 
@@ -320,6 +325,24 @@ class Device extends Component {
   clearSBL(){
     this.props.clearSBL();
   }
+
+  setFilter(canMsg){
+    console.log('canMsg setFilter');
+    console.log(canMsg);
+    this.props.setCanFilter(canMsg);
+  }
+
+  clearFilter(){
+    this.props.clearCanFilter();    
+  }
+
+  getFilterData(){
+   this.props.getCanFilterData();    
+  }
+
+  clearFilterResult(){
+    this.props.clearCanFilterResult();
+  }
   /*
   <button className="ui compact red labeled icon button" onClick={this.props.requestSBL} >
     Request SBL
@@ -364,7 +387,12 @@ class Device extends Component {
             { this.renderOBDFeatures() }
         </div>
         <div className="ui bottom attached tab segment" data-tab="fifth">
-            <Diagnostic/>
+            <Diagnostic
+              onSetFilter={this.setFilter}
+              onClearFilter={this.clearFilter}
+              onGetFilterData={this.getFilterData}
+              onClearFilterResult={this.clearFilterResult}
+            />
         </div>
         {this.displayModal(this.props.device_status.app_status, this.props.device_status.obd_status, this.props.software_update, this.props.message)}
       </div>
@@ -387,7 +415,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, updateDeviceOBDData, startOBDProgramming, hideModal, showDownloadTeamViewer, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError, checkDeviceStartSector, requestSBL, clearSBL }, dispatch);
+  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, updateDeviceOBDData, startOBDProgramming, hideModal, showDownloadTeamViewer, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError, checkDeviceStartSector, requestSBL, clearSBL, setCanFilter, clearCanFilter, getCanFilterData, clearCanFilterResult }, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Device);

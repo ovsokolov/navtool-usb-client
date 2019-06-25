@@ -33,6 +33,14 @@ export const DEVICE_OBD_RESULT = 'DEVICE_OBD_RESULT';
 export const DEVICE_OBD_RUNING = 'DEVICE_OBD_RUNING';
 export const DEVICE_OBD_SUCCESS = 'DEVICE_OBD_SUCCESS';
 export const DEVICE_OBD_FAILED = 'DEVICE_OBD_FAILED';
+export const SET_CAN_FILTER = 'SET_CAN_FILTER';
+export const SET_CAN_FILTER_SUCCESS = 'SET_CAN_FILTER_SUCCESS';
+export const CAN_FILTER_NOT_SET = 'CAN_FILTER_NOT_SET';
+export const CLEAR_CAN_FILTER = 'CLEAR_CAN_FILTER';
+export const GET_CAN_FILTER_DATA = 'GET_CAN_FILTER_DATA';
+export const GET_CAN_FILTER_DATA_RESULT = 'GET_CAN_FILTER_DATA_RESULT';
+export const CLEAR_CAN_FILTER_RESULT = 'CLEAR_CAN_FILTER_RESULT';
+
 
 export const WRITE_SUCESS = 44;
 export const WRITE_FAILED = 55;
@@ -62,7 +70,8 @@ import { getSerialNumber,
          setUpBlockValidateData,
          parseSectorWriteResponse,
          setUpSectorWriteData,
-         parseOBDStatus,} from '../utils/device_utils';
+         parseOBDStatus,
+         setCanFilterMessage,} from '../utils/device_utils';
 
 import { SET_UP_TRANSFER,
          START_TRANSFER,
@@ -335,6 +344,26 @@ export function handleDeviceDataResult(){
             payload: result
           });
           break;
+        case 0x90: //set can filter response
+          console.log("set can filter response");
+          result = msg[1]; //result
+          console.log(msg);
+          console.log(result);
+          dispatch({
+            type: SET_CAN_FILTER_SUCCESS,
+            payload: SET_CAN_FILTER_SUCCESS
+          });
+          break;
+        case 0x91: //get can filter response data
+          console.log("get can filter response data");
+          result = msg.slice(2,10); //result
+          console.log(msg);
+          console.log(result);
+          dispatch({
+            type: GET_CAN_FILTER_DATA_RESULT,
+            payload: result
+          });
+          break;
       }
     });
   };
@@ -490,3 +519,42 @@ export function softwareUpdateError(status){
       };      
     }
 }
+
+export function setCanFilter(canMsg){
+    let result = setCanFilterMessage(canMsg);
+    ipcRenderer.send('device-write_data', result);
+    return {
+      type: SET_CAN_FILTER,
+      payload: result.slice(2)
+    };
+}
+
+export function clearCanFilter(){
+    return {
+      type: CLEAR_CAN_FILTER,
+      payload: ''
+    };
+}
+
+export function clearCanFilterResult(){
+    return {
+      type: CLEAR_CAN_FILTER_RESULT,
+      payload: ''
+    };  
+}
+
+export function getCanFilterData(){
+  console.log("getCanFilterData");
+  let arg = [];
+  arg[0] = 0x00;
+  arg[1] = 0x91;  
+  arg[2] = 0x00;
+  arg[3] = 0x00;
+  arg[4] = 0x00;
+  ipcRenderer.send('device-write_data', arg);
+  return {
+    type: GET_CAN_FILTER_DATA,
+    payload: ''
+  };
+}
+
