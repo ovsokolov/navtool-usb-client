@@ -346,6 +346,7 @@ class Device extends Component {
           <a className="item" data-tab="second">Camera Settings</a>
           <a className="item" data-tab="third">OSD Settings</a>
           <a className="item" data-tab="fourth">Features Activation</a>
+          <a className="item" data-tab="fifth">Diagnostic</a>
         </div>
         <div className="ui bottom attached active tab segment" data-tab="first">
           <SoftwareSearch
@@ -360,6 +361,9 @@ class Device extends Component {
         </div>
         <div className="ui bottom attached tab segment" data-tab="fourth">
             { this.renderOBDFeatures() }
+        </div>
+        <div className="ui bottom attached tab segment" data-tab="fifth">
+            <p>Diagnostic</p>
         </div>
         {this.displayModal(this.props.device_status.app_status, this.props.device_status.obd_status, this.props.software_update, this.props.message)}
       </div>
