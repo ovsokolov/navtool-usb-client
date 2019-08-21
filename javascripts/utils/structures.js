@@ -83,7 +83,7 @@ export const SIDE_CAMERA_DROPDOWN = { id:'SideCameraMode',
 values:[
   {
     value:'001', 
-    label:'Manual',
+    label:'LEFT/RIGHT LANE WATCH CAMERA MANUAL ACTIVATION MODE',
     key:'SC1',
     setting:'SideCameraMode',
     description: [
@@ -92,7 +92,7 @@ values:[
   },
   {
     value:'010', 
-    label:'Manual + W/O Speed Check',
+    label:'LEFT/RIGHT LANE WATCH CAMERA AUTOMATIC ACTIVATION MODE VIA TURN SIGNAL',
     key:'SC2',
     setting:'SideCameraMode',
     description: [
@@ -102,7 +102,7 @@ values:[
   },
   {
     value:'011', 
-    label:'Manual + Speed Cheeck',
+    label:'LEFT/RIGHT LANE WATCH CAMERA AUTOMATIC ACTIVATION MODE VIA TURN SIGNAL WITH TRAVELING OVER 15 MPH',
     key:'SC3',
     setting:'SideCameraMode',
     description: [
@@ -117,7 +117,7 @@ export const FRONT_REAR_CAMERA_DROPDOWN ={ id:'FrontCameraMode',
 values:[
   {
     value:'01', 
-    label:'Manual',
+    label:'FORWARD FACING CAMERA MANUAL ACTIVATION MODE',
     key:'FR1',
     setting:'FrontCameraMode',
     description: [
@@ -127,7 +127,7 @@ values:[
   },
   {
     value:'11',
-    label:'Manual + Speed Cheeck',
+    label:'FORWARD FACING CAMERA AUTOMATIC ACTIVATION MODE ',
     key:'Fr2',
     setting:'FrontCameraMode',
     description: [

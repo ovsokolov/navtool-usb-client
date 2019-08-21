@@ -13,6 +13,12 @@ const {download} = require("electron-dl");
 var exec = require('child_process').exec;
 
 
+const INTERCOM_APP_ID = 'xy2lo1au';
+const electronIntercomMessenger = require('./lib/index.js');
+
+const path = require('path')
+const url = require('url')
+
 var eventname='';
 
 const app = electron.app
@@ -44,6 +50,7 @@ let isInitialized = false
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 let updateWindow
+let intercomWindow = null;
 
 function executeQS(extension){
   let commandstr = "";
@@ -176,6 +183,57 @@ app.on('ready', function()  {
 
 app.on('ready', createWindow)
 
+ipcMain.on('start-intercom', (event, arg) => {
+  if(intercomWindow == null){
+    const i = electronIntercomMessenger.start({
+      app_id: INTERCOM_APP_ID
+    }, {
+        injectCSSInMessengerFrame: '.intercom-header-buttons-close-visible { visibility: hidden; }'
+      });
+   
+     i.on('did-load', () => {
+       console.log('Intercom did load')
+      i.show();
+    })
+    i.on('did-show', () => {
+      console.log('did-show');
+    })
+    i.on('unread-count-change', unreadCount => console.log('Intercom unreadCount', unreadCount))
+    i.on('new-window', (e, url, frameName, disposition, options, additionalFeatures) => {
+
+      //e.preventDefault();
+    
+      console.log('New window', url);
+    });
+    intercomWindow = new BrowserWindow({
+      width: 300,
+      height: 500,
+      maxWidth: 600,
+      maxHeight: 800,
+      parent: mainWindow,
+      minimizable: false,
+      fullscreenable: false,
+      webPreferences: {
+        preload: path.join(__dirname, './preload'),
+        nativeWindowOpen: true
+      }
+    })
+    intercomWindow.loadURL('electron-intercom-messenger://embedded');
+    intercomWindow.setAlwaysOnTop(true, "floating", 1);
+    intercomWindow.setVisibleOnAllWorkspaces(true);
+    intercomWindow.on('closed', function () {
+      // Dereference the window object, usually you would store windows
+      // in an array if your app supports multi windows, this is the time
+      // when you should delete the corresponding element.
+      intercomWindow = null
+    })
+  }else{
+    console.log('show intercom');
+    intercomWindow.show();
+  }
+  //intercomWindow.webContents.openDevTools()
+});
+
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
   // On OS X it is common for applications and their menu bar
@@ -192,6 +250,11 @@ app.on('activate', function () {
     createWindow()
   }
 })
+
+app.on('session-created', session => {
+  const userAgent = session.getUserAgent();
+  session.setUserAgent(userAgent.replace(/Electron\/\S*\s/, ''));
+});
 
 usbDetect.add(function(device) {
     console.log("in add");

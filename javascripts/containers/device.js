@@ -74,6 +74,7 @@ class Device extends Component {
     this.displayModal = this.displayModal.bind(this);
 
     this.startRemoteSupport = this.startRemoteSupport.bind(this);
+    this.startIntercom=this.startIntercom.bind(this);
 
     this.setFilter = this.setFilter.bind(this);
     this.clearFilter = this.clearFilter.bind(this);
@@ -119,7 +120,7 @@ class Device extends Component {
     }else{
       return (
           <div id="obd-pane">
-            Programming Features not available for your vehicle
+            NOT APPLICABLE FOR THIS VEHICLE
           </div>  
       );     
     }
@@ -138,7 +139,7 @@ class Device extends Component {
     }else{
       return (
           <div id="osd-pane">
-            OSD settings not available for your vehicle
+            NOT APPLICABLE FOR THIS VEHICLE
           </div>  
       );     
     }
@@ -297,6 +298,11 @@ class Device extends Component {
    this.props.showDownloadTeamViewer();  
   }
 
+  startIntercom(){
+    console.log('startIntercom');
+    ipcRenderer.send('start-intercom');  
+  }
+
   saveDeviceSettings(settings){
     let device_data = this.props.device_data;
     this.props.saveDeviceSettings(device_data, settings);
@@ -362,6 +368,7 @@ class Device extends Component {
             deviceStatus = {this.props.device_status}
             onDeviceSearch={this.checkDevice}
             onStartRemoteSupport={this.startRemoteSupport}
+            onStartIntercom={this.startIntercom}
             onSelectTab={this.selectTab}
           />
         </div>

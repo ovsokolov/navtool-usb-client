@@ -20,16 +20,15 @@
   </head>
   </head>
   <body>
-    <div id="content"></div>
 
+    <div id="content"></div>
   <script>
     // Display the current version
     let version = window.location.hash.substring(1);
-    let titleString = "NavTool Updater " + version;
+    let titleString = "Configurator " + version;
     document.title =  titleString;
   </script>
 
   <script src="http://localhost:8080/webpack-dev-server.js"></script>
   <script src="http://localhost:8080/built/bundle.js"></script>
-
 </html>
