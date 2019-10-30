@@ -22,6 +22,7 @@ const url = require('url')
 var eventname='';
 
 const app = electron.app
+const Menu = require('electron').Menu
 // Module to control application life.
 var environment = 'PROD';
 var log_level = 'error';
@@ -105,7 +106,6 @@ function createWindow () {
   if(open_dev_tool != 'false'){
       mainWindow.webContents.openDevTools()
   }
-
   
   mainWindow.setMenu(null)
 
@@ -130,6 +130,74 @@ function getDevice () {
           return d.vendorId===49745 && d.productId===278;
       });
       return deviceInfo;
+}
+
+function createMenu() {
+  const application = {
+    label: "Application",
+    submenu: [
+      {
+        label: "About Application",
+        selector: "orderFrontStandardAboutPanel:"
+      },
+      {
+        type: "separator"
+      },
+      {
+        label: "Quit",
+        accelerator: "Command+Q",
+        click: () => {
+          app.quit()
+        }
+      }
+    ]
+  }
+
+  const edit = {
+    label: "Edit",
+    submenu: [
+      {
+        label: "Undo",
+        accelerator: "CmdOrCtrl+Z",
+        selector: "undo:"
+      },
+      {
+        label: "Redo",
+        accelerator: "Shift+CmdOrCtrl+Z",
+        selector: "redo:"
+      },
+      {
+        type: "separator"
+      },
+      {
+        label: "Cut",
+        accelerator: "CmdOrCtrl+X",
+        selector: "cut:"
+      },
+      {
+        label: "Copy",
+        accelerator: "CmdOrCtrl+C",
+        selector: "copy:"
+      },
+      {
+        label: "Paste",
+        accelerator: "CmdOrCtrl+V",
+        selector: "paste:"
+      },
+      {
+        label: "Select All",
+        accelerator: "CmdOrCtrl+A",
+        selector: "selectAll:"
+      }
+    ]
+  }
+
+  const template = [
+    application,
+    edit
+  ]
+
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 }
 
 // This method will be called when Electron has finished
@@ -163,7 +231,6 @@ app.on('ready', function()  {
     log.transports.console.level = true;
   }
 
-
   log.transports.file.file = app.getPath('userData') + '/app_log.txt';
   console.log("user data");
   console.log(app.getPath('userData'));
@@ -174,14 +241,13 @@ app.on('ready', function()  {
   autoUpdater.logger.transports.file.level = "info"
   autoUpdater.logger.transports.file.file = app.getPath('userData') + '/autoupdater_log.txt';
 
-
-
-
-
-
 }); 
 
-app.on('ready', createWindow)
+//app.on('ready', createWindow)
+app.on('ready', () => {
+  createWindow()
+  createMenu()
+})
 
 ipcMain.on('start-intercom', (event, arg) => {
   if(intercomWindow == null){
