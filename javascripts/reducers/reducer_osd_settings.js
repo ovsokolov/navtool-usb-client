@@ -9,6 +9,7 @@ export default function(state = JSON.parse(JSON.stringify(OSD_SETTINGS)), action
       //or (same crete new array). NEVER!!!!! mutate array
       //console.log('Action recieved', DEVICE_OSD_SETTINGS);
       //console.log(action.payload);
+      console.log('reducer_osd_settings');
       let msg = action.payload;
       let hexStringFrmt = "00"
       let binaryStringFrmt = "00000000"

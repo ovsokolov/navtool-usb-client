@@ -1,5 +1,6 @@
 var _ = require('lodash');
 import { FETCH_YEAR } from '../actions/get_year';
+import { FETCH_MODEL } from '../actions/get_model';
 import { DEVICE_REMOVED } from '../actions/hid_action';
 import { DEVICE_NOT_SUPPORTED } from '../utils/device_utils';
 
@@ -14,6 +15,8 @@ export default function(state = {list: [DEFAULT_DROPDOWN_VALUE]}, action){
       //return state.concat([ action.payload.data ]);
       //or (same crete new array). NEVER!!!!! mutate array
       return {list: [DEFAULT_DROPDOWN_VALUE, ...YEAR_LIST ]};
+    case FETCH_MODEL:
+      return {list: [DEFAULT_DROPDOWN_VALUE]};
     case DEVICE_REMOVED:
       return {list: [DEFAULT_DROPDOWN_VALUE]};
     case DEVICE_NOT_SUPPORTED:

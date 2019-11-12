@@ -1,77 +1,70 @@
 {
   "name": "NavToolUpdater",
   "productName": "NavToolUpdater",
-  "version": "2.1.0",
+  "version": "2.6.0",
   "description": "NavTool Devices USB Updater",
   "main": "main.js",
+  "author": "Oleg Sokolov",
+  "license": "CC0-1.0",
   "scripts": {
     "start": "electron .",
-    "_postinstall": "electron-rebuild --pre-gyp-fix --force",
-    "postinstall": "install-app-deps",
+    "dev": "cross-env NODE_ENV='development' npm run start",
+    "dist": "electron-builder .",
+    "dist-all": "build -owl --x64",
+    "build": "electron-builder .",
+    "dist-mac": "electron-builder . --publish=always",
+    "reload": "live-reload app --port 35729",
+    "rebuild": "electron-rebuild",
+    "electron-rebuild": "electron-rebuild",
+    "postinstall": "electron-builder install-app-deps",
     "watch": "./node_modules/.bin/webpack-dev-server",
-    "webpack": "webpack -p --config ./webpack-production.config.js",
-    "build": "electron-packager ./ DashConnectPlus --platform=darwin --icon=assets/nsu.icns --ignore=node_modules/electron-* --overwrite",
-    "build-win": "electron-packager ./ DashConnectPlus --platform=all --ignore=node_modules/electron-* --overwrite",
-    "pack": "build --dir",
-    "dist-dev": "build",
-    "dist-dev-win": "build --win",
-    "dist-dev-mac": "build --mac",
-    "dist-mac": "build --mac -p always",
-    "dist-win": "build --win -p onTagOrDraft",
-    "dist-all": "build --mac --win --x64 --ia32  -p always"
+    "webpack": "webpack -p --config ./webpack-production.config.js"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "hid",
+    "node-hid",
+    "usb",
+    "electron"
   ],
   "build": {
-    "appId": "nsu.installer",
-    "mac": {
-      "category": "nsu.app.installer"
+    "appId": "com.nsu.installer",
+    "asar": true,
+    "npmRebuild": true,
+    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+    "afterSign": "scripts/notarize.js",
+    "publish": {
+      "provider": "github",
+      "owner": "ovsokolov",
+      "repo": "navtool-usb-updater-releases"
     },
-    "publish": [
-      {
-        "provider": "github",
-        "owner": "ovsokolov",
-        "repo": "navtool-usb-updater-releases"
-      }
-    ]
-  },
-  "author": "GitHub",
-  "license": "CC0-1.0",
-  "devDependencies": {
-    "babel": "^5.6.10",
-    "babel-core": "^5.6.11",
-    "babel-loader": "^5.2.2",
-    "css-loader": "^0.15.1",
-    "electron": "^1.4.1",
-    "electron-packager": "^4.1.3",
-    "electron-prebuilt": "^1.3.8",
-    "electron-rebuild": "^1.3.0",
-    "json-loader": "^0.5.4",
-    "less": "^2.5.1",
-    "less-loader": "^2.2.0",
-    "node-libs-browser": "^0.5.2",
-    "rimraf": "^2.5.4",
-    "style-loader": "^0.12.3",
-    "webpack": "^1.9.12",
-    "webpack-dev-server": "^1.9.0"
+    "mac": {
+      "hardenedRuntime": false,
+      "category": "public.app-category.utilities",
+      "icon": "pkg/icon.icns",
+      "gatekeeperAssess": false,
+      "entitlements": "build/navtoolupdater.mac.plist",
+      "entitlementsInherit": "build/navtoolupdater.mac.plist"
+    },
+    "dmg": {
+      "sign": false
+    },
+    "win": {
+      "target": "zip",
+      "icon": "pkg/icon.ico"
+    }
   },
   "dependencies": {
     "axios": "^0.15.2",
+    "bootstrap": "^3.3.5",
     "electron-dl": "^1.12.0",
     "electron-log": "^1.3.0",
     "electron-settings": "^3.0.14",
-    "electron-updater": "^1.14.4",
+    "electron-updater": "^4.0.0",
     "lodash": "^4.17.2",
     "muicss": "^0.9.4",
-    "node-hid": "^0.5.1",
-    "node-usb-detection": "^1.0.2",
+    "node-hid": "^0.7.9",
     "react": "^15.3.2",
+    "react-bootstrap": "^0.28.5",
     "react-bootstrap-table": "^2.6.0",
     "react-dom": "^15.3.2",
     "react-icons": "^2.2.1",
@@ -81,6 +74,39 @@
     "redux": "^3.6.0",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.1.0",
-    "selector-observer": "^1.1.0"
+    "selector-observer": "^1.1.0",
+    "usb-detection": "^4.5.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "babili-webpack-plugin": "^0.1.2",
+    "cross-env": "^5.2.0",
+    "css-loader": "^3.2.0",
+    "dotenv": "^8.2.0",
+    "electron": "^6.0.7",
+    "electron-builder": "^21.2.0",
+    "electron-devtools-installer": "^2.2.4",
+    "electron-notarize": "^0.2.0",
+    "electron-rebuild": "^1.8.5",
+    "file-loader": "^4.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "json-loader": "^0.5.4",
+    "less": "^3.0.0",
+    "less-loader": "^4.1.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "node-abi": "^2.10.0",
+    "node-libs-browser": "^0.5.2",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
+    "postcss-nested": "^4.1.2",
+    "postcss-pxtorem": "^4.0.1",
+    "rimraf": "^2.5.4",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.7",
+    "webpack-dev-server": "^3.8.0"
   }
 }

@@ -41,6 +41,9 @@ export function fetchDeviceDBData(serial_number, software){
 }
 
 export function updateDeviceDBData(serial_number, update_date){
+  console.log('@@@@@@@@@@@@updateDeviceDBData@@@@@@@@@@@@@');
+  console.log(update_date);
+  console.log('@@@@@@@@@@@@updateDeviceDBData@@@@@@@@@@@@@');
   const url = ROOT_URL + serial_number;
   const request = axios.put(url, {
     sw_id: update_date.sw_id,

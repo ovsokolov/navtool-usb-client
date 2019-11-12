@@ -206,10 +206,13 @@ class Device extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    ////console.log(this.state.device_update_status);
-    ////console.log(nextProps.software_update.update_progress_status);
-    ////console.log(nextProps.device_status.app_status);
-    ////console.log(this.props.device_status.update_status);
+    if(this.state.device_update_status == AFTER_UPDATE_ACTION){
+      console.log('%%%%%%%%%%%%%%AFTER_UPDATE_ACTION%%%%%%%%%%%%%%%%%%%%');
+      console.log(this.state.device_update_status);
+      console.log(nextProps.software_update.update_progress_status);
+      console.log(nextProps.device_status.app_status);
+      console.log(this.props.device_status.update_status);
+    }
     if(nextProps.software_update.update_progress_status == UPDATE_ERROR) {
       console.log('$$$$$$$$$$ERRRROR$$$$$$$$$$$$$$$$$');
       this.props.softwareUpdateError(UPDATE_ERROR);
@@ -227,6 +230,11 @@ class Device extends Component {
       this.setState({device_update_status: UPDATE_READY});
     }
     if(nextProps.device_status.app_status == DEVICE_APP_STATUS && this.state.device_update_status == AFTER_UPDATE_ACTION){
+      console.log('&&&&&&&& IN AFTER UPDATE');
+      console.log(nextProps.device_status.app_status);
+      console.log(this.state.device_update_status);
+      console.log(nextProps.device_data);
+      console.log(this.props.device_data);
       if(nextProps.device_data != this.props.device_data){
         this.setState({device_update_status: UPDATE_COMPLETED});
         this.props.updateDeviceDBData(getSerialNumber(nextProps.device_data), nextProps.software_update);

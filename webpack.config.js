@@ -1,11 +1,12 @@
 var webpack = require('webpack');
+const path = require('path');
 module.exports = {
-target: 'electron',
-  entry: {
+target: 'electron-renderer',
+entry: {
   app: ['webpack/hot/dev-server', './javascripts/entry.js'],
 },
 output: {
-  path: './public/built',
+  path: path.join(__dirname, '/../public/built'),
   filename: 'bundle.js',
   publicPath: 'http://localhost:8080/built/'
 },
@@ -14,11 +15,14 @@ devServer: {
   publicPath: 'http://localhost:8080/built/'
 },
 module: {
- loaders: [
-   { test: /\.json$/, loader: "json-loader" },
-   { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ }, 
-   { test: /\.css$/, loader: 'style-loader!css-loader' },
-   { test: /\.less$/, loader: 'style-loader!css-loader!less-loader'}
+ rules: [
+   { test: /\.json$/, use: "json-loader" },
+   { test: /\.js$/, use: 'babel-loader', exclude: /node_modules/ }, 
+   { test: /\.css$/, use: 'style-loader!css-loader' },
+    {
+      test: /\.less$/,
+      loader: 'style-loader!css-loader!less-loader', // compiles Less to CSS
+    }
  ]
 },
 node: {

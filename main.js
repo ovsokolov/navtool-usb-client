@@ -3,7 +3,7 @@ var os = require('os');
 var fs = require('fs');
 var HID = require('node-hid')
 var log = require('electron-log');
-var usbDetect = require('node-usb-detection');
+var usbDetect = require('usb-detection');
 var devices = HID.devices()
 const {ipcMain} = require('electron')
 const {ipcRenderer} = require('electron')
@@ -22,6 +22,7 @@ const url = require('url')
 var eventname='';
 
 const app = electron.app
+const Menu = require('electron').Menu
 // Module to control application life.
 var environment = 'PROD';
 var log_level = 'error';
@@ -79,7 +80,7 @@ function sendStatusToWindow(text) {
 }
 function createUpdateWindow() {
   mainWindow = null;
-  updateWindow = new BrowserWindow();
+  updateWindow = new BrowserWindow({webPreferences: {nodeIntegration: true}});
   updateWindow.setMenu(null)
   updateWindow.on('closed', () => {
     updateWindow = null;
@@ -91,7 +92,10 @@ function createUpdateWindow() {
 function createWindow () {
   log.info('createWindow');
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1200, height: 800})
+  webPreferences: {
+nodeIntegration: true
+}
+  mainWindow = new BrowserWindow({webPreferences: {nodeIntegration: true}})
 
   if(environment == 'DEV') {
     // and load the index.html of the app.
@@ -100,13 +104,13 @@ function createWindow () {
     // Open the DevTools.
   }else{
     mainWindow.loadURL(`file://${__dirname}/index.html#v${app.getVersion()}`)
+    //mainWindow.loadURL(`file://${__dirname}/index_dev.html#v${app.getVersion()}`)
   }
 
   if(open_dev_tool != 'false'){
       mainWindow.webContents.openDevTools()
   }
-
-  
+  //mainWindow.webContents.openDevTools();
   mainWindow.setMenu(null)
 
   // Emitted when the window is closed.
@@ -130,6 +134,74 @@ function getDevice () {
           return d.vendorId===49745 && d.productId===278;
       });
       return deviceInfo;
+}
+
+function createMenu() {
+  const application = {
+    label: "Application",
+    submenu: [
+      {
+        label: "About Application",
+        selector: "orderFrontStandardAboutPanel:"
+      },
+      {
+        type: "separator"
+      },
+      {
+        label: "Quit",
+        accelerator: "Command+Q",
+        click: () => {
+          app.quit()
+        }
+      }
+    ]
+  }
+
+  const edit = {
+    label: "Edit",
+    submenu: [
+      {
+        label: "Undo",
+        accelerator: "CmdOrCtrl+Z",
+        selector: "undo:"
+      },
+      {
+        label: "Redo",
+        accelerator: "Shift+CmdOrCtrl+Z",
+        selector: "redo:"
+      },
+      {
+        type: "separator"
+      },
+      {
+        label: "Cut",
+        accelerator: "CmdOrCtrl+X",
+        selector: "cut:"
+      },
+      {
+        label: "Copy",
+        accelerator: "CmdOrCtrl+C",
+        selector: "copy:"
+      },
+      {
+        label: "Paste",
+        accelerator: "CmdOrCtrl+V",
+        selector: "paste:"
+      },
+      {
+        label: "Select All",
+        accelerator: "CmdOrCtrl+A",
+        selector: "selectAll:"
+      }
+    ]
+  }
+
+  const template = [
+    application,
+    edit
+  ]
+
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 }
 
 // This method will be called when Electron has finished
@@ -163,7 +235,6 @@ app.on('ready', function()  {
     log.transports.console.level = true;
   }
 
-
   log.transports.file.file = app.getPath('userData') + '/app_log.txt';
   console.log("user data");
   console.log(app.getPath('userData'));
@@ -174,14 +245,13 @@ app.on('ready', function()  {
   autoUpdater.logger.transports.file.level = "info"
   autoUpdater.logger.transports.file.file = app.getPath('userData') + '/autoupdater_log.txt';
 
-
-
-
-
-
 }); 
 
-app.on('ready', createWindow)
+//app.on('ready', createWindow)
+app.on('ready', () => {
+  createWindow()
+  createMenu()
+})
 
 ipcMain.on('start-intercom', (event, arg) => {
   if(intercomWindow == null){
@@ -256,13 +326,15 @@ app.on('session-created', session => {
   session.setUserAgent(userAgent.replace(/Electron\/\S*\s/, ''));
 });
 
-usbDetect.add(function(device) {
+usbDetect.startMonitoring();
+
+usbDetect.on('add', function(device) {
     console.log("in add");
     //console.log(device);
     console.log("after in add");
     ////log.info("added device:\n", device.deviceDescriptor);
     //log.info(HID.devices());
-    if(device.deviceDescriptor.idVendor == 49745){
+    if(device.vendorId == 49745){
     		//log.info("XXX", device.deviceDescriptor);
 		    setTimeout(function() {
 		    	mainWindow.webContents.send('device-arrived' , {msg:'device arrived'});
@@ -270,9 +342,9 @@ usbDetect.add(function(device) {
 	  }
 });
 
-usbDetect.remove(function(device) {
+usbDetect.on('remove', function(device) {
     //log.info("removed device:\n", device.deviceDescriptor);
-    if(device.deviceDescriptor.idVendor == 49745){
+    if(device.vendorId == 49745){
 		    mainWindow.webContents.send('device-removed' , {msg:'device removed'});
 	  }
 });
@@ -363,6 +435,8 @@ ipcMain.on('device-sbl-status', (event, arg) => {
 
 
 	   	isOpen = true
+      //eventname = 'device-sbl-status';
+      //device.write([0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00]);
 		}
 		catch(err){
 			//log.info(err)
@@ -515,3 +589,4 @@ autoUpdater.on('download-progress', (progressObj) => {
 autoUpdater.on('update-downloaded', (ev, info) => {
   sendStatusToWindow('Update downloaded; will install in 5 seconds');
 });
+
