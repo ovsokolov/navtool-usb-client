@@ -11,7 +11,8 @@ const { autoUpdater } = require("electron-updater")
 const settings = require('electron-settings');
 const {download} = require("electron-dl");
 var exec = require('child_process').exec;
-
+const execFile = require('child_process').execFile;
+const execFileSync = require('child_process').execFileSync;
 
 const INTERCOM_APP_ID = 'xy2lo1au';
 const electronIntercomMessenger = require('./lib/index.js');
@@ -53,25 +54,61 @@ let mainWindow
 let updateWindow
 let intercomWindow = null;
 
+function os_func() {
+    this.execCommand = function (cmd) {
+        return new Promise((resolve, reject)=> {
+           exec(cmd, (error, stdout, stderr) => {
+             if (error) {
+                reject(error);
+                return;
+            }
+            resolve(stdout)
+           });
+       })
+   }
+}
+var qsos = new os_func();
+
 function executeQS(extension){
   let commandstr = "";
+  let qspath = "";
   if(os.platform() == 'darwin'){
     commandstr = "open " + app.getPath('downloads') + '/TeamViewerQS.' + extension;
+    qspath = app.getPath('downloads') + '/TeamViewerQS.' + extension;
   }else{
     commandstr = "cmd /K " + app.getPath('downloads') + '\\TeamViewerQS.' + extension;
+    qspath = app.getPath('downloads') + '\\TeamViewerQS.' + extension
   }
+
   console.log(commandstr);
+  /*
+  const child = execFile(qspath, (error, stdout, stderr) => {
+      if (error) {
+          console.error('stderr', stderr);
+          throw error;
+      }
+      console.log('stdout', stdout);
+      mainWindow.webContents.send('teamviewer-opened' , {msg:'teamviewer opened'});
+  });
+  */  
+  const child = execFileSync(qspath); 
+  console.log('after command');
   mainWindow.webContents.send('teamviewer-opened' , {msg:'teamviewer opened'});
-  child = exec(commandstr, function (error, stdout, stderr) {
+  /*
+  exec(commandstr, (error, stdout, stderr) => {
     console.log("after command");
     //mainWindow.webContents.send('teamviewer-opened' , {msg:'teamviewer opened'});
+
     log.info('stdout: ' + stdout);
     log.info('stderr: ' + stderr);
     if (error !== null) {
       console.log("error command");
       console.log('exec error: ' + error);
     }
+
   });
+  */
+  console.log("after command without wait");
 }
 
 function sendStatusToWindow(text) {
@@ -95,7 +132,10 @@ function createWindow () {
   webPreferences: {
 nodeIntegration: true
 }
-  mainWindow = new BrowserWindow({webPreferences: {nodeIntegration: true}})
+  mainWindow = new BrowserWindow({
+    width: 1200, height: 800,
+    webPreferences: {nodeIntegration: true}  
+  })
 
   if(environment == 'DEV') {
     // and load the index.html of the app.
@@ -106,7 +146,15 @@ nodeIntegration: true
     mainWindow.loadURL(`file://${__dirname}/index.html#v${app.getVersion()}`)
     //mainWindow.loadURL(`file://${__dirname}/index_dev.html#v${app.getVersion()}`)
   }
-
+  /*
+  mainWindow.setIcon(path.join(__dirname, '/img/icon.png'));
+  
+  mainWindow.setThumbarButtons([{
+    tooltip: 'NavTool Updater',
+    icon: path.join(__dirname, '/img/icon.png')
+  }])
+  */ 
+  
   if(open_dev_tool != 'false'){
       mainWindow.webContents.openDevTools()
   }
@@ -530,7 +578,8 @@ ipcMain.on('device-obd-status', (event, arg) => {
   device.write([0x00, arg, 0x00, 0x00, 0x00, 0x00, 0x00]);
 });
 
-ipcMain.on('start-support', (event, arg) => {
+ipcMain.on('start-support',  (event, arg) => {
+    /*
     if(os.platform() == 'darwin'){
       console.log(app.getPath('downloads'));
       if (fs.existsSync(app.getPath('downloads') + '/TeamViewerQS.dmg')) {
@@ -555,6 +604,33 @@ ipcMain.on('start-support', (event, arg) => {
         .catch(console.error);
       }
     }
+
+    if(os.platform() == 'darwin'){
+      console.log(app.getPath('downloads'));
+      if (fs.existsSync(app.getPath('downloads') + '/TeamViewerQS.dmg')) {
+        console.log('QS found');
+        fs.unlinkSync(app.getPath('downloads') + '/TeamViewerQS.dmg')
+      }
+      console.log('QS not found');
+      download(BrowserWindow.getFocusedWindow(), "https://get.teamviewer.com/d7pbq93")
+      .then(dl => executeQS('dmg'))
+      .catch(console.error);      
+    }else{
+      //windows
+      console.log(app.getPath('downloads'));
+      if (fs.existsSync(app.getPath('downloads') + '\\TeamViewerQS.exe')) {
+        console.log('QS found');
+        fs.unlinkSync(app.getPath('downloads') + '\\TeamViewerQS.exe');
+      }
+      console.log('QS not found');
+      download(BrowserWindow.getFocusedWindow(), "https://get.teamviewer.com/d7pbq93")
+      .then(dl => executeQS('exe'))
+      .catch(console.error);
+
+    }    
+    */
+    event.preventDefault();
+    require('electron').shell.openExternal('https://get.teamviewer.com/d7pbq93');
 });
 
 

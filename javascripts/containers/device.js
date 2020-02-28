@@ -47,6 +47,7 @@ import { UPDATE_NOT_STARTED,
 import { DEVICE_OBD_SUCCESS, DEVICE_OBD_FAILED } from '../actions/hid_action';
 
 const {ipcRenderer} = require('electron');
+const shell = require('electron').shell;
 
 class Device extends Component {
   constructor(props){
@@ -302,8 +303,11 @@ class Device extends Component {
   }
 
   startRemoteSupport(){
+    console.log('download');
+    //window.open('https://get.teamviewer.com/d7pbq93');
+   //shell.openExternal('https://get.teamviewer.com/d7pbq93');
    ipcRenderer.send('start-support');  
-   this.props.showDownloadTeamViewer();  
+   //this.props.showDownloadTeamViewer();  
   }
 
   startIntercom(){
