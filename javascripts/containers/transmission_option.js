@@ -31,7 +31,7 @@ class TransmissionOptionList extends Component {
 
   render(){
     return (
-        <select className="ui dropdown" onChange={this.selectTransmissionOption}>
+        <select className="ui dropdown" onChange={this.selectTransmissionOption} value={this.props.software_search.automatic_transmission}>
           { TRANSMISSION_TYPE_DROPDOWN["values"].map(this.renderTransmissionOption) }
         </select>
     );

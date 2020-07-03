@@ -195,6 +195,13 @@ export default class DeviceSettings extends Component {
                 </div>
             </div>
           </div>
+          <div className="column">
+              <div className="ui raised segment">
+                <div className="ui red basic huge label">
+                    IF YOU DO NOT SEE &quot;SAVE SETTINGS&quot; BUTTON ON THE SCREEN PLEASE SCROLL DOWN
+                </div>  
+              </div>
+          </div>
         </div>
       );
     }
@@ -205,7 +212,7 @@ export default class DeviceSettings extends Component {
     return (
             <div className="column">
               <div className="ui raised segment">
-                <a className="ui blue ribbon label">SET CHECKMARK FOR AFTERMARKET INSTALLED CAMERA</a>
+                <a className="ui blue ribbon label">SET CHECKMARK ONLY FOR CAMERAS THAT YOU HAVE ADDED TO THE VEHICLE</a>
                 <div className="inline field">
                     <input type="checkbox"
                            checked={this.state.system_settings["Input1Enabled"] == "1" ? 'checked':''}
@@ -257,7 +264,7 @@ export default class DeviceSettings extends Component {
     return (
             <div className="column">
               <div className="ui raised segment">
-                <a className="ui blue ribbon label">SET CHECKMARK FOR FACTORY INSTALLED CAMERA</a>
+                <a className="ui blue ribbon label">SET CHECKMARK ONLY FOR CAMERAS THAT ARE FACTORY INSTALLED</a>
                 <div className="inline field">
                       <input type="checkbox"
                          checked={this.state.system_settings["FactoryRearCamera"] == "1"? 'checked':''}
@@ -276,8 +283,11 @@ export default class DeviceSettings extends Component {
                             onChange={event => this.onOEMCameraChange(event.target.checked,'FactoryFrontCamera','FrontCameraEnabled','Input2Enabled')}
                             />
                               <div className="ui left pointing label">
-                                Factory Equiped Forward Facing Camera
-                              </div>                          
+                                Factory Equiped Forward Facing Camera                               
+                              </div>
+                              <div className="ui red basic label">
+                                  DO NOT SET CHECKMARK FOR VEHICLES EQUIPPED WITH FACTORY 360 CAMERA OR FACTORY SIDEVIEW PARKING CAMERAS
+                              </div>                            
                     </div>
                     <br />
                     <div className="inline field">
@@ -287,7 +297,10 @@ export default class DeviceSettings extends Component {
                           />
                               <div className="ui left pointing label">
                                 Factory Equiped Left Lane Watch Camera
-                              </div>                          
+                              </div> 
+                              <div className="ui red basic label">
+                                  DO NOT SET CHECKMARK FOR VEHICLES EQUIPPED WITH FACTORY 360 CAMERA OR FACTORY SIDEVIEW PARKING CAMERAS
+                              </div>                           
                     </div>
                     <br />
                     <div className="inline field">
@@ -297,7 +310,10 @@ export default class DeviceSettings extends Component {
                           />
                               <div className="ui left pointing label">
                                 Factory Equiped Right Lane Watch Camera
-                              </div>                          
+                              </div> 
+                              <div className="ui red basic label">
+                                  DO NOT SET CHECKMARK FOR VEHICLES EQUIPPED WITH FACTORY 360 CAMERA OR FACTORY SIDEVIEW PARKING CAMERAS
+                              </div>                           
                     </div>
                   </div>
                 }
@@ -310,6 +326,11 @@ export default class DeviceSettings extends Component {
     return(
           <div className="ui raised segment">
             <a className="ui blue ribbon label">FORWARD FACING CAMERA SETTINGS</a>
+              <div>&nbsp;</div>
+              <div className="ui red basic label">
+                  SETTINGS BELOW ONLY NEEDS TO BE CONFIGURED IF ADDING AN AFTERMARKET FORWARD FACING CAMERA
+              </div>
+              <div>&nbsp;</div> 
               { FRONT_REAR_CAMERA_DROPDOWN["values"].map( (elem, index) => {return this.renderRadioBatton(elem,index)})}                      
           </div>
     );
@@ -319,6 +340,11 @@ export default class DeviceSettings extends Component {
     return (
         <div className="ui raised segment">
           <a className="ui blue ribbon label">LEFT/RIGHT LANE CAMERA SETTINGS</a>
+            <div>&nbsp;</div>
+            <div className="ui red basic label">
+                SETTINGS BELOW ONLY NEEDS TO BE CONFIGURED IF ADDING AN AFTERMARKET LANE WATCH CAMERA
+            </div>
+            <div>&nbsp;</div> 
             { SIDE_CAMERA_DROPDOWN["values"].map( (elem, index) => {return this.renderRadioBatton(elem,index)})}                      
         </div>
     );

@@ -25,11 +25,11 @@ export default class DeviceInfo extends Component {
   }
 
   renderDeviceStatus(){
-      var deviceStatus = "Device Not Found";
+      var deviceStatus = "DEVICE NOT CONNECTED";
       if(this.props.deviceStatus.app_status == DEVICE_APP_STATUS){
-        deviceStatus = "Interface Ready";
+        deviceStatus = "INTERFACE READY";
       }else if (this.props.deviceStatus.app_status == DEVICE_SBL_STATUS) {
-        deviceStatus = "Recovery Mode";
+        deviceStatus = "RECOVERY MODE";
       }
       return (
           <div className="row">
@@ -64,7 +64,7 @@ export default class DeviceInfo extends Component {
   renderSearchDevice(){
     return(
         <div className="thirteen wide column">
-            <button onClick={this.props.onDeviceSearch} className="ui primary button">Find Device</button>
+            <button onClick={this.props.onDeviceSearch} className="ui primary button">CLICK HERE TO CONNECT DEVICE TO COMPUTER</button>
         </div>
     );
   }
@@ -103,7 +103,7 @@ export default class DeviceInfo extends Component {
        if(this.props.deviceStatus.app_status == DEVICE_APP_STATUS){
         return (
           <button className="mcu" data-clipboard-text={this.props.deviceInfo.mcu_serial}>
-               <i className="copy icon"></i>Copy MCU
+               <i className="copy icon"></i>CLICK HERE TO COPY SERIAL NUMBER
           </button>
         );
       }else if (this.props.deviceStatus.app_status == DEVICE_SBL_STATUS) {
@@ -129,7 +129,7 @@ export default class DeviceInfo extends Component {
             </div>
             <div>&nbsp;</div>
             <div className="row">
-                <div className={`ui ${iconColor} horizontal label`}>Software Description::</div>{this.props.deviceStatus.device_sw_description}
+                <div className={`ui ${iconColor} horizontal label`}>Software Description:</div>{this.props.deviceStatus.device_sw_description}
                 <br /><br/>
             </div>
             <div className="row">
@@ -152,7 +152,7 @@ export default class DeviceInfo extends Component {
     return (
         <div>
             <div className="ui grid">
-              <div className="fourteen wide column center aligned">
+              <div className="eleven wide column center aligned">
                 <div className="ui tiny steps">
                   <a className="tiny step" onClick={() => this.selectTab('first')}>
                     <div className="ui red horizontal label">Step 1</div>
@@ -168,10 +168,16 @@ export default class DeviceInfo extends Component {
                   </a>
                 </div>
               </div>
-              <div className="two wide column">
+              <div className="two wide column center aligned">
                 <button className="ui compact red button icon labeled" onClick={this.props.onStartRemoteSupport} >
                     <i className="cog icon"></i>
                     Remote Support
+                  </button>
+              </div>
+              <div className="three wide column center aligned">
+                  <button className="ui huge blue button icon labeled" onClick={this.props.onStartIntercom} >
+                    <i className="rocketchat icon large"></i>
+                    Live Chat
                   </button>
               </div>
             </div>

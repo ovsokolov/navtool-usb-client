@@ -118,9 +118,11 @@ export default function(state = DEFAULT_UPDATE_STATE, action){
       ////console.log(new_state);
       return new_state
     case REQUEST_TRANSFER_START_RESPONSE:
+      console.log('REQUEST_TRANSFER_START_RESPONSE');
       new_state = JSON.parse(JSON.stringify(state));
       return preparePacketData(new_state);
     case REQUEST_PACKET_SEND_RESPONSE:
+      console.log('REQUEST_PACKET_SEND_RESPONSE');
       new_state = JSON.parse(JSON.stringify(state));
       payload_data = action.payload;
       if(payload_data.remaining_packets == 0){
@@ -231,6 +233,6 @@ function preparePacketData(new_state){
   ////console.log(currentPacket);
   ////console.log(currentSum);
   ////console.log(new_state.curerent_packet_sum);
-  ////console.log("Packet data in reducer", new_state);
+  console.log("Packet data in reducer", new_state);
   return new_state;
 }

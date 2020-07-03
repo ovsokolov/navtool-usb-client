@@ -10,8 +10,11 @@ export default function(state = JSON.parse(JSON.stringify(SYSTEM_SETTINGS)), act
       //or (same crete new array). NEVER!!!!! mutate array
       //console.log('Action recieved', DEVICE_DATA_SETTINGS);
       //console.log(action.payload);
+
+      console.log('reducer_device_settings');
+
       let msg = action.payload;
-      let action = msg[0];
+      let zaction = msg[0];
       let usbResult = msg[1];
       let serial_number = ""
       let hexStringFrmt = "00"
@@ -138,6 +141,7 @@ export default function(state = JSON.parse(JSON.stringify(SYSTEM_SETTINGS)), act
         //console.log(vihicleModel.charCodeAt(i));
       }
       return system_settings;
+
     case DEVICE_REMOVED:
       return JSON.parse(JSON.stringify(SYSTEM_SETTINGS));
     case DEVICE_NOT_SUPPORTED:

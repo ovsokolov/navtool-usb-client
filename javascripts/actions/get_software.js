@@ -38,12 +38,12 @@ export function fetchSoftware(mfg_id, vehicle_make, vehicle_model, vehicle_year,
   };
 }
 
-export function fetchSoftwareConfig(mfg_id,sw_id, sw_build){
-  let param_url = "/sw?mfg_id=" + mfg_id + "&sw_id=" + sw_id + "&sw_build=" + sw_build; 
+export function fetchSoftwareConfig(mfg_id,sw_id, sw_build, vehicle_make, vehicle_model){
+  let param_url = "/sw?mfg_id=" + mfg_id + "&sw_id=" + sw_id + "&sw_build=" + sw_build + "&vehicle_make=" + vehicle_make + "&vehicle_model=" + vehicle_model; 
 
   const url = ROOT_URL + param_url;
   const request = axios.get(url);
-
+  console.log(url);
   //console.log('fetchSoftwareConfig URL', url);
 
   return (dispatch) => {

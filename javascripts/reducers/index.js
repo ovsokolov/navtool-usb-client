@@ -16,6 +16,7 @@ import OSDSettingsReducer from './reducer_osd_settings'
 import ApplicationSoftware from './reducer_application_software'
 import Message from './reducer_message'
 import ModalState from './reducer_modal'
+import CanFilter from './reducer_can_filter'
 
 const rootReducer = combineReducers({
   //state: (state = {}) => state
@@ -35,7 +36,8 @@ const rootReducer = combineReducers({
   obd_features: OBDFeaturesReducer,
   osd_settings: OSDSettingsReducer,
   message: Message, 
-  modal_state: ModalState
+  modal_state: ModalState,
+  can_filter: CanFilter
 });
 
 export default rootReducer;

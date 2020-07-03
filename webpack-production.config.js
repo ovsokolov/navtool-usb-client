@@ -6,14 +6,14 @@ var BUILD_DIR = path.resolve(__dirname, 'app');
 var APP_DIR = path.resolve(__dirname, 'javascripts');
 
 module.exports = {
-target: 'electron',
+target: 'electron-renderer',
 entry: APP_DIR + '/entry.js',
 output: {
   path: BUILD_DIR,
   filename: 'bundle.js'
 },
 module: {
- loaders: [
+ rules: [
    { test: /\.json$/, loader: "json-loader" },
    { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
    { test: /\.css$/, loader: 'style-loader!css-loader' },

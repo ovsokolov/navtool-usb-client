@@ -17,18 +17,18 @@ export default function(state = JSON.parse(JSON.stringify(DEFAULT_STATE)), actio
     case FETCH_MAKE:
       //return state.concat([ action.payload.data ]);
       //or (same crete new array). NEVER!!!!! mutate array
-      result = Object.assign({}, state, {mfg_id: action.payload.mfg_id});
+      result = Object.assign({}, state, {mfg_id: action.payload.mfg_id, vehicle_make: '', vehicle_model: '', vehicle_year: '', automatic_transmission: 1});
       return result;
     case FETCH_MODEL:
       //return state.concat([ action.payload.data ]);
       //or (same crete new array). NEVER!!!!! mutate array
-      result = Object.assign({}, state, {vehicle_make: action.payload.vehicle_make});
+      result = Object.assign({}, state, {vehicle_make: action.payload.vehicle_make, vehicle_model: '', vehicle_year: '', automatic_transmission: 1});
       //console.log(result);
       return result;
     case FETCH_YEAR:
       //return state.concat([ action.payload.data ]);
       //or (same crete new array). NEVER!!!!! mutate array
-      result = Object.assign({}, state, {vehicle_model: action.payload.vehicle_model});
+      result = Object.assign({}, state, {vehicle_model: action.payload.vehicle_model, vehicle_year: '', automatic_transmission: 1});
       //console.log(result);
       return result;
     case SET_TRANSMISSION_TYPE:

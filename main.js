@@ -3,7 +3,7 @@ var os = require('os');
 var fs = require('fs');
 var HID = require('node-hid')
 var log = require('electron-log');
-var usbDetect = require('node-usb-detection');
+var usbDetect = require('usb-detection');
 var devices = HID.devices()
 const {ipcMain} = require('electron')
 const {ipcRenderer} = require('electron')
@@ -11,11 +11,19 @@ const { autoUpdater } = require("electron-updater")
 const settings = require('electron-settings');
 const {download} = require("electron-dl");
 var exec = require('child_process').exec;
+const execFile = require('child_process').execFile;
+const execFileSync = require('child_process').execFileSync;
 
+const INTERCOM_APP_ID = 'xy2lo1au';
+const electronIntercomMessenger = require('./lib/index.js');
+
+const path = require('path')
+const url = require('url')
 
 var eventname='';
 
 const app = electron.app
+const Menu = require('electron').Menu
 // Module to control application life.
 var environment = 'PROD';
 var log_level = 'error';
@@ -44,26 +52,63 @@ let isInitialized = false
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 let updateWindow
+let intercomWindow = null;
+
+function os_func() {
+    this.execCommand = function (cmd) {
+        return new Promise((resolve, reject)=> {
+           exec(cmd, (error, stdout, stderr) => {
+             if (error) {
+                reject(error);
+                return;
+            }
+            resolve(stdout)
+           });
+       })
+   }
+}
+var qsos = new os_func();
 
 function executeQS(extension){
   let commandstr = "";
+  let qspath = "";
   if(os.platform() == 'darwin'){
     commandstr = "open " + app.getPath('downloads') + '/TeamViewerQS.' + extension;
+    qspath = app.getPath('downloads') + '/TeamViewerQS.' + extension;
   }else{
     commandstr = "cmd /K " + app.getPath('downloads') + '\\TeamViewerQS.' + extension;
+    qspath = app.getPath('downloads') + '\\TeamViewerQS.' + extension
   }
+
   console.log(commandstr);
+  /*
+  const child = execFile(qspath, (error, stdout, stderr) => {
+      if (error) {
+          console.error('stderr', stderr);
+          throw error;
+      }
+      console.log('stdout', stdout);
+      mainWindow.webContents.send('teamviewer-opened' , {msg:'teamviewer opened'});
+  });
+  */  
+  const child = execFileSync(qspath); 
+  console.log('after command');
   mainWindow.webContents.send('teamviewer-opened' , {msg:'teamviewer opened'});
-  child = exec(commandstr, function (error, stdout, stderr) {
+  /*
+  exec(commandstr, (error, stdout, stderr) => {
     console.log("after command");
     //mainWindow.webContents.send('teamviewer-opened' , {msg:'teamviewer opened'});
+
     log.info('stdout: ' + stdout);
     log.info('stderr: ' + stderr);
     if (error !== null) {
       console.log("error command");
       console.log('exec error: ' + error);
     }
+
   });
+  */
+  console.log("after command without wait");
 }
 
 function sendStatusToWindow(text) {
@@ -72,7 +117,7 @@ function sendStatusToWindow(text) {
 }
 function createUpdateWindow() {
   mainWindow = null;
-  updateWindow = new BrowserWindow();
+  updateWindow = new BrowserWindow({webPreferences: {nodeIntegration: true}});
   updateWindow.setMenu(null)
   updateWindow.on('closed', () => {
     updateWindow = null;
@@ -84,7 +129,13 @@ function createUpdateWindow() {
 function createWindow () {
   log.info('createWindow');
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1200, height: 800})
+  webPreferences: {
+nodeIntegration: true
+}
+  mainWindow = new BrowserWindow({
+    width: 1200, height: 800,
+    webPreferences: {nodeIntegration: true}  
+  })
 
   if(environment == 'DEV') {
     // and load the index.html of the app.
@@ -93,13 +144,21 @@ function createWindow () {
     // Open the DevTools.
   }else{
     mainWindow.loadURL(`file://${__dirname}/index.html#v${app.getVersion()}`)
+    //mainWindow.loadURL(`file://${__dirname}/index_dev.html#v${app.getVersion()}`)
   }
-
+  /*
+  mainWindow.setIcon(path.join(__dirname, '/img/icon.png'));
+  
+  mainWindow.setThumbarButtons([{
+    tooltip: 'NavTool Updater',
+    icon: path.join(__dirname, '/img/icon.png')
+  }])
+  */ 
+  
   if(open_dev_tool != 'false'){
       mainWindow.webContents.openDevTools()
   }
-
-  
+  mainWindow.webContents.openDevTools();
   mainWindow.setMenu(null)
 
   // Emitted when the window is closed.
@@ -125,6 +184,74 @@ function getDevice () {
       return deviceInfo;
 }
 
+function createMenu() {
+  const application = {
+    label: "Application",
+    submenu: [
+      {
+        label: "About Application",
+        selector: "orderFrontStandardAboutPanel:"
+      },
+      {
+        type: "separator"
+      },
+      {
+        label: "Quit",
+        accelerator: "Command+Q",
+        click: () => {
+          app.quit()
+        }
+      }
+    ]
+  }
+
+  const edit = {
+    label: "Edit",
+    submenu: [
+      {
+        label: "Undo",
+        accelerator: "CmdOrCtrl+Z",
+        selector: "undo:"
+      },
+      {
+        label: "Redo",
+        accelerator: "Shift+CmdOrCtrl+Z",
+        selector: "redo:"
+      },
+      {
+        type: "separator"
+      },
+      {
+        label: "Cut",
+        accelerator: "CmdOrCtrl+X",
+        selector: "cut:"
+      },
+      {
+        label: "Copy",
+        accelerator: "CmdOrCtrl+C",
+        selector: "copy:"
+      },
+      {
+        label: "Paste",
+        accelerator: "CmdOrCtrl+V",
+        selector: "paste:"
+      },
+      {
+        label: "Select All",
+        accelerator: "CmdOrCtrl+A",
+        selector: "selectAll:"
+      }
+    ]
+  }
+
+  const template = [
+    application,
+    edit
+  ]
+
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template))
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -137,7 +264,6 @@ app.on('ready', function()  {
     log.info("rewrite settings");
     settings.set('environment', 'PROD' );
   }
-
   log.info("environment :\n", environment);
 
   if(settings.has('log_level')) {
@@ -156,7 +282,6 @@ app.on('ready', function()  {
     log.transports.console.level = true;
   }
 
-
   log.transports.file.file = app.getPath('userData') + '/app_log.txt';
   //console.log("user data");
   //console.log(app.getPath('userData'));
@@ -167,14 +292,64 @@ app.on('ready', function()  {
   autoUpdater.logger.transports.file.level = "info"
   autoUpdater.logger.transports.file.file = app.getPath('userData') + '/autoupdater_log.txt';
 
-
-
-
-
-
 }); 
 
-app.on('ready', createWindow)
+//app.on('ready', createWindow)
+app.on('ready', () => {
+  createWindow()
+  createMenu()
+})
+
+ipcMain.on('start-intercom', (event, arg) => {
+  if(intercomWindow == null){
+    const i = electronIntercomMessenger.start({
+      app_id: INTERCOM_APP_ID
+    }, {
+        injectCSSInMessengerFrame: '.intercom-header-buttons-close-visible { visibility: hidden; }'
+      });
+   
+     i.on('did-load', () => {
+       console.log('Intercom did load')
+      i.show();
+    })
+    i.on('did-show', () => {
+      console.log('did-show');
+    })
+    i.on('unread-count-change', unreadCount => console.log('Intercom unreadCount', unreadCount))
+    i.on('new-window', (e, url, frameName, disposition, options, additionalFeatures) => {
+
+      //e.preventDefault();
+    
+      console.log('New window', url);
+    });
+    intercomWindow = new BrowserWindow({
+      width: 300,
+      height: 500,
+      maxWidth: 600,
+      maxHeight: 800,
+      parent: mainWindow,
+      minimizable: false,
+      fullscreenable: false,
+      webPreferences: {
+        preload: path.join(__dirname, './preload'),
+        nativeWindowOpen: true
+      }
+    })
+    intercomWindow.loadURL('electron-intercom-messenger://embedded');
+    intercomWindow.setAlwaysOnTop(true, "floating", 1);
+    intercomWindow.setVisibleOnAllWorkspaces(true);
+    intercomWindow.on('closed', function () {
+      // Dereference the window object, usually you would store windows
+      // in an array if your app supports multi windows, this is the time
+      // when you should delete the corresponding element.
+      intercomWindow = null
+    })
+  }else{
+    console.log('show intercom');
+    intercomWindow.show();
+  }
+  //intercomWindow.webContents.openDevTools()
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
@@ -193,23 +368,26 @@ app.on('activate', function () {
   }
 })
 
-usbDetect.add(function(device) {
-    //console.log("in add");
+usbDetect.startMonitoring();
+
+usbDetect.on('add', function(device) {
+    console.log("in add");
     //console.log(device);
-    //console.log("after in add");
+    console.log("after in add");
     ////log.info("added device:\n", device.deviceDescriptor);
     //log.info(HID.devices());
-    if(device.deviceDescriptor.idVendor == 49745){
-    		//log.info("XXX", device.deviceDescriptor);
-		    setTimeout(function() {
-		    	mainWindow.webContents.send('device-arrived' , {msg:'device arrived'});
-		    }, 1000);
-	  }
+    if(device.vendorId == 49745){
+        //log.info("XXX", device.deviceDescriptor);
+        setTimeout(function() {
+          mainWindow.webContents.send('device-arrived' , {msg:'device arrived'});
+        }, 1000);
+    }
 });
 
-usbDetect.remove(function(device) {
+
+usbDetect.on('remove', function(device) {
     //log.info("removed device:\n", device.deviceDescriptor);
-    if(device.deviceDescriptor.idVendor == 49745){
+    if(device.vendorId == 49745){
 		    mainWindow.webContents.send('device-removed' , {msg:'device removed'});
 	  }
 });
@@ -300,6 +478,8 @@ ipcMain.on('device-sbl-status', (event, arg) => {
 
 
 	   	isOpen = true
+      //eventname = 'device-sbl-status';
+      //device.write([0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00]);
 		}
 		catch(err){
 			//log.info(err)
@@ -380,6 +560,22 @@ ipcMain.on('device-write_data', (event, arg) => {
   device.write(arg)
 });
 
+ipcMain.on('device-write-test-event', (event, arg) => {
+
+  log.info('before device-write-test-event')
+  log.info(arg)
+  log.info(arg.length)
+  /* remove read
+  device.read(function(err,data) {
+      log.info('data recieved device-write_data')
+      log.info(data)
+      mainWindow.webContents.send('device-data-result' , {msg: data});
+  })
+  */
+  device.write(arg)
+});
+
+
 ipcMain.on('device-obd-status', (event, arg) => {
   log.info('device-obd-status')
   /* remove read
@@ -393,7 +589,8 @@ ipcMain.on('device-obd-status', (event, arg) => {
   device.write([0x00, arg, 0x00, 0x00, 0x00, 0x00, 0x00]);
 });
 
-ipcMain.on('start-support', (event, arg) => {
+ipcMain.on('start-support',  (event, arg) => {
+    /*
     if(os.platform() == 'darwin'){
       console.log(app.getPath('downloads'));
       if (fs.existsSync(app.getPath('downloads') + '/TeamViewerQS.dmg')) {
@@ -418,6 +615,33 @@ ipcMain.on('start-support', (event, arg) => {
         .catch(console.error);
       }
     }
+
+    if(os.platform() == 'darwin'){
+      console.log(app.getPath('downloads'));
+      if (fs.existsSync(app.getPath('downloads') + '/TeamViewerQS.dmg')) {
+        console.log('QS found');
+        fs.unlinkSync(app.getPath('downloads') + '/TeamViewerQS.dmg')
+      }
+      console.log('QS not found');
+      download(BrowserWindow.getFocusedWindow(), "https://get.teamviewer.com/d7pbq93")
+      .then(dl => executeQS('dmg'))
+      .catch(console.error);      
+    }else{
+      //windows
+      console.log(app.getPath('downloads'));
+      if (fs.existsSync(app.getPath('downloads') + '\\TeamViewerQS.exe')) {
+        console.log('QS found');
+        fs.unlinkSync(app.getPath('downloads') + '\\TeamViewerQS.exe');
+      }
+      console.log('QS not found');
+      download(BrowserWindow.getFocusedWindow(), "https://get.teamviewer.com/d7pbq93")
+      .then(dl => executeQS('exe'))
+      .catch(console.error);
+
+    }    
+    */
+    event.preventDefault();
+    require('electron').shell.openExternal('https://get.teamviewer.com/d7pbq93');
 });
 
 ipcMain.on('install-bootloader', (event, arg) => {
@@ -443,7 +667,7 @@ app.on('ready', function()  {
   log.info('checkForUpdates');
   autoUpdater.checkForUpdates();
 }); 
-
+/*
 autoUpdater.on('update-downloaded', (ev, info) => {
   // Wait 5 seconds, then quit and install
   // In your application, you don't need to wait 5 seconds.
@@ -470,3 +694,4 @@ autoUpdater.on('download-progress', (progressObj) => {
 autoUpdater.on('update-downloaded', (ev, info) => {
   sendStatusToWindow('Update downloaded; will install in 5 seconds');
 });
+*/

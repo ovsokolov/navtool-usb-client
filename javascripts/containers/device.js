@@ -1,6 +1,10 @@
 import React, { Component} from 'react';
 import SoftwareSearch from '../containers/software_search'
+
 import BootloaderSearch from '../containers/bootloader_search'
+
+import Diagnostic from '../containers/diagnostic'
+import EventTest from '../containers/event_test'
 import DeviceSettings from '../containers/device_settings'
 import DeviceInfo from  '../containers/device_info'
 import OBDFeatures from '../containers/obd_features'
@@ -13,7 +17,9 @@ import ModalMessage from '../containers/modal_messages'
 import { connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { saveDeviceSettings, updateDeviceVichecleInfo, sendSoftwareUpdateData, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError, initDeviceSettings } from'../actions/hid_action';
+
+import { saveDeviceSettings, updateDeviceVichecleInfo, sendSoftwareUpdateData, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError, setCanFilter, clearCanFilter, getCanFilterData, clearCanFilterResult, setTestEvent} from'../actions/hid_action';
+
 import { hidAction, requestSBL, clearSBL } from '../actions/hid_action';
 import { startOBDProgramming } from '../actions/hid_action';
 import { getOSDSettings } from '../actions/hid_action';
@@ -48,6 +54,7 @@ import { UPDATE_NOT_STARTED,
 import { DEVICE_OBD_SUCCESS, DEVICE_OBD_FAILED } from '../actions/hid_action';
 
 const {ipcRenderer} = require('electron');
+const shell = require('electron').shell;
 
 class Device extends Component {
   constructor(props){
@@ -78,6 +85,14 @@ class Device extends Component {
     this.displayModal = this.displayModal.bind(this);
 
     this.startRemoteSupport = this.startRemoteSupport.bind(this);
+    this.startIntercom=this.startIntercom.bind(this);
+
+    this.setFilter = this.setFilter.bind(this);
+    this.clearFilter = this.clearFilter.bind(this);
+    this.getFilterData = this.getFilterData.bind(this);
+    this.clearFilterResult = this.clearFilterResult.bind(this);
+
+    this.setTestEvent = this.setTestEvent.bind(this);
 
     this.selectTab = this.selectTab.bind(this);
 
@@ -118,7 +133,7 @@ class Device extends Component {
     }else{
       return (
           <div id="obd-pane">
-            Programming Features not available for your vehicle
+            NOT APPLICABLE FOR THIS VEHICLE
           </div>  
       );     
     }
@@ -137,16 +152,16 @@ class Device extends Component {
     }else{
       return (
           <div id="osd-pane">
-            OSD settings not available for your vehicle
+            NOT APPLICABLE FOR THIS VEHICLE
           </div>  
       );     
     }
   }
 
   displayModal(device_status, obd_status, update_status, message){
-    //console.log("displayModal", this.props.modal_state, update_status);
+    console.log("displayModal", this.props.modal_state, update_status, update_status.update_progress_status, this.props.modal_state.hide );
     if(update_status.update_progress_status != UPDATE_NOT_STARTED && !this.props.modal_state.hide){
-      //console.log("@@@@@@@Inside modal function", update_status.update_progress_status);
+      console.log("@@@@@@@Inside modal function", update_status.update_progress_status);
       return (
         <Modal
           showCloseButton={false}
@@ -204,10 +219,13 @@ class Device extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    ////console.log(this.state.device_update_status);
-    ////console.log(nextProps.software_update.update_progress_status);
-    ////console.log(nextProps.device_status.app_status);
-    ////console.log(this.props.device_status.update_status);
+    if(this.state.device_update_status == AFTER_UPDATE_ACTION){
+      console.log('%%%%%%%%%%%%%%AFTER_UPDATE_ACTION%%%%%%%%%%%%%%%%%%%%');
+      console.log(this.state.device_update_status);
+      console.log(nextProps.software_update.update_progress_status);
+      console.log(nextProps.device_status.app_status);
+      console.log(this.props.device_status.update_status);
+    }
     if(nextProps.software_update.update_progress_status == UPDATE_ERROR) {
       console.log('$$$$$$$$$$ERRRROR$$$$$$$$$$$$$$$$$');
       this.props.softwareUpdateError(UPDATE_ERROR);
@@ -225,6 +243,11 @@ class Device extends Component {
       this.setState({device_update_status: UPDATE_READY});
     }
     if(nextProps.device_status.app_status == DEVICE_APP_STATUS && this.state.device_update_status == AFTER_UPDATE_ACTION){
+      console.log('&&&&&&&& IN AFTER UPDATE');
+      console.log(nextProps.device_status.app_status);
+      console.log(this.state.device_update_status);
+      console.log(nextProps.device_data);
+      console.log(this.props.device_data);
       if(nextProps.device_data != this.props.device_data){
         this.setState({device_update_status: UPDATE_COMPLETED});
         this.props.updateDeviceDBData(getSerialNumber(nextProps.device_data), nextProps.software_update);
@@ -332,8 +355,16 @@ class Device extends Component {
   }
 
   startRemoteSupport(){
+    console.log('download');
+    //window.open('https://get.teamviewer.com/d7pbq93');
+   //shell.openExternal('https://get.teamviewer.com/d7pbq93');
    ipcRenderer.send('start-support');  
-   this.props.showDownloadTeamViewer();  
+   //this.props.showDownloadTeamViewer();  
+  }
+
+  startIntercom(){
+    console.log('startIntercom');
+    ipcRenderer.send('start-intercom');  
   }
 
   saveDeviceSettings(settings){
@@ -364,6 +395,30 @@ class Device extends Component {
   clearSBL(){
     this.props.clearSBL();
   }
+
+  setFilter(canMsg){
+    console.log('canMsg setFilter');
+    console.log(canMsg);
+    this.props.setCanFilter(canMsg);
+  }
+
+  clearFilter(){
+    this.props.clearCanFilter();    
+  }
+
+  getFilterData(){
+   this.props.getCanFilterData();    
+  }
+
+  clearFilterResult(){
+    this.props.clearCanFilterResult();
+  }
+
+  setTestEvent(eventType, inputType){
+    console.log('@@@@@@@@@@@@@@@');
+    console.log(eventType, inputType);
+    this.props.setTestEvent(eventType, inputType);
+  }
   /*
   <button className="ui compact red labeled icon button" onClick={this.props.requestSBL} >
     Request SBL
@@ -383,6 +438,7 @@ class Device extends Component {
             deviceStatus = {this.props.device_status}
             onDeviceSearch={this.checkDevice}
             onStartRemoteSupport={this.startRemoteSupport}
+            onStartIntercom={this.startIntercom}
             onSelectTab={this.selectTab}
           />
         </div>
@@ -391,7 +447,11 @@ class Device extends Component {
           <a className="item" data-tab="second">Camera Settings</a>
           <a className="item" data-tab="third">OSD Settings</a>
           <a className="item" data-tab="fourth">Features Activation</a>
+
           <a className="item" data-tab="fifth">Keil Flash</a>
+
+          <a className="item" data-tab="sixth">Diagnostic</a>
+          <a className="item" data-tab="seventh">Event Test</a>
         </div>
         <div className="ui bottom attached active tab segment" data-tab="first">
           <SoftwareSearch
@@ -414,6 +474,19 @@ class Device extends Component {
             onRegisterDevice={this.registerDevice}
           />
         </div>
+        <div className="ui bottom attached tab segment" data-tab="sixth">
+            <Diagnostic
+              onSetFilter={this.setFilter}
+              onClearFilter={this.clearFilter}
+              onGetFilterData={this.getFilterData}
+              onClearFilterResult={this.clearFilterResult}
+            />
+        </div>
+        <div className="ui bottom attached tab segment" data-tab="seventh">
+            <EventTest
+              onSetTestEvent={this.setTestEvent}
+            />
+        </div>        
         {this.displayModal(this.props.device_status.app_status, this.props.device_status.obd_status, this.props.software_update, this.props.message)}
       </div>
     );
@@ -437,7 +510,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, updateDeviceOBDData, startOBDProgramming, hideModal, showDownloadTeamViewer, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError, checkDeviceStartSector, requestSBL, clearSBL, runBootloader, initDeviceSettings }, dispatch);
+  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, updateDeviceOBDData, startOBDProgramming, hideModal, showDownloadTeamViewer, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError, checkDeviceStartSector, requestSBL, clearSBL, setCanFilter, clearCanFilter, getCanFilterData, clearCanFilterResult, setTestEvent }, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Device);

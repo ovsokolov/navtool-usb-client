@@ -45,6 +45,10 @@ class SoftwareList extends Component {
             { title: "YEAR" },
             { title: "DESCRIPTION" }
         ],
+        columnDefs: [
+          { width: "10%", targets: [0,6] },
+          { width: "8%", targets: [1,2] }
+        ],
         order: [[ 3, "asc" ],[ 4, "asc" ]]
     } );
 
@@ -64,7 +68,8 @@ class SoftwareList extends Component {
     var dataSet = [];
     //console.log(this.props.software_list);
     this.props.software_list.forEach(function(software){
-      var row = [software.id, software.sw_id,software.sw_build,software.vehicle_make,software.vehicle_model, "".concat(software.vehicle_year_from, "-", software.vehicle_year_to), software.sw_description];
+      console.log(software);
+      var row = [software.id, software.sw_id,software.sw_build,software.vehicle_make,software.vehicle_model,"".concat(software.vehicle_year_from, "-", software.vehicle_year_to), software.sw_description];
       dataSet.push(row);
      });
     console.log("dataset");
