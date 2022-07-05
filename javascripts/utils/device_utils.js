@@ -36,6 +36,8 @@ export const OBD_NOT_STARTED = "OBD_NOT_STARTED";
 export const OBD_IN_PROGRESS = "OBD_IN_PROGRESS";
 export const OBD_COMPLETED = "OBD_COMPLETED";
 
+export const ASSEMBLY_MESSAGE = "ASSEMBLY_MESSAGE";
+
 import { TRANSFER_SET_UP_DATA_RESPONSE ,
          TRANSFER_STATUS_DATA_RESPONSE } from '../utils/structures';
 
@@ -307,7 +309,7 @@ export function getSerialNumber(msg){
     if (i % 4 == 0 && i > 0) {
       serial_number += "-";
     }
-    bareNum = msg[2+i].toString(16);
+    bareNum = msg[3+i].toString(16);
     serial_number += hexStringFrmt.substring((bareNum).length, 2) + bareNum;
   }
   return serial_number.toUpperCase();
@@ -322,14 +324,14 @@ export function getSoftwareId(msg){
 
       for(var i=0; i < 2; i++){
         //console.log(msg[19-i]);
-        bareNum = msg[19-i].toString(16);
+        bareNum = msg[20-i].toString(16);
         hexSoftwareId += hexStringFrmt.substring((bareNum).length, 2) + bareNum;
         //console.log(softwareId);
 
       }
       console.log("Software Id: ", parseInt(hexSoftwareId, 16));
       //build siftwareBuild
-      bareNum = msg[20].toString(10);
+      bareNum = msg[21].toString(10);
       hexSoftwareBuild += hexStringFrmt.substring((bareNum).length, 2) + bareNum;
       console.log("Software Build",parseInt(hexSoftwareBuild, 16));
       var softwareId = parseInt(hexSoftwareId, 16);

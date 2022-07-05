@@ -1,0 +1,27 @@
+Welcome to the FlashcatUSB interfacing software, build: 636
+Copyright 2022 - Embedded Computers LLC
+Running on: Windows (64 bit)
+FlashcatUSB Script Engine build: 312
+License status: non-commercial use only
+MODE not specified (using OPERATION setting instead)
+Waiting to connect to FlashcatUSB
+Successfully connected to FlashcatUSB over USB
+Connected to FlashcatUSB Pro (PCB 5.x), firmware version: 1.15
+Detecting connected Flash device...
+Initializing SPI device mode
+Attempting to detect SPI device (auto-detect mode)
+Successfully opened device in SPI mode
+Connected to SPI Flash (RDID:0xEF7018 REMS:0xEF17)
+Flash detected: Winbond W25Q128JV (16,777,216 bytes)
+Page erase size: 65,536 bytes
+Detected SPI Flash on high-speed SPI port
+Setting SPI clock to: 8 Mhz
+NavTool script starting
+Setting Quad-Enable register bit
+Programmering firmware
+
+Sucessfully programmed 8,536,063 bytes
+NavTool Script was Successful
+----------------------------------------------
+Application completed
+Disconnected from FlashcatUSB Pro device

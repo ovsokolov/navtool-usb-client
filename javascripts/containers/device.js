@@ -22,12 +22,12 @@ import { saveDeviceSettings, updateDeviceVichecleInfo, sendSoftwareUpdateData, s
 
 import { hidAction, requestSBL, clearSBL } from '../actions/hid_action';
 import { startOBDProgramming } from '../actions/hid_action';
-import { getOSDSettings } from '../actions/hid_action';
+import { getOSDSettings, initDeviceSettings, updateImageFlag, completeUpdateImage} from '../actions/hid_action';
 import { getSerialNumber } from '../utils/device_utils';
-import { runBootloader } from '../actions/get_bootloader';
+import { runBootloader, runApplication, loadImages } from '../actions/get_bootloader';
 
 import { loadFTPFile } from '../actions/ftp_action';
-import { updateDeviceDBData, updateDeviceOBDData, checkDeviceStartSector } from '../actions/get_device_data';
+import { updateDeviceDBData, updateDeviceOBDData, checkDeviceStartSector,assembleInterface } from '../actions/get_device_data';
 
 import { hideModal, showDownloadTeamViewer } from '../actions/hide_modal';
 
@@ -51,16 +51,22 @@ import { UPDATE_NOT_STARTED,
          UPDATE_ERROR,
          DISPLAY_UPDATE_ERROR } from '../utils/device_utils'
 
-import { DEVICE_OBD_SUCCESS, DEVICE_OBD_FAILED } from '../actions/hid_action';
+import { DEVICE_OBD_SUCCESS, DEVICE_OBD_FAILED, IMAGE_FLASH_SUCCESS, IMAGE_FLASH_ERROR  } from '../actions/hid_action';
 
 const {ipcRenderer} = require('electron');
 const shell = require('electron').shell;
+const dialog = require('electron').remote.dialog 
 
 class Device extends Component {
   constructor(props){
     super(props);
     var init_system_settings = JSON.parse(JSON.stringify(SYSTEM_SETTINGS));
-    this.state = {device_data: [], mfg_id: '', serial_number: '', system_settings: init_system_settings, device_update_status: ''}
+    this.state = {device_data: [], 
+                  mfg_id: '', 
+                  serial_number: '', 
+                  system_settings: init_system_settings, 
+                  device_update_status: '',
+                  interfaces_list: []}
 
     this.renderDeviceSettings = this.renderDeviceSettings.bind(this);
 
@@ -69,6 +75,7 @@ class Device extends Component {
     this.saveDeviceSettings = this.saveDeviceSettings.bind(this);
     this.installSoftware = this.installSoftware.bind(this);
     this.installBootloader = this.installBootloader.bind(this);
+    this.flashImage = this.flashImage.bind(this);
     this.installApplication = this.installApplication.bind(this);
     this.registerDevice = this.registerDevice.bind(this);
     this.saveDeviceOSDSettings = this.saveDeviceOSDSettings.bind(this);
@@ -82,7 +89,6 @@ class Device extends Component {
     this.submitOBD = this.submitOBD.bind(this);
 
     this.closeModal = this.closeModal.bind(this);
-    this.displayModal = this.displayModal.bind(this);
 
     this.startRemoteSupport = this.startRemoteSupport.bind(this);
     this.startIntercom=this.startIntercom.bind(this);
@@ -95,10 +101,26 @@ class Device extends Component {
     this.setTestEvent = this.setTestEvent.bind(this);
 
     this.selectTab = this.selectTab.bind(this);
+    this.showErrorDialog = this.showErrorDialog.bind(this);
+
+    this.printLabel = this.printLabel.bind(this);
+    this.assembleProduct = this.assembleProduct.bind(this);
+
+    ipcRenderer.on('interfaces-list',(event, data) => {
+      console.log(data);
+      this.setState({interfaces_list: data});
+    });      
 
   }
 
-
+  showErrorDialog(msg){
+    const options = {
+        type: 'error',
+        title: 'Error'
+    }; 
+    options.message = msg;
+    dialog.showMessageBox(null, options);   
+  }
 
   renderDeviceSettings(){
     //console.log("Device Settings");
@@ -158,52 +180,6 @@ class Device extends Component {
     }
   }
 
-  displayModal(device_status, obd_status, update_status, message){
-    console.log("displayModal", this.props.modal_state, update_status, update_status.update_progress_status, this.props.modal_state.hide );
-    if(update_status.update_progress_status != UPDATE_NOT_STARTED && !this.props.modal_state.hide){
-      console.log("@@@@@@@Inside modal function", update_status.update_progress_status);
-      return (
-        <Modal
-          showCloseButton={false}
-          onCloseModal={this.closeModal}
-        >
-          <UpdateProgress
-            progress_status={update_status}
-          />
-          <br/><br/>
-          <ModalMessage 
-            display_message='PROGRAMMING IN PROGRESS! DO NOT DISCONNECT DEVICE OR CLOSE PROGRAM!!'
-            show_flush={true}/>
-        </Modal>
-      );
-    }
-    if(obd_status != OBD_NOT_STARTED && !this.props.modal_state.hide){
-      //console.log("Inside modal function obd_status", obd_status);
-      return (
-        <Modal
-          showCloseButton={false}
-          onCloseModal={this.closeModal}
-        >
-          <ProgrammingProgress />
-        </Modal>
-      );
-    }
-
-    if(this.props.modal_state.show_message){
-      console.log("ZzzzzzzzInside modal function message");
-      return (
-        <Modal
-          showCloseButton={true}
-          onCloseModal={this.closeModal}
-        >
-          <ModalMessage 
-            display_message={message}
-            show_flush={false}/>
-        </Modal>
-      );
-    }
-  }
-
   closeModal(){
     //console.log("close modal function");
     this.props.hideModal(true);
@@ -214,6 +190,7 @@ class Device extends Component {
   }
 
   componentDidMount(){
+    ipcRenderer.send('load-interfaces-list');   
     $('.menu .item')
       .tab();
   }
@@ -279,6 +256,18 @@ class Device extends Component {
     if(this.props.device_status.obd_status == OBD_IN_PROGRESS && nextProps.device_status.obd_status != OBD_IN_PROGRESS){
       this.props.updateDeviceOBDData(getSerialNumber(nextProps.device_data),nextProps.device_status.obd_status);
     }
+
+    if(nextProps.device_status.update_status == IMAGE_FLASH_ERROR){
+      console.log("Image Flush Error");
+      this.props.completeUpdateImage();
+      this.showErrorDialog("Error Flashing Image");
+    }  
+    if(nextProps.modal_state.show_message == true && nextProps.message != ''){
+      console.log("Show Message");
+      this.props.hideModal(true);
+      this.showErrorDialog(nextProps.message);      
+    }
+
   }
 
   componentDidUpdate(){
@@ -306,44 +295,43 @@ class Device extends Component {
     }
   }
 
-  installBootloader(){
-    var btl_id = this.props.bootloader_search.id;
-    console.log("installBootloader ", this.props.bootloader_search.id);
-    console.log("installBootloader ", this.props.bootloader_search.path);
-    console.log("installBootloader ", this.props.bootloader_search.target);
-    if(this.props.bootloader_search.id.length == 0) {
-      alert("Please select bootloader from the list");
+  installBootloader(btl_id){
+    console.log(this.props.device_db_data);
+    if(btl_id == ''){
+      this.showErrorDialog("Please scan Device ID");
+    //}else if(this.props.device_db_data.image_flash == 0){
+    //  this.showErrorDialog("Please Flash Images First");
     }else{
-      this.props.runBootloader(this.props.bootloader_search);     
-    }   
+      this.props.runBootloader(btl_id);   
+    }         
   }
 
-  installApplication(){
-    var app_id = this.props.application_software.id;
-    console.log("installApplication ", this.props.application_software.id);
-    console.log("installApplication ", this.props.application_software.path);
-    console.log("installApplication ", this.props.application_software.target);
-    if(this.props.application_software.id.length == 0) {
-      alert("Device Not Conneted");
+  installApplication(mfg_id){
+    console.log(this.props.device_db_data);
+    if(mfg_id == ''){
+      this.showErrorDialog("Please scan Device ID");
+    //}else if(this.props.device_db_data.image_flash == 0){
+    //  this.showErrorDialog("Please Flash Images First");
     }else{
-      this.props.runBootloader(this.props.application_software);     
-    } 
+      this.props.runApplication(mfg_id);  
+    }
+  }
+
+  flashImage(){
+    if(this.props.device_db_data.mfg_id != 'UMBTLR'){
+      this.showErrorDialog("Please Flash Bootloader First");
+    }else{
+      this.props.loadImages(this.props.device_db_data.mcu_serial); 
+    }      
   }
 
   registerDevice(){ 
-    console.log("IN registerDevice");
-    console.log(this.props.device_status);
-    console.log(this.props.device_db_data);
-    console.log(device_data);
-    console.log(this.props.system_settings);
-    let device_data = this.props.device_data;
-    let system_settings = this.props.system_settings;
-    let osd_setting = this.props.osd_settings;
-    let mfg_id = this.props.device_status.device_mfg_id;
-    let sw_id = this.props.device_status.device_sw_id;
-    let sw_build = this.props.device_status.device_sw_build;
-    let mcu_serial = this.props.device_db_data.mcu_serial;
-    this.props.initDeviceSettings(mfg_id, sw_id, sw_build, mcu_serial, device_data, system_settings, osd_setting);
+    if(this.props.device_db_data.mfg_id != 'UMBTLR'){
+      this.showErrorDialog("Please Flash Bootloader First");
+    }else{
+      let mcu_serial = this.props.device_db_data.mcu_serial;
+      this.props.updateImageFlag(mcu_serial); 
+    }    
   }
 
   readDeviceSettings(){
@@ -352,6 +340,39 @@ class Device extends Component {
 
   checkDevice(){
     ipcRenderer.send('check-device');
+  }
+
+  printLabel(){    
+    let carplayModule = this.props.system_settings.CarPlayModule;
+    let mfgId = this.props.device_status.device_mfg_id;
+    let deviceId = this.props.device_db_data.device_id;
+
+    mfgId = 'NBT-' + mfgId; 
+
+    if(carplayModule){
+      mfgId = mfgId + '-CP';
+    }
+    console.log(mfgId, deviceId);
+    ipcRenderer.send('print-label', {mfgId, deviceId});
+  }
+
+  assembleProduct(){
+    let carplayModule = this.props.system_settings.CarPlayModule;
+    let mfgId = this.props.device_status.device_mfg_id;
+    let deviceId = this.props.device_db_data.device_id;
+    //assembly part
+    var result = this.state.interfaces_list.filter(obj => {
+      return obj.firmware == mfgId
+    });
+    let assemblyKit = '';
+    if(carplayModule){
+      assemblyKit = result[0].data[0].cpkit;
+    }else{
+      assemblyKit = result[0].data[0].kit;
+    } 
+    console.log(assemblyKit);  
+    this.props.assembleInterface(assemblyKit, deviceId);  
+    //assembly part    
   }
 
   startRemoteSupport(){
@@ -396,8 +417,9 @@ class Device extends Component {
     this.props.clearSBL();
   }
 
+
   setFilter(canMsg){
-    console.log('canMsg setFilter');
+    console.log('can Msg setFilter');
     console.log(canMsg);
     this.props.setCanFilter(canMsg);
   }
@@ -437,57 +459,23 @@ class Device extends Component {
             deviceInfo = {this.props.device_db_data}
             deviceStatus = {this.props.device_status}
             onDeviceSearch={this.checkDevice}
-            onStartRemoteSupport={this.startRemoteSupport}
-            onStartIntercom={this.startIntercom}
             onSelectTab={this.selectTab}
           />
         </div>
         <div className="ui top attached tabular menu">
-          <a className="active item" data-tab="first">Software Loader</a>
-          <a className="item" data-tab="second">Camera Settings</a>
-          <a className="item" data-tab="third">OSD Settings</a>
-          <a className="item" data-tab="fourth">Features Activation</a>
-
-          <a className="item" data-tab="fifth">Keil Flash</a>
-
-          <a className="item" data-tab="sixth">Diagnostic</a>
-          <a className="item" data-tab="seventh">Event Test</a>
+          <a className="active item" data-tab="first">Keil Flash</a>
         </div>
         <div className="ui bottom attached active tab segment" data-tab="first">
-          <SoftwareSearch
-            onInstallClick={this.installSoftware}
-          />
-        </div>
-        <div className="ui bottom attached tab segment" data-tab="second">
-            { this.renderDeviceSettings() }
-        </div>
-        <div className="ui bottom attached tab segment" data-tab="third">
-            { this.renderOSDSettings() }
-        </div>
-        <div className="ui bottom attached tab segment" data-tab="fourth">
-            { this.renderOBDFeatures() }
-        </div>
-        <div className="ui bottom attached tab segment" data-tab="fifth">
           <BootloaderSearch
+            deviceInfo = {this.props.device_db_data}
             onInstallClick={this.installBootloader}
             onApplicationInstallClick={this.installApplication}
+            onFlashImage={this.flashImage}
             onRegisterDevice={this.registerDevice}
+            onPrintLabel={this.printLabel}
+            onAssembleProduct={this.assembleProduct}
           />
         </div>
-        <div className="ui bottom attached tab segment" data-tab="sixth">
-            <Diagnostic
-              onSetFilter={this.setFilter}
-              onClearFilter={this.clearFilter}
-              onGetFilterData={this.getFilterData}
-              onClearFilterResult={this.clearFilterResult}
-            />
-        </div>
-        <div className="ui bottom attached tab segment" data-tab="seventh">
-            <EventTest
-              onSetTestEvent={this.setTestEvent}
-            />
-        </div>        
-        {this.displayModal(this.props.device_status.app_status, this.props.device_status.obd_status, this.props.software_update, this.props.message)}
       </div>
     );
   }
@@ -510,7 +498,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, updateDeviceOBDData, startOBDProgramming, hideModal, showDownloadTeamViewer, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError, checkDeviceStartSector, requestSBL, clearSBL, setCanFilter, clearCanFilter, getCanFilterData, clearCanFilterResult, setTestEvent }, dispatch);
+  return bindActionCreators({ hidAction, saveDeviceSettings, updateDeviceVichecleInfo, loadFTPFile, sendSoftwareUpdateData, updateDeviceDBData, updateDeviceOBDData, startOBDProgramming, hideModal, showDownloadTeamViewer, getOSDSettings, saveDeviceOSDSettings, rebootAfterUpdate, softwareUpdateError, checkDeviceStartSector, requestSBL, clearSBL, setCanFilter, clearCanFilter, getCanFilterData, clearCanFilterResult, setTestEvent,runBootloader, runApplication, initDeviceSettings, updateImageFlag, loadImages, completeUpdateImage, assembleInterface  }, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Device);

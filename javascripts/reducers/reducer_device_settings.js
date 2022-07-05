@@ -26,7 +26,7 @@ export default function(state = JSON.parse(JSON.stringify(SYSTEM_SETTINGS)), act
         if (i % 4 == 0 && i > 0) {
           serial_number += "-";
         }
-        bareNum = msg[2+i].toString(16);
+        bareNum = msg[3+i].toString(16);
         serial_number += hexStringFrmt.substring((bareNum).length, 2) + bareNum;
       }
       serial_number = serial_number.toUpperCase();
@@ -39,7 +39,7 @@ export default function(state = JSON.parse(JSON.stringify(SYSTEM_SETTINGS)), act
       //}
       for(var i=0; i < 2; i++){
         //console.log(msg[19-i]);
-        bareNum = msg[19-i].toString(16);
+        bareNum = msg[20-i].toString(16);
         softwareId += hexStringFrmt.substring((bareNum).length, 2) + bareNum;
         //console.log(softwareId);
 
@@ -47,7 +47,7 @@ export default function(state = JSON.parse(JSON.stringify(SYSTEM_SETTINGS)), act
       //console.log("Software Id",softwareId);
       //console.log("Software Id",parseInt(softwareId,16));
       //build siftwareBuild
-      bareNum = msg[20].toString(10);
+      bareNum = msg[21].toString(10);
       softwareBuild += hexStringFrmt.substring((bareNum).length, 2) + bareNum;
       //console.log("Software Build",softwareBuild);
 
@@ -139,6 +139,10 @@ export default function(state = JSON.parse(JSON.stringify(SYSTEM_SETTINGS)), act
       //console.log(vihicleModel);
       for (var i = 0; i < 14; i++) {
         //console.log(vihicleModel.charCodeAt(i));
+      }
+      console.log('Carplay Available', msg[30]);
+      if(msg[30] == 0){
+        system_settings["CarPlayModule"] = true;
       }
       return system_settings;
 

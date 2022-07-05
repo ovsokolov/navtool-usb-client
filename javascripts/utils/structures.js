@@ -42,7 +42,8 @@ export const SYSTEM_SETTINGS = {SoundSupported: '',
                                 VideoFunction1: '',
                                 VideoFunction2: '',
                                 VideoFunction3: '',
-                                VideoFunction4: ''}
+                                VideoFunction4: '',
+                                CarPlayModule: false}
 
 export const OSD_SETTINGS = { osd_enabled: false,
                               BackgroundColor: 16,

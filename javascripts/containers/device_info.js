@@ -25,6 +25,8 @@ export default class DeviceInfo extends Component {
   }
 
   renderDeviceStatus(){
+      console.log('this.props.deviceStatus');
+      console.log(this.props.deviceStatus);
       var deviceStatus = "DEVICE NOT CONNECTED";
       if(this.props.deviceStatus.app_status == DEVICE_APP_STATUS){
         deviceStatus = "INTERFACE READY";
@@ -78,7 +80,9 @@ export default class DeviceInfo extends Component {
         );
       }else if (this.props.deviceStatus.app_status == DEVICE_SBL_STATUS) {
         return(
-          <span />
+          <span>
+            &nbsp;&nbsp;Software: {this.props.deviceInfo.sw_id}.{this.props.deviceInfo.sw_build}
+          </span>
         );
       }
   }
@@ -94,7 +98,9 @@ export default class DeviceInfo extends Component {
         );
       }else if (this.props.deviceStatus.app_status == DEVICE_SBL_STATUS) {
         return(
-          <span />
+          <span>
+            &nbsp;&nbsp;MCU: {this.props.deviceInfo.mcu_serial}
+          </span>
         );
       }   
   }
@@ -108,7 +114,9 @@ export default class DeviceInfo extends Component {
         );
       }else if (this.props.deviceStatus.app_status == DEVICE_SBL_STATUS) {
         return(
-          <span />
+          <button className="mcu" data-clipboard-text={this.props.deviceInfo.mcu_serial}>
+               <i className="copy icon"></i>CLICK HERE TO COPY SERIAL NUMBER
+          </button>
         );
       }      
   }

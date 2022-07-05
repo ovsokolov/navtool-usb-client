@@ -42,6 +42,9 @@ export const GET_CAN_FILTER_DATA_RESULT = 'GET_CAN_FILTER_DATA_RESULT';
 export const CLEAR_CAN_FILTER_RESULT = 'CLEAR_CAN_FILTER_RESULT';
 
 
+export const IMAGE_FLASH_SUCCESS = 'IMAGE_FLASH_SUCCESS';
+export const IMAGE_FLASH_ERROR = 'IMAGE_FLASH_ERROR';
+
 export const WRITE_SUCESS = 44;
 export const WRITE_FAILED = 55;
 export const READ_SUCESS = 22;
@@ -53,6 +56,7 @@ export const OBD_SUCCESS = 2;
 export const OBD_FAILED = 3;
 
 import axios from 'axios';
+import { FETCH_DEVICE_DB_DATA, FETCH_DEVICE_MCU } from './get_device_data';
 import { fetchDeviceDBData, checkDeviceSupport } from './get_device_data';
 import { fetchMake } from './get_make';
 import { getSerialNumber,
@@ -101,6 +105,7 @@ export function hidAction(hid_action){
     dispatch(handleDeviceMfgId());
     dispatch(handleOBDUpdateStatus());
     dispatch(handleInitSettings());
+    dispatch(handleImageFlush());
     dispatch({
       type: INIT_IPC,
       payload: ''
@@ -150,8 +155,9 @@ export function handleOBDUpdateStatus(){
 export function handleDeviceArrived(){
     return dispatch => {
         ipcRenderer.on('device-arrived',(event, data) => {
-            //console.log('Device Arrived Handling Action....', data);
-            ipcRenderer.send('device-sbl-status', 0x01);
+            console.log('Device Arrived Handling Action....', data);
+            ipcRenderer.send('device-read-settings', 0x90);
+
             notifyRemoved = true;
             dispatch({
               type: DEVICE_ARRIVED,
@@ -183,6 +189,38 @@ export function handleDeviceRemoved(){
     };
 }
 
+export function handleImageFlush(){
+    return dispatch => {
+        ipcRenderer.on('image-flash',(event, data) => {
+            let msg = data["msg"];
+            let mcu = data["mcu"];
+            console.log(data);
+            if(msg == 'SUCCESS'){
+              let update_param_url = "?mcu_id=" + mcu ; 
+              const UPDATE_ROOT_URL = WEB_SERVICES_URL + "/v1/setimageflag";
+              const update_url = UPDATE_ROOT_URL + update_param_url;
+              const update_request = axios.get(update_url);
+              update_request.then( ({data}) =>{
+                  console.log(data);
+                  dispatch( { type: FETCH_DEVICE_DB_DATA, payload: data } )
+                  dispatch( { type: COMPLETE_UPDATE_REQUEST, payload: '' } )
+              });            
+            }else{
+              //console.log('Device reset by user....', data);
+              dispatch({ type: IMAGE_FLASH_ERROR, payload: '' });
+            }
+        });
+    };
+}
+
+export function completeUpdateImage(){
+    return {
+      type: COMPLETE_UPDATE_REQUEST,
+      payload: ""
+    };
+}
+
+
 
 function handleDeviceSBLStatus(){
   //console.log('Handle device sbl init....');
@@ -201,7 +239,7 @@ function handleDeviceSBLStatus(){
               type: DEVICE_APP_ARRIVED,
               payload: ""
             });
-            ipcRenderer.send('device-read-settings', 0x1A);
+            ipcRenderer.send('device-read-settings', 0x90);
           }
           //console.log('SBL Status handling Data Action....', data);
           dispatch({
@@ -245,7 +283,7 @@ export function handleDeviceDataResult(){
   let result;
   return dispatch => {
     ipcRenderer.on('device-data-result',(event, data) => {
-      ////console.log('Handle Device settings Action',data);
+      console.log('Handle Device Data Action',data);
       let msg = data["msg"];
       ////console.log(msg);
       let usbResult;
@@ -259,14 +297,25 @@ export function handleDeviceDataResult(){
       let softwareIdResult = {};
       //console.log("action handleDeviceDataResult:", action)
       switch(action) {
-        case 0x1A: //data settings response
+        case 0x90: //data settings response
+          console.log("DATA SETTINGS XXXXXX");
           serial_number = getSerialNumber(msg);
           //obdsupport = checkOBDSupport(msg);
           softwareIdResult = getSoftwareId(msg);
           //console.log("*******************************");
-          //console.log(msg);
-          //console.log("*******************************");
-          dispatch(fetchDeviceDBData(serial_number,softwareIdResult));
+          console.log(msg);
+          console.log(serial_number);
+          console.log(softwareIdResult);
+          let device = data["device"];
+          if(device != ''){
+            let sofware = data["software"];
+            console.log("******************************* regiter device   ******************");
+            console.log(device,sofware.sw_id,sofware.sw_build,serial_number);
+            console.log("******************************* regiter device   ******************");
+            dispatch(registerDevice(device,sofware.sw_id,sofware.sw_build,serial_number));
+          }else{
+            dispatch(fetchDeviceDBData(serial_number,softwareIdResult));
+          }
           dispatch({
             type: DEVICE_DATA_SETTINGS,
             payload: msg
@@ -280,8 +329,8 @@ export function handleDeviceDataResult(){
             type: SUCCESS_SETTINGS_UPDATE,
             payload: ""
           });
-          //console.log('ZZZZZZZZZZZZZZZ');
-          ipcRenderer.send('device-read-settings', 0x1A);
+          console.log('SUCCESS_SETTINGS_UPDATE 0x1B');
+          ipcRenderer.send('device-read-settings', 0x90);
           break;
         case 0x66:
           dispatch({
@@ -351,6 +400,7 @@ export function handleDeviceDataResult(){
             payload: result
           });
           break;
+        /*
         case 0x90: //set can filter response
           console.log("set can filter response");
           result = msg[1]; //result
@@ -371,6 +421,7 @@ export function handleDeviceDataResult(){
             payload: result
           });
           break;
+        */
       }
     });
   };
@@ -386,6 +437,20 @@ export function saveDeviceSettings(data, settings){
       type: SAVE_DEVICE_SETTINGS,
       payload: ""
     };
+}
+
+export function updateImageFlag(mcu_serial){
+  let update_param_url = "?mcu_id=" + mcu_serial ; 
+  const UPDATE_ROOT_URL = WEB_SERVICES_URL + "/v1/setimageflag";
+  const update_url = UPDATE_ROOT_URL + update_param_url;
+  const update_request = axios.get(update_url);
+  return (dispatch) => {
+    update_request.then( ({data}) =>{
+      //console.log(data);
+      //console.log(data["mfg_id"])
+      dispatch( { type: FETCH_DEVICE_DB_DATA, payload: data } )
+    });
+  };
 }
 
 export function initDeviceSettings(mfg_id,sw_id,sw_build,mcu_serial, device_data, settings, osd_setting){
@@ -421,6 +486,41 @@ export function initDeviceSettings(mfg_id,sw_id,sw_build,mcu_serial, device_data
           let init_osd_settings = initDeviceOSDSettings(osd_setting);
           let init_osd_data = setDeviceOSDSettings(init_osd_settings);
           ipcRenderer.send('device-write_data', init_osd_data);
+          return {
+            type: SAVE_DEVICE_SETTINGS,
+            payload: ""
+          };
+        });
+    });
+  }
+}
+
+export function registerDevice(mfg_id,sw_id,sw_build,mcu_serial){
+  let param_url = "/sw?mfg_id=" + mfg_id + "&sw_id=" + sw_id + "&sw_build=" + sw_build; 
+  const ROOT_URL = WEB_SERVICES_URL + "/v1/navtoolsws";
+  const url = ROOT_URL + param_url;
+  console.log(url);
+  const request = axios.get(url);
+
+  return dispatch => {
+    request.then( ({data}) =>{
+        console.log("registerDevice data");
+        console.log(data);
+        console.log("fetchSoftwareConfig data");
+        let sw_data = data[0];
+        console.log(sw_data);
+        let update_param_url = "?mcu_id=" + mcu_serial + "&mfg_id=" + mfg_id + "&sw_id=" + sw_id + "&sw_build=" + sw_build + "&vehicle_make=" + sw_data.vehicle_make + "&vehicle_model=" + sw_data.vehicle_model; 
+        const UPDATE_ROOT_URL = WEB_SERVICES_URL + "/v1/registerdevice";
+        const update_url = UPDATE_ROOT_URL + update_param_url;
+        const update_request = axios.get(update_url);
+        update_request.then( ({data}) =>{
+          let arg = [];
+          arg[0] = 0x00;
+          arg[1] = 0x1B;  
+          arg[2] = 0x00;
+          arg[3] = 0x00;
+          arg[4] = 0x00;
+          ipcRenderer.send('device-write_data', arg);
           return {
             type: SAVE_DEVICE_SETTINGS,
             payload: ""

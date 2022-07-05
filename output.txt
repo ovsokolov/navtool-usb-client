@@ -1,0 +1,8 @@
+^XA
+^FX Second section with recipient address and permit information.
+^CFA,30
+^FO0,10^FB450,1,0,C^FH\^FDNBT-LG2-CP^FS
+^FX Third section with bar code.
+^BY2,2,50
+^FO110,50^BC^FD133616^FS
+^XZ

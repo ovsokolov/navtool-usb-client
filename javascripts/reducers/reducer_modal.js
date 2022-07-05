@@ -4,7 +4,7 @@ import { DEVICE_REMOVED, START_OBD_PROGRAMMING, SUCCESS_SETTINGS_UPDATE, DEVICE_
 import { OBD_COMPLETED } from '../utils/device_utils';
 import { DEVICE_NOT_SUPPORTED } from '../utils/device_utils';
 import { UPDATE_ERROR, DISPLAY_UPDATE_ERROR, DISPLAY_UPDATE_SETUP_ERROR } from '../utils/device_utils';
-import { DOWNLOAD_TEAM_VIEWER } from '../utils/device_utils';
+import { DOWNLOAD_TEAM_VIEWER, ASSEMBLY_MESSAGE } from '../utils/device_utils';
 
 export default function(state = {hide: false, show_message: false}, action){
   switch (action.type){
@@ -37,6 +37,8 @@ export default function(state = {hide: false, show_message: false}, action){
        return {hide: false, show_message: true}; 
     case DOWNLOAD_TEAM_VIEWER:
       return {show_message: true};
+    case ASSEMBLY_MESSAGE:
+      return {show_message: true};    
   }
   return state;
 }

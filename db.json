@@ -1,0 +1,268 @@
+{
+	"computername": "DESKTOP-4GAMS74",
+	"folderpath": "C:\\navtool\\labels",
+	"interface-printer": "TWOBYONE",
+	"keilpath": "C:\\Keil_v5\\18XX_ALL\\18XX_ALL.uvprojx",
+	"firmwares": [{
+			"firmware": "UMBTLR",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1"
+				}
+			]
+		},
+		{
+			"firmware": "CGBTLR",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1"
+				}
+			]
+		},		
+		{
+			"firmware": "AR1",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMBTLR",
+					"kit":"UMASAR1INT",
+					"cpkit": "UMASAR1WCPINT",
+					"batch_file":"navtool.bat"
+				}
+			]
+		},
+		{
+			"firmware": "LG2",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMBTLR",
+					"kit":"UMASLG2INT",
+					"cpkit": "UMASLG2WCPINT",
+					"batch_file":"navtool.bat"
+				}
+			]
+		},
+		{
+			"firmware": "LG4",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMBTLR",
+					"kit":"UMASLG4INT",
+					"cpkit": "UMASLG4WCPINT",
+					"batch_file":"navtool.bat"
+				}
+			]
+		},
+		{
+			"firmware": "LG1",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMBTLR",
+					"kit":"UMASLG1INT",
+					"cpkit": "UMASLG1WCPINT",
+					"batch_file":"navtool.bat"
+				}
+			]
+		},
+		{
+			"firmware": "AR2",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMBTLR",
+					"kit":"UMASAR2INT",
+					"cpkit": "UMASAR2WCPINT",
+					"batch_file":"navtool.bat"
+				}
+			]
+		},
+		{
+			"firmware": "LC1",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMBTLR",
+					"kit":"UMASLC1INT",
+					"cpkit": "UMASLC1WCPINT",
+					"batch_file":"navtool.bat"
+				}
+			]
+		},
+		{
+			"firmware": "AR3",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "2",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMBTLR",
+					"kit":"UMASAR3INT",
+					"cpkit": "UMASAR3WCPINT",
+					"batch_file":"navtool.bat"
+				}
+			]
+		},
+		{
+			"firmware": "AR5",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMBTLR",
+					"kit":"UMASAR5INT",
+					"cpkit": "UMASAR5WCPINT",
+					"batch_file":"navtool.bat"
+				}
+			]
+		},
+		{
+			"firmware": "AR6",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMBTLR",
+					"kit":"UMASAR6INT",
+					"cpkit": "UMASAR6WCPINT",
+					"batch_file":"navtool.bat"
+				}
+			]
+		},
+		{
+			"firmware": "AR7",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMBTLR",
+					"kit":"UMASAR7INT",
+					"cpkit": "UMASAR7WCPINT",
+					"batch_file":"navtool.bat"
+				}
+			]
+		},
+		{
+			"firmware": "LF1",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMBTLR",
+					"kit":"UMASLF1INT",
+					"cpkit": "UMASLF1WCPINT",
+					"batch_file":"navtool.bat"
+				}
+			]
+		},
+		{
+			"firmware": "LC2",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMBTLR",
+					"kit":"UMASLC2INT",
+					"cpkit": "UMASLC2WCPINT",
+					"batch_file":"navtool-LC2.bat"
+				}
+			]
+		},
+		{
+			"firmware": "LB0",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMBTLR",
+					"kit":"UMASLB0INT",
+					"cpkit": "UMASLB0WCPINT",
+					"batch_file":"navtool-LB0.bat"
+				}
+			]
+		},
+		{
+			"firmware": "LB1",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMBTLR",
+					"kit":"UMASLB1INT",
+					"cpkit": "UMASLB1WCPINT",
+					"batch_file":"navtool.bat"
+				}
+			]
+		},		
+		{
+			"firmware": "LX",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMBTLR",
+					"kit":"UMASLC2INT",
+					"cpkit": "UMASLC2WCPINT",
+					"batch_file":"navtool-x.bat"
+				}
+			]
+		},
+		{
+			"firmware": "CG1",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"CGBOOTLOADER",
+					"btl_id":"CGBTLR",
+					"batch_file":"navtool-CG1.bat"
+				}
+			]
+		},
+		{
+			"firmware": "LM2",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMBTLR",
+					"kit":"UMASLM2INT",
+					"cpkit": "UMASLM2WCPINT",
+					"batch_file":"navtool.bat"
+				}
+			]
+		},
+		{
+			"firmware": "LM0",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMBTLR",
+					"kit":"UMASLM0INT",
+					"cpkit": "UMASLM0WCPINT",
+					"batch_file":"navtool.bat"
+				}
+			]
+		},
+		{
+			"firmware": "LM1",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMBTLR",
+					"kit":"UMASLM1INT",
+					"cpkit": "UMASLM1WCPINT",
+					"batch_file":"navtool-LM1.bat"
+				}
+			]
+		}		
+	]	
+}
