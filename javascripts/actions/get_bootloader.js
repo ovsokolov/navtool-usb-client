@@ -44,8 +44,8 @@ export function runBootloader(target){
   };
 }
 
-export function runApplication(target){
-  ipcRenderer.send('install-application', {target});
+export function runApplication(target, mcu_type){
+  ipcRenderer.send('install-application', {target, mcu_type});
   return {
     type: RUN_BOOTLOADER,
     payload: ''

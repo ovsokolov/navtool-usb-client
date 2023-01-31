@@ -21,6 +21,9 @@ const url = require('url')
 var eventname='';
 var flashfirmware='';
 
+//4=LPC17XX,3=LPC18xx
+var mcu_type='';
+
 const app = electron.app
 const Menu = require('electron').Menu
 // Module to control application life.
@@ -99,10 +102,10 @@ function createWindow () {
 
 function getDevice () {
       var devicesList = HID.devices();
-      //console.log("in status");
-      //console.log(devicesList);
-      //log.info(devicesList);
-      //console.log("in status end");
+      console.log("in status");
+      console.log(devicesList);
+      log.info(devicesList);
+      console.log("in status end");
       var deviceInfo = devicesList.find( function(d) {
           return d.vendorId===8137 && d.productId===129;
       });
@@ -308,9 +311,20 @@ ipcMain.on('device-read-settings', (event, arg) => {
                     .find({ firmware: flashfirmware })
                     .value().data[0];
             }
+            let type = {};
+            if(mcu_type != ''){
+              //GET SUFFIX
+              console.log('####### CHECKING SUFFIX ########', db.get('mcu_types'));
+              type = db.get('mcu_types')
+                    .find({ type: mcu_type })
+                    .value().data[0];
+            }
             console.log(softwaredata);
-            mainWindow.webContents.send('device-data-result' , {msg: data, device: flashfirmware, software: softwaredata }); 
-            flashfirmware = '';      
+            console.log('####### MCU TYPE ########', mcu_type);
+            console.log('####### TYPE ########', type);
+            mainWindow.webContents.send('device-data-result' , {msg: data, device: flashfirmware, software: softwaredata, mcu_type: type}); 
+            flashfirmware = '';  
+            mcu_type = '';    
           }
           if(eventname == 'device-obd-status'){
             log.info('##### data recieved device-obd-status')
@@ -410,16 +424,18 @@ ipcMain.on('install-bootloader', (event, arg) => {
   console.log("main install-bootloader");
   console.log(arg);
   let commandstr = "";
-  let keilpath = db.get('keilpath')
-                     .value(); 
+  //let keilpath = db.get('keilpath')
+  //                   .value(); 
   
-  let firmwares = db.get('firmwares')
+  let bootloaders = db.get('bootloaders')
                   .value();
-  var firmware = firmwares.filter(obj => {
-    return obj.firmware == arg.target
+  var btl = bootloaders.filter(obj => {
+    return obj.bootloader == arg.target
   });
-  var bootloader = firmware[0].data[0].bootloader; 
-  flashfirmware = firmware[0].data[0].btl_id;
+  var bootloader = btl[0].data[0].bootloader; 
+  var keilpath = btl[0].data[0].keilpath; 
+  //flashfirmware = firmware[0].data[0].btl_id;
+  flashfirmware = btl[0].data[0].btl_id;
   //commandstr = 'open -a Terminal' + '\\ ' + '\"' + arg.path + '\"' ;
   commandstr = 'cmd /K UV4' + '\ ' + '-f' + '\ ' + '\"' + keilpath + '\"' + '\ ' + '-t' + '\"' + bootloader + '\"';
   //commandstr = 'start cmd.exe /K navtool.bat';
@@ -443,6 +459,7 @@ ipcMain.on('install-application', (event, arg) => {
   let commandstr = "";
   //commandstr = 'open -a Terminal' + '\\ ' + '\"' + arg.path + '\"' ;
   flashfirmware = arg.target;
+  mcu_type = arg.mcu_type;
   //let keilpath = db.get('keilpath')
   //                 .value(); 
   //commandstr = 'cmd /K UV4' + '\ ' + '-f' + '\ ' + '\"' + keilpath + '\"' + '\ ' + '-t' + '\"' + arg.target + '\"';
@@ -454,7 +471,7 @@ ipcMain.on('install-application', (event, arg) => {
   });
   var batchfile = firmware[0].data[0].batch_file;  
 
-  commandstr = 'start cmd.exe /K ' + batchfile + ' ' + arg.target;    
+  commandstr = 'start cmd.exe /K ' + batchfile + ' ' + flashfirmware + ' ' + mcu_type;    
   //commandstr = 'start cmd.exe /K navtool-x.bat';                    
   console.log(commandstr);
   child = exec(commandstr, function (error, stdout, stderr) {
@@ -468,6 +485,7 @@ ipcMain.on('install-application', (event, arg) => {
     }
     if(fs.existsSync('errorflash.log')) {
       flashfirmware = '';
+      mcu_type = '';
       console.log("Error file exists.");
       mainWindow.webContents.send('image-flash', {msg: 'ERROR', mcu: arg.mcu_serial});
     }
@@ -514,7 +532,9 @@ ipcMain.on('print-label', (event, arg) => {
 });
 
 ipcMain.on('load-interfaces-list', (event, arg) => {
-   let label = db.get('firmwares')
+   let firmwares = db.get('firmwares')
                 .value(); 
-   mainWindow.webContents.send('interfaces-list',label); 
+   let mcu_types = db.get('mcu_types')
+                .value();                 
+   mainWindow.webContents.send('interfaces-list',{firmwares: firmwares, mcu_types: mcu_types}); 
 });

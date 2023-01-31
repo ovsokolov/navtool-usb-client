@@ -1,5 +1,5 @@
 Welcome to the FlashcatUSB interfacing software, build: 636
-Copyright 2022 - Embedded Computers LLC
+Copyright 2023 - Embedded Computers LLC
 Running on: Windows (64 bit)
 FlashcatUSB Script Engine build: 312
 License status: non-commercial use only

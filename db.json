@@ -3,6 +3,66 @@
 	"folderpath": "C:\\navtool\\labels",
 	"interface-printer": "TWOBYONE",
 	"keilpath": "C:\\Keil_v5\\18XX_ALL\\18XX_ALL.uvprojx",
+	"bootloaders": [{	
+			"bootloader": "UM132AUS04",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMA",
+					"keilpath": "C:\\Keil_v5\\18XX_ALL\\18XX_ALL.uvprojx"
+				}
+			]
+		},
+		{	
+			"bootloader": "UM132AUS03",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMA",
+					"keilpath": "C:\\Keil_v5\\18XX_ALL\\18XX_ALL.uvprojx"
+				}
+			]
+		},		
+		{	
+			"bootloader": "CGA",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"CGBOOTLOADER",
+					"btl_id":"CGA",
+					"keilpath": "C:\\Keil_v5\\18XX_ALL\\18XX_ALL.uvprojx"
+				}
+			]
+		},
+		{	
+			"bootloader": "UM132CUS01",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMC",
+					"keilpath": "C:\\Keil_v5\\17XX_ALL\\17XX_ALL\\hid_bootloader_UM132CU.uvproj"
+				}
+			]
+		}
+	],
+	"mcu_types": [{	
+			"type": 3,
+			"data": [{
+					"suffix": ""
+				}
+			]
+		},
+		{	
+			"type": 4,
+			"data": [{
+					"suffix": "-C"
+				}
+			]
+		}
+	],
 	"firmwares": [{
 			"firmware": "UMBTLR",
 			"data": [{
@@ -18,7 +78,39 @@
 					"sw_build": "1"
 				}
 			]
-		},		
+		},
+		{
+			"firmware": "UMA",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1"
+				}
+			]
+		},	
+		{
+			"firmware": "UMC",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1"
+				}
+			]
+		},	
+		{
+			"firmware": "CGA",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1"
+				}
+			]
+		},	
+		{
+			"firmware": "CGC",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1"
+				}
+			]
+		},				
 		{
 			"firmware": "AR1",
 			"data": [{
@@ -28,6 +120,19 @@
 					"btl_id":"UMBTLR",
 					"kit":"UMASAR1INT",
 					"cpkit": "UMASAR1WCPINT",
+					"batch_file":"navtool.bat"
+				}
+			]
+		},		
+		{
+			"firmware": "AR4",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMBTLR",
+					"kit":"UMASAR4INT",
+					"cpkit": "UMASAR4WCPINT",
 					"batch_file":"navtool.bat"
 				}
 			]
@@ -106,6 +211,19 @@
 					"btl_id":"UMBTLR",
 					"kit":"UMASAR3INT",
 					"cpkit": "UMASAR3WCPINT",
+					"batch_file":"navtool.bat"
+				}
+			]
+		},
+		{
+			"firmware": "AR8",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "2",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMBTLR",
+					"kit":"UMASAR8INT",
+					"cpkit": "UMASAR8WCPINT",
 					"batch_file":"navtool.bat"
 				}
 			]
@@ -255,11 +373,24 @@
 			"firmware": "LM1",
 			"data": [{
 					"sw_id": "9999",
-					"sw_build": "1",
+					"sw_build": "2",
 					"bootloader":"UMBOOTLOADER",
 					"btl_id":"UMBTLR",
 					"kit":"UMASLM1INT",
 					"cpkit": "UMASLM1WCPINT",
+					"batch_file":"navtool-LM1.bat"
+				}
+			]
+		},
+		{
+			"firmware": "LG3",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMBTLR",
+					"kit":"UMASLG3INT",
+					"cpkit": "UMASLG3WCPINT",
 					"batch_file":"navtool-LM1.bat"
 				}
 			]

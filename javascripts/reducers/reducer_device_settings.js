@@ -144,6 +144,10 @@ export default function(state = JSON.parse(JSON.stringify(SYSTEM_SETTINGS)), act
       if(msg[30] == 0){
         system_settings["CarPlayModule"] = true;
       }
+
+      console.log('API LEVEL', msg[29]);
+      system_settings["MCU_Type"] = msg[29];
+
       return system_settings;
 
     case DEVICE_REMOVED:

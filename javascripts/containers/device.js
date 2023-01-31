@@ -66,7 +66,8 @@ class Device extends Component {
                   serial_number: '', 
                   system_settings: init_system_settings, 
                   device_update_status: '',
-                  interfaces_list: []}
+                  interfaces_list: [],
+                  mcu_types: []}
 
     this.renderDeviceSettings = this.renderDeviceSettings.bind(this);
 
@@ -107,8 +108,11 @@ class Device extends Component {
     this.assembleProduct = this.assembleProduct.bind(this);
 
     ipcRenderer.on('interfaces-list',(event, data) => {
-      console.log(data);
-      this.setState({interfaces_list: data});
+      console.log("#################data.firmwares#############");
+      console.log(data.firmwares);
+      console.log(data.mcu_types);
+      this.setState({interfaces_list: data.firmwares});
+      this.setState({mcu_types: data.mcu_types});
     });      
 
   }
@@ -313,7 +317,8 @@ class Device extends Component {
     //}else if(this.props.device_db_data.image_flash == 0){
     //  this.showErrorDialog("Please Flash Images First");
     }else{
-      this.props.runApplication(mfg_id);  
+      let mcu_type = this.props.system_settings.MCU_Type;
+      this.props.runApplication(mfg_id, mcu_type);  
     }
   }
 
@@ -344,6 +349,7 @@ class Device extends Component {
 
   printLabel(){    
     let carplayModule = this.props.system_settings.CarPlayModule;
+
     let mfgId = this.props.device_status.device_mfg_id;
     let deviceId = this.props.device_db_data.device_id;
 
@@ -358,11 +364,19 @@ class Device extends Component {
 
   assembleProduct(){
     let carplayModule = this.props.system_settings.CarPlayModule;
+    let mcu_type = this.props.system_settings.MCU_Type;
     let mfgId = this.props.device_status.device_mfg_id;
     let deviceId = this.props.device_db_data.device_id;
-    //assembly part
+    var mcu_result = this.state.mcu_types.filter(obj => {
+      return obj.type == mcu_type
+    });
+    console.log("###################### assembleProduct ###########################");
+    let suffix = mcu_result[0].data[0].suffix;
+    console.log(suffix); 
+    let firmware = mfgId.slice(0,(mfgId.length - suffix.length));
+    console.log(firmware); 
     var result = this.state.interfaces_list.filter(obj => {
-      return obj.firmware == mfgId
+      return obj.firmware == firmware
     });
     let assemblyKit = '';
     if(carplayModule){

@@ -307,12 +307,15 @@ export function handleDeviceDataResult(){
           console.log(serial_number);
           console.log(softwareIdResult);
           let device = data["device"];
+          let mcu_type = data["mcu_type"];
+          //MFG_ID USE LATER WITH LPC MIX
+          let mfg_id = device.concat(mcu_type.suffix!==undefined?mcu_type.suffix:'');
           if(device != ''){
             let sofware = data["software"];
             console.log("******************************* regiter device   ******************");
-            console.log(device,sofware.sw_id,sofware.sw_build,serial_number);
+            console.log(mfg_id,sofware.sw_id,sofware.sw_build,serial_number);
             console.log("******************************* regiter device   ******************");
-            dispatch(registerDevice(device,sofware.sw_id,sofware.sw_build,serial_number));
+            dispatch(registerDevice(mfg_id,sofware.sw_id,sofware.sw_build,serial_number));
           }else{
             dispatch(fetchDeviceDBData(serial_number,softwareIdResult));
           }
