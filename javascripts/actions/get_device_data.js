@@ -7,7 +7,7 @@ import { fetchSoftwareConfig } from './get_software'
 import { WEB_SERVICES_URL } from '../utils/constants';
 import { OBD_COMPLETED } from '../utils/device_utils';
 import { DEVICE_OBD_SUCCESS, DEVICE_OBD_FAILED } from './hid_action';
-import { DEVICE_SUPPORTED, DEVICE_NOT_SUPPORTED, DEVICE_START_SECTOR, ASSEMBLY_MESSAGE  } from '../utils/device_utils';
+import { DEVICE_SUPPORTED, DEVICE_NOT_SUPPORTED, DEVICE_START_SECTOR, ASSEMBLY_MESSAGE, ASSEMBLY_SUCCESS  } from '../utils/device_utils';
 
 //const ROOT_URL = "https://tranquil-mesa-29755.herokuapp.com/";
 const ROOT_URL = WEB_SERVICES_URL + "/v1/navtooldevices/";
@@ -210,7 +210,7 @@ export function assembleInterface(mfg_id, deviceId){
                 request.then( ({data}) =>{
                   console.log(data);
                   if(data.AddItemStatus == "Success"){
-                    dispatch( { type: ASSEMBLY_MESSAGE, payload: "Item Assembled"} )
+                    dispatch( { type: ASSEMBLY_SUCCESS, payload: "Item Assembled"} )
                   }else{
                     dispatch( { type: ASSEMBLY_MESSAGE, payload: "Error Adding Item " + mfg_id + " " + data.AddItemStatus} )
                   }

@@ -20,7 +20,7 @@ NavTool script starting
 Setting Quad-Enable register bit
 Programmering firmware
 
-Sucessfully programmed 8,536,063 bytes
+Sucessfully programmed 325,040 bytes
 NavTool Script was Successful
 ----------------------------------------------
 Application completed

@@ -1,0 +1,33 @@
+# Script for NavTool
+# Memory device: Winbond W25Q128JV
+
+Print("NavTool script starting")
+
+IO.delete("status.txt")
+
+IF NOT memory.name=="Winbond W25Q128JV"
+	print("ERROR: W25Q128JV DEVICE NOT CONNECTED")
+	ERROR = True
+	EXIT SCRIPT
+END IF
+
+fw = IO.Read("080000-TW8836Font.bin")
+
+# Enable Quad
+Print("Setting Quad-Enable register bit")
+SPI.WriteEnable()
+SPI.WriteRead(0x31;0x02;)   #SR.2 = QE
+Sleep(100)
+
+Print("Programmering firmware")
+# This writes the firmware (takes about 1 min)
+result = memory.write(fw,0x80000)
+
+IF NOT result
+	print("ERROR: PROGRAMMING SPI")
+	ERROR = True
+	EXIT SCRIPT
+END IF
+
+# This will only execute if it was run succcessfully
+Print("NavTool Script was Successful")

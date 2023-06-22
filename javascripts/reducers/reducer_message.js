@@ -5,7 +5,7 @@ import { HIDE_MODAL } from '../actions/hide_modal';
 import { OBD_COMPLETED } from '../utils/device_utils';
 import { DEVICE_NOT_SUPPORTED } from '../utils/device_utils';
 import { DISPLAY_UPDATE_ERROR, DISPLAY_UPDATE_SETUP_ERROR } from '../utils/device_utils';
-import { DOWNLOAD_TEAM_VIEWER, ASSEMBLY_MESSAGE } from '../utils/device_utils';
+import { DOWNLOAD_TEAM_VIEWER, ASSEMBLY_MESSAGE, ASSEMBLY_SUCCESS } from '../utils/device_utils';
 
 export default function(state = "", action){
       //console.log("In message reducer");
@@ -37,6 +37,8 @@ export default function(state = "", action){
       //console.log("XXXXXXremoveMessageXXXXX");
       return "";
     case ASSEMBLY_MESSAGE:
+      return action.payload;
+    case ASSEMBLY_SUCCESS:
       return action.payload;
     default:
       return state;

@@ -272,7 +272,7 @@ function handleDeviceMfgId(){
 
 export function getOSDSettings(){
   console.log('Reading OSD settings');
-  ipcRenderer.send('device-read-settings', 0x65);
+  //ipcRenderer.send('device-read-settings', 0x65);
   return {
     type: READ_OSD_SETTINGS,
     payload: ""
@@ -431,10 +431,10 @@ export function handleDeviceDataResult(){
 }
 
 export function saveDeviceSettings(data, settings){
-    //console.log('@@@@@@saveDeviceSettings@@@@@@');
+    console.log('@@@@@@saveDeviceSettings@@@@@@');
     let result = setDeviceSettings(data,settings);
-    //console.log(result);
-    //console.log('@@@@@@saveDeviceSettings@@@@@@');
+    console.log(result);
+    console.log('@@@@@@saveDeviceSettings@@@@@@');
     ipcRenderer.send('device-write_data', result);
     return {
       type: SAVE_DEVICE_SETTINGS,

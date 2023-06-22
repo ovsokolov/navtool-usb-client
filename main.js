@@ -20,6 +20,10 @@ const url = require('url')
 
 var eventname='';
 var flashfirmware='';
+var board_type = '';
+
+var eeprom_type={};
+var eeprom_type_count=0
 
 //4=LPC17XX,3=LPC18xx
 var mcu_type='';
@@ -110,6 +114,57 @@ function getDevice () {
           return d.vendorId===8137 && d.productId===129;
       });
       return deviceInfo;
+}
+
+function installApplication(){
+  let firmwares = db.get('firmwares')
+                  .value();
+  var firmware = firmwares.filter(obj => {
+    return obj.firmware == flashfirmware
+  });
+  var batchfile = firmware[0].data[0].batch_file;  
+
+  commandstr = 'start cmd.exe /K ' + batchfile + ' ' + flashfirmware + ' ' + mcu_type;    
+  //commandstr = 'start cmd.exe /K navtool-x.bat';                    
+  console.log(commandstr);
+  child = exec(commandstr, function (error, stdout, stderr) {
+    console.log("after command");
+    log.info('stdout: ' + stdout);
+    log.info('stderr: ' + stderr);
+    log.info('error: ' + error);
+    if (error !== null) {
+      console.log("error command");
+      console.log('exec error: ' + error);
+    }
+    if(fs.existsSync('errorflash.log')) {
+      flashfirmware = '';
+      mcu_type = '';
+      console.log("Error file exists.");
+      mainWindow.webContents.send('image-flash', {msg: 'ERROR', mcu: arg.mcu_serial});
+    }
+  })
+}
+
+function programEEPROM(){
+  const WRITE_CONFIG = 0x91;
+  const INIT_EEPROM = 0x40;
+    /*
+    var i = 0;
+    while (i < eeprom_type[0].data.length) {
+        console.log(eeprom_type[0].data[i]);
+        var tmp1 = [eeprom_type[0].data[i].type, ...eeprom_type[0].data[i].values.replace(/\s+/g, '').split(",")];
+        var tmp = tmp1.map(x => Number(x));
+        console.log(tmp);
+        //set eventname
+        i++;
+    }  
+    */
+  let tmp = [0x00, WRITE_CONFIG, INIT_EEPROM, eeprom_type[0].data[eeprom_type_count].type, ...eeprom_type[0].data[eeprom_type_count].values.replace(/\s+/g, '').split(",")];
+  var tmpArray = tmp.map(x => Number(x));
+  console.log("programEEPROM");
+  console.log(tmpArray);
+  console.log('@@@@@ before device.write 1 @@@@');
+  device.write(tmpArray);
 }
 
 function createMenu() {
@@ -331,6 +386,19 @@ ipcMain.on('device-read-settings', (event, arg) => {
             log.info(data)
             mainWindow.webContents.send('device-obd-status' , {msg: data});  
           }
+          if(eventname == 'flush-eeprom'){
+            log.info('##### data recieved flush-eeprom')
+            log.info(data)
+            //increase count check if need to flash next eeprom
+            eeprom_type_count++;
+            if (eeprom_type_count < eeprom_type[0].data.length){
+              programEEPROM();
+            }else{
+              eventname = '';
+              console.log("installApplication after EEPROM");
+              installApplication();
+            }
+          }          
         } );
       } catch (err) {
         log.info(err);
@@ -352,6 +420,8 @@ ipcMain.on('device-read-settings', (event, arg) => {
 		}
 
     eventname = 'device-setting-result';
+    console.log('@@@@@ before device.write 2 @@@@');
+    console.log(arg);
 		device.write([0x00, arg, 0x00, 0x00, 0x00, 0x00, 0x00]);
 
 });
@@ -362,6 +432,7 @@ ipcMain.on('device-sbl', (event, arg) => {
 	device.removeAllListeners("data")
 	//device.removeAllListeners("error")
 	try {
+      console.log('@@@@@ before device.write 3 @@@@');
   		device.write(arg)
 	}
 	catch(err){
@@ -401,6 +472,7 @@ ipcMain.on('device-write_data', (event, arg) => {
   })
   */
   eventname = 'device-data-result';
+  console.log('@@@@@ before device.write 4 @@@@');
   device.write(arg)
 });
 
@@ -416,6 +488,7 @@ ipcMain.on('device-write-test-event', (event, arg) => {
       mainWindow.webContents.send('device-data-result' , {msg: data});
   })
   */
+  console.log('@@@@@ before device.write 5 @@@@');
   device.write(arg)
 });
 
@@ -458,12 +531,74 @@ ipcMain.on('install-application', (event, arg) => {
   console.log(arg);
   let commandstr = "";
   //commandstr = 'open -a Terminal' + '\\ ' + '\"' + arg.path + '\"' ;
+  let firmwares = db.get('firmwares')
+                  .value();
+  var firmware = firmwares.filter(obj => {
+    return obj.firmware ==  arg.target
+  });
+  
+  let firmware_id = firmware[0].firmware_id; 
+  console.log("firmware_id: " + firmware_id); 
+
   flashfirmware = arg.target;
   mcu_type = arg.mcu_type;
   //let keilpath = db.get('keilpath')
   //                 .value(); 
   //commandstr = 'cmd /K UV4' + '\ ' + '-f' + '\ ' + '\"' + keilpath + '\"' + '\ ' + '-t' + '\"' + arg.target + '\"';
 
+
+
+  let eeprom_types = db.get('eeprom_types')
+                  .value();
+  eeprom_type = eeprom_types.filter(obj => {
+    return obj.firmware == flashfirmware
+  }); 
+  
+  console.log("eeprom_type length: " + eeprom_type.length);  
+
+  if(eeprom_type.length > 0){
+    console.log("eeprom_type found");
+    console.log(eeprom_type[0].data);
+    eventname = "flush-eeprom";
+    eeprom_type_count = 0;
+    programEEPROM();
+    /*
+    var i = 0;
+    while (i < eeprom_type[0].data.length) {
+        console.log(eeprom_type[0].data[i]);
+        var tmp1 = [eeprom_type[0].data[i].type, ...eeprom_type[0].data[i].values.replace(/\s+/g, '').split(",")];
+        var tmp = tmp1.map(x => Number(x));
+        console.log(tmp);
+        //set eventname
+        i++;
+    }
+    function programTX(){
+      const WRITE_CONFIG = 0x91;
+      const INIT_EEPROM = 0x40;
+      let tmpArray = [WRITE_CONFIG, INIT_EEPROM, 0x00, 0xF6, 0x00, 0x26, 0x1E, 0x2A, 0x22, 0x00, 0x00, 0x38, 0x00, 0x00, 0x60, 0x01, 0x00, 0x00, 0x06, 0x1F, 0x01, 0x01, 0xDB, 0xC7, 0x00, 0x11, 0x00, 0x26, 0xA2, 0x9C, 0x00, 0x35, 0xB0, 0x01, 0x12, 0x02, 0x02, 0x00, 0xA6 ];
+      console.log("programTX");
+      console.log(tmpArray);
+      device[0].sendReport(0x00, new Uint8Array(tmpArray))
+    }
+
+    function programRX(){
+      const WRITE_CONFIG = 0x91;
+      const INIT_EEPROM = 0x40;
+      let tmpArray = [WRITE_CONFIG, INIT_EEPROM, 0x01, 0x3D, 0xC2, 0x00, 0x0F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x01, 0xDB, 0xBE, 0x00, 0x00, 0x09, 0x25, 0x60, 0xDC, 0x40, 0x00, 0x0D, 0x21, 0x0D, 0x21, 0x69, 0x11, 0x00, 0x02, 0x69, 0x69, 0xC0, 0x18, 0xAE, 0x06, 0x00, 0x00, 0x57];
+      console.log("programRX");
+      console.log(tmpArray);
+      device[0].sendReport(0x00, new Uint8Array(tmpArray))
+      
+    }    
+    */
+  }else{
+    console.log("eeprom_type not found");
+    installApplication();
+  }
+
+  console.log("install-application eventname: " + eventname);
+
+  /*
   let firmwares = db.get('firmwares')
                   .value();
   var firmware = firmwares.filter(obj => {
@@ -490,6 +625,7 @@ ipcMain.on('install-application', (event, arg) => {
       mainWindow.webContents.send('image-flash', {msg: 'ERROR', mcu: arg.mcu_serial});
     }
   })
+  */
 });
 
 ipcMain.on('install-images', (event, arg) => {

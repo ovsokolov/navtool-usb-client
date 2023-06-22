@@ -103,6 +103,7 @@ class Device extends Component {
 
     this.selectTab = this.selectTab.bind(this);
     this.showErrorDialog = this.showErrorDialog.bind(this);
+    this.showSuccessDialog = this.showSuccessDialog.bind(this);
 
     this.printLabel = this.printLabel.bind(this);
     this.assembleProduct = this.assembleProduct.bind(this);
@@ -121,6 +122,15 @@ class Device extends Component {
     const options = {
         type: 'error',
         title: 'Error'
+    }; 
+    options.message = msg;
+    dialog.showMessageBox(null, options);   
+  }
+
+  showSuccessDialog(msg){
+    const options = {
+        type: 'info',
+        title: 'Info'
     }; 
     options.message = msg;
     dialog.showMessageBox(null, options);   
@@ -269,7 +279,11 @@ class Device extends Component {
     if(nextProps.modal_state.show_message == true && nextProps.message != ''){
       console.log("Show Message");
       this.props.hideModal(true);
-      this.showErrorDialog(nextProps.message);      
+      if(nextProps.modal_state.message_type == 'info'){
+        this.showSuccessDialog(nextProps.message);      
+      }else{
+        this.showErrorDialog(nextProps.message);  
+      }
     }
 
   }

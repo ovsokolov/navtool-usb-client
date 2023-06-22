@@ -1,6 +1,10 @@
 @ECHO OFF
 del errorflash.log
+fcusb_console.exe -SCRIPT -FILE TWFont.fcs -LOG status.txt -EXIT
+IF not %ERRORLEVEL%==0 goto FLASHCAT_ERROR
 fcusb_console.exe -SCRIPT -FILE NavTool-LB0.fcs -LOG status.txt -EXIT
+IF not %ERRORLEVEL%==0 goto FLASHCAT_ERROR
+fcusb_console.exe -SCRIPT -FILE NavTool-black-logo-LB0.fcs -LOG status.txt -EXIT
 IF not %ERRORLEVEL%==0 goto FLASHCAT_ERROR
 echo SUCCESS
 timeout 2

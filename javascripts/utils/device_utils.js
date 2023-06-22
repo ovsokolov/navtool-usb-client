@@ -37,6 +37,7 @@ export const OBD_IN_PROGRESS = "OBD_IN_PROGRESS";
 export const OBD_COMPLETED = "OBD_COMPLETED";
 
 export const ASSEMBLY_MESSAGE = "ASSEMBLY_MESSAGE";
+export const ASSEMBLY_SUCCESS = "ASSEMBLY_SUCCESS";
 
 import { TRANSFER_SET_UP_DATA_RESPONSE ,
          TRANSFER_STATUS_DATA_RESPONSE } from '../utils/structures';
