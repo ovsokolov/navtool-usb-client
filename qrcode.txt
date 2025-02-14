@@ -1,0 +1,11 @@
+^XA
+^FX Top section with company logo, name and address.
+^CF0,60
+^FO220,50^FDIntershipping, Inc.^FS
+^CF0,30
+^FO220,115^FD1000 Shipping Lane^FS
+^FO50,155^GB700,1,3^FS
+^FX Third section with barcode.
+^BY5,2,70
+^FO300,95^BQN,2,6,M,7^FDQA,www.google.com^FS
+^XZ

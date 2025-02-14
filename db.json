@@ -35,6 +35,17 @@
 					"keilpath": "C:\\Keil_v5\\18XX_ALL\\18XX_ALL.uvprojx"
 				}
 			]
+		},	
+		{	
+			"bootloader": "CGC",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"CGBOOTLOADER",
+					"btl_id":"CGC",
+					"keilpath": "C:\\Keil_v5\\17XX_ALL\\17XX_ALL\\hid_bootloader_UM132CU.uvproj"
+				}
+			]
 		},
 		{	
 			"bootloader": "UM132CUS01",
@@ -47,6 +58,17 @@
 				}
 			]
 		},
+		{	
+			"bootloader": "UM132CUS02",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1",
+					"bootloader":"UMBOOTLOADER",
+					"btl_id":"UMC",
+					"keilpath": "C:\\Keil_v5\\17XX_ALL\\17XX_ALL\\hid_bootloader_UM132CU.uvproj"
+				}
+			]
+		},		
 		{	
 			"bootloader": "LB120AUS01",
 			"data": [{
@@ -139,6 +161,14 @@
 				}
 			]
 		},	
+		{
+			"firmware": "CGC",
+			"data": [{
+					"sw_id": "9999",
+					"sw_build": "1"
+				}
+			]
+		},
 		{
 			"firmware": "CGC",
 			"data": [{

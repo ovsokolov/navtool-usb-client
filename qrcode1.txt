@@ -1,8 +1,7 @@
 ^XA
 ^FX Second section with recipient address and permit information.
 ^CFA,30
-^FO0,10^FB450,1,0,C^FH\^FDNBT-LG1-C-CP^FS
+^FO0,10^FB450,1,0,C^FH\^FD<<NAME>>^FS
 ^FX Third section with bar code.
-^BY2,2,50
-^FO110,50^BC^FD167428^FS
+^FO100,35^BQN,2,3,M,7^FDQA,www.navtool.com/<<BARCODE>>^FS
 ^XZ
